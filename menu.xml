@@ -1,0 +1,257 @@
+<menu>
+    <menuitem label='_t{Administration}'>
+        <icon>fas:home fa-fw</icon>
+        <menu>
+            <menuitem label='Musica'>
+                <icon>fas:tachometer-alt fa-fw</icon>
+                <action>MusicaList</action>
+            </menuitem>
+            <menuitem label='Cantor'>
+                <icon>fas:user fa-fw</icon>
+                <action>CantorList</action>
+            </menuitem>
+            <menuitem label='Podcast'>
+                <icon>fas:user fa-fw</icon>
+                <action>PodcastList</action>
+            </menuitem>
+            <menuitem label='Jogos'>
+                <icon>fas:desktop fa-fw</icon>
+                <action>JogosList</action>
+            </menuitem>
+            <menuitem label='Desenvolvedoras'>
+                <icon>fas:users fa-fw</icon>
+                <action>DesenvolvedorasList</action>
+            </menuitem>
+            <menuitem label='Venda'>
+                <icon>fas:file-medical-alt fa-fw</icon>
+                <action>VendaList</action>
+            </menuitem>
+            <menuitem label='Produto'>
+                <icon>fas:university fa-fw</icon>
+                <action>ProdutoList</action>
+            </menuitem>
+            <menuitem label='Venda de Produtos'>
+                <icon>far:file-code fa-fw</icon>
+                <action>VendaProdutoList</action>
+            </menuitem>
+            <menuitem label='Relatório de Jogos'>
+                <icon>fas:desktop fa-fw</icon>
+                <action>TabularReportView</action>
+            </menuitem>
+            <menuitem label='Relatório de Musicas'>
+                <icon>fas:tachometer-alt fa-fw</icon>
+                <action>TabularReportViewDois</action>
+            </menuitem>
+            <menuitem label='Relatório de Vendas'>
+                <icon>fas:database fa-fw</icon>
+                <action>RelatorioVenda</action>
+            </menuitem>
+            <menuitem label='Sale List'>
+                <icon>far:edit fa-fw</icon>
+                <action>SaleList</action>
+            </menuitem>
+            <menuitem label='Relatorio Sale List'>
+                <icon>far:file-code fa-fw</icon>
+                <action>RelatorioSaleList</action>
+            </menuitem>
+            <menuitem label='Gráfico de Coluna'>
+                <icon>fas:table fa-fw</icon>
+                <action>GraficoColuna</action>
+            </menuitem>
+            <menuitem label='Gráfico Com Dados do Banco'>
+                <icon>fas:table fa-fw</icon>
+                <action>GraficoDadosBD</action>
+            </menuitem>
+            <menuitem label='Grafico de Colunas com BD'>
+                <icon>fas:table fa-fw</icon>
+                <action>GraficoColunaBD</action>
+              </menuitem>
+              <menuitem label='Grafico de Jogos com BD'>
+                <icon>fas:table fa-fw</icon>
+                <action>GraficoJogosBD</action>
+              </menuitem>
+              <menuitem label='São Paulo FC'>
+                <icon>fas:desktop fa-fw</icon>
+                <action>Video</action>
+              </menuitem>
+              <menuitem label='Calendario'>
+                <icon>fas:newspaper fa-fw</icon>
+                <action>Calendario</action>
+              </menuitem>
+              <menuitem label='Editor de Imagem'>
+                <icon>far:address-card fa-fw</icon>
+                <action>EditorImagem</action>
+              </menuitem>
+              <menuitem label='Editor de Texto'>
+                <icon>far:edit fa-fw</icon>
+                <action>EditorTexto</action>
+              </menuitem>
+              <menuitem label='Calendário Completo'>
+                <icon>far:address-card fa-fw</icon>
+                <action>FullCalendar</action>
+              </menuitem>
+              <menuitem label='Kanban'>
+                <icon>fas:th fa-fw</icon>
+                <action>KanbanView</action>
+              </menuitem>
+              <menuitem label='Atualizar Dados'>
+                <icon>fas:database fa-fw</icon>
+                <action>AtualizarAutomaticamente</action>
+              </menuitem>
+            <menuitem label='Conexao Manual'>
+                <icon>fas:user fa-fw</icon>
+                <action>ConexaoManual</action>
+              </menuitem>
+              <menuitem label='Dashboard'>
+                  <icon>fas:tachometer-alt fa-fw</icon>
+                  <action>SystemAdministrationDashboard</action>
+              </menuitem>
+              <menuitem label='_t{Programs}'>
+                  <icon>far:file-code fa-fw</icon>
+                  <action>SystemProgramList</action>
+              </menuitem>
+              <menuitem label='_t{Groups}'>
+                  <icon>fas:users fa-fw</icon>
+                  <action>SystemGroupList</action>
+              </menuitem>
+              <menuitem label='_t{Units}'>
+                  <icon>fas:university fa-fw</icon>
+                  <action>SystemUnitList</action>
+              </menuitem>
+              <menuitem label='_t{Users}'>
+                  <icon>fas:user fa-fw</icon>
+                  <action>SystemUserList</action>
+              </menuitem>
+              <menuitem label='_t{Contacts}'>
+                  <icon>far:address-card fa-fw</icon>
+                  <action>SystemContactsList</action>
+              </menuitem>
+              <menuitem label='_t{Database explorer}'>
+                  <icon>fas:database fa-fw</icon>
+                  <action>SystemDatabaseExplorer</action>
+              </menuitem>
+              <menuitem label='_t{SQL Panel}'>
+                  <icon>fas:table fa-fw</icon>
+                  <action>SystemSQLPanel</action>
+              </menuitem>
+              <menuitem label='_t{Menu editor}'>
+                  <icon>far:edit fa-fw</icon>
+                  <action>SystemMenuEditor</action>
+              </menuitem>
+              <menuitem label='_t{Files diff}'>
+                  <icon>fas:file-medical-alt fa-fw</icon>
+                  <action>SystemFilesDiff</action>
+              </menuitem>
+              <menuitem label='PHP Info'>
+                  <icon>fas:info-circle fa-fw</icon>
+                  <action>SystemPHPInfoView</action>
+              </menuitem>
+              <menuitem label='System Information'>
+                  <icon>fas:desktop fa-fw</icon>
+                  <action>SystemInformationView</action>
+              </menuitem>
+              <menuitem label='_t{Preferences}'>
+                  <icon>fas:cog fa-fw</icon>
+                  <action>SystemPreferenceForm#method=onEdit</action>
+              </menuitem>
+        </menu>
+    </menuitem>
+    
+    <menuitem label='_t{Documents}'>
+        <icon>far:file-alt fa-fw</icon>
+        <menu>
+              <menuitem label='_t{Documents}'>
+                  <icon>fas:box fa-fw</icon>
+                  <action>SystemDriveList</action>
+              </menuitem>
+              <menuitem label='_t{Categories}'>
+                  <icon>fas:th fa-fw</icon>
+                  <action>SystemDocumentCategoryFormList</action>
+              </menuitem>
+        </menu>
+    </menuitem>
+    
+    <menuitem label='_t{Posts}'>
+        <icon>far:newspaper fa-fw</icon>
+        <menu>
+              <menuitem label='_t{News management}'>
+                    <icon>fas:pen-square fa-fw</icon>
+                    <action>SystemPostList</action>
+              </menuitem>
+              <menuitem label='_t{List news}'>
+                    <icon>fas:newspaper fa-fw</icon>
+                    <action>SystemPostFeedView</action>
+              </menuitem>
+        </menu>
+    </menuitem>
+
+    <menuitem label='Wiki'>
+        <icon>fas:globe fa-fw</icon>
+        <menu>
+              <menuitem label='_t{Page management}'>
+                    <icon>fab:wikipedia-w fa-fw</icon>
+                    <action>SystemWikiList</action>
+              </menuitem>
+              <menuitem label='_t{Search pages}'>
+                    <icon>fa:search fa-fw</icon>
+                    <action>SystemWikiSearchList</action>
+              </menuitem>
+        </menu>
+    </menuitem>
+
+    <menuitem label='Logs'>
+        <icon>fas:desktop fa-fw</icon>
+        <menu>
+              <menuitem label='Dashboard'>
+                  <icon>fas:tachometer-alt fa-fw</icon>
+                  <action>SystemLogDashboard</action>
+              </menuitem>
+              <menuitem label='_t{Access Log}'>
+                  <icon>fas:key fa-fw</icon>
+                  <action>SystemAccessLogList</action>
+              </menuitem>
+              <menuitem label='_t{Change Log}'>
+                  <icon>fas:film fa-fw</icon>
+                  <action>SystemChangeLogView</action>
+              </menuitem>
+              <menuitem label='_t{SQL Log}'>
+                  <icon>fas:database fa-fw</icon>
+                  <action>SystemSqlLogList</action>
+              </menuitem>
+              <menuitem label='_t{Request Log}'>
+                  <icon>fas:globe fa-fw</icon>
+                  <action>SystemRequestLogList</action>
+              </menuitem>
+              <menuitem label='_t{PHP Log}'>
+                  <icon>fas:exclamation-triangle fa-fw</icon>
+                  <action>SystemPHPErrorLogView</action>
+              </menuitem>
+              <menuitem label='Session dump'>
+                  <icon>fas:code fa-fw</icon>
+                  <action>SystemSessionDumpView</action>
+              </menuitem>
+        </menu>
+    </menuitem>
+        
+    <menuitem label='Common pages'>
+        <menu>
+            <menuitem label='Common page 1'>
+                <icon></icon>
+                <action>CommonPage</action>
+            </menuitem>
+            <menuitem label='Common page 2'>
+                <icon></icon>
+                <action>CommonPage</action>
+            </menuitem>
+            <menuitem label='Common page 3'>
+                <icon></icon>
+                <action>CommonPage</action>
+            </menuitem>
+        </menu>
+    </menuitem>
+    
+    <menuitem label='Logout'>
+        <action>LoginForm#method=onLogout#static=1</action>
+        <icon>fas:sign-out-alt fa-fw</icon>
+    </menuitem>
+</menu>
