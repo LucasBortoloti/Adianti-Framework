@@ -150,11 +150,11 @@ class Video extends TPage
 
         $image3 = new TImage('app/images/log.png');
         $image3->style = 'width: 10%;';
-        $image3->style = 'height: 110px;';
+        $image3->style = 'height: 100px;';
 
         $image4 = new TImage('app/images/corint.png');
         $image4->style = 'width: 10%;';
-        $image4->style = 'height: 135px;';
+        $image4->style = 'height: 110px;';
 
         $image5 = new TImage('app/images/contra.png');
         $image5->style = 'width: 10%;';
@@ -166,7 +166,7 @@ class Video extends TPage
 
         $table->addRowSet('', '', '<b>Próximo jogo:</b>', $image3, $image5, $image4);
         $table->addRowSet('ㅤ', '', '', '', '');
-        $table->addRowSet('', '', '', '<b>ㅤMorumbi</b>', '<b>16/08ㅤ</b>', '<b>ㅤㅤㅤ19:30h</b>');
+        $table->addRowSet('', '', '', '<b>ㅤMorumbi</b>', '<b>16/08ㅤ</b>', '<b>ㅤㅤ19:30h</b>');
         $table->addRowSet('ㅤ', '', '', '', '');
         $table->addRowSet('ㅤ', '', '', '', '');
         $table->addRowSet('ㅤ', '', '', '', '');
@@ -177,10 +177,10 @@ class Video extends TPage
 
         $panel->addFooter($imagefooter);
         $panel->add('<b>São Paulo FC</b>');
-    
+        
         parent::add($panel);
     }
-
+    
     public static function onGotoVideo($param = NULL)
     {
         $source = $param['source'];
