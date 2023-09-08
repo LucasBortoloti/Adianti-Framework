@@ -72,7 +72,7 @@
               </menuitem>
               <menuitem label='São Paulo FC'>
                 <icon>fas:desktop fa-fw</icon>
-                <action>Video</action>
+                <action>Spfc</action>
               </menuitem>
               <menuitem label='Calendario'>
                 <icon>fas:newspaper fa-fw</icon>

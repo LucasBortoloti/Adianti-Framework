@@ -2,7 +2,7 @@
 
 use Adianti\Control\TPage;
 
-class Video extends TPage
+class Spfc extends TPage
 {
     public function __construct()
     {
