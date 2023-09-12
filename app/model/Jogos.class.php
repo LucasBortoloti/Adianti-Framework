@@ -27,7 +27,9 @@ class Jogos extends TRecord
         parent::addAttribute('ano_lancamento');       
         parent::addAttribute('quantidade_avaliacoes');       
         parent::addAttribute('desenvolvedoras_id'); 
-    } 
+        parent::addAttribute('images'); 
+
+    }
 
     public function set_desenvolvedoras(Desenvolvedoras $object){
         $this->desenvolvedoras = $object;
