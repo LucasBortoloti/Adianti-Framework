@@ -8,11 +8,13 @@ use Adianti\Database\TRecord;
  */
 class Jogos extends TRecord
 {
+    
     const TABLENAME = 'jogos';
     const PRIMARYKEY= 'id';
     const IDPOLICY =  'max'; // {max, serial}
     
     private $desenvolvedoras;
+    private $jogosimages;
     
     /**
      * Constructor method
@@ -26,9 +28,7 @@ class Jogos extends TRecord
         parent::addAttribute('nome');       
         parent::addAttribute('ano_lancamento');       
         parent::addAttribute('quantidade_avaliacoes');       
-        parent::addAttribute('desenvolvedoras_id'); 
-        parent::addAttribute('images'); 
-
+        parent::addAttribute('desenvolvedoras_id');
     }
 
     public function set_desenvolvedoras(Desenvolvedoras $object){

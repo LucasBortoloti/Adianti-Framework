@@ -17,7 +17,5 @@ class Ator extends TRecord
         parent::addAttribute('dt_nascimento');
         
     }
-
-
 }
 ?>
