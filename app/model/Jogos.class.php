@@ -44,5 +44,74 @@ class Jogos extends TRecord
         return $this->desenvolvedoras;
     }
 
+    /*public function set_images(JogosImages $object){
+        $this->images = $object;
+        $this->images_id = $object->nome;
+    }
+
+    public function get_images(){
+        if(empty($this->images)){
+            $this->images_id = new JogosImages($this->images_id);
+        }
+
+        return $this->images;
+    }
+    */
+
+    //Retornar dados de outra tabela, no caso JogosImages como lista no rest
+
+    public function addImages(Images $images){
+        $this->images[] = $images;
+    }
+
+    public function getImages(){
+        return $this->images;
+    }
+
+    public function clearParts(){
+        $this->images = array();
+    }
+
+    public function load($id)
+    {
+        $jogosimages = JogosImages::where('jogos_id', '=', $id)->load();
+
+        if ($jogosimages)
+        {   
+            foreach ($jogosimages as $jogosimage) 
+            { 
+                $this->addImages( new Images($jogosimage->images_id) );
+            } 
+        }
+        
+        return parent::load($id);
+    }
+
+    public function store()
+    {
+        parent::store();
+    
+        JogosImages::where('jogos_id', '=', $this->id)->delete();
+        
+        if ($this->images)
+        {
+            foreach ($this->images as $image)
+            {
+                $jogosimage = new JogosImages;
+                $jogosimage->jogos_id = $this->id;
+                $jogosimage->images_id = $image->id;
+                $jogosimage->store();
+            }
+        }
+    }
+
+     public function delete($id = NULL)
+    {
+        $id = isset($id) ? $id : $this->id;
+        
+        JogosImages::where('jogos_id', '=', $id)->delete();
+        
+        parent::delete($id);
+    }
 }
 
