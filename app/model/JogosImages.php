@@ -4,7 +4,7 @@ use Adianti\Database\TRecord;
 
     class JogosImages extends TRecord
     {
-        const TABLENAME = 'jogosimages';
+        const TABLENAME = 'jogos_images';
         const PRIMARYKEY = 'jogos_id';
         const IDPOLICY = 'max';
 
@@ -17,4 +17,3 @@ use Adianti\Database\TRecord;
             parent::addAttribute('images_id');
         }
     }
-    

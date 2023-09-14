@@ -14,7 +14,8 @@ class Jogos extends TRecord
     const IDPOLICY =  'max'; // {max, serial}
     
     private $desenvolvedoras;
-    private $jogosimages;
+    private $jogos_images;
+    private $images;
     
     /**
      * Constructor method
@@ -29,6 +30,7 @@ class Jogos extends TRecord
         parent::addAttribute('ano_lancamento');       
         parent::addAttribute('quantidade_avaliacoes');       
         parent::addAttribute('desenvolvedoras_id');
+        parent::addAttribute('thumbnail');
     }
 
     public function set_desenvolvedoras(Desenvolvedoras $object){
@@ -64,8 +66,20 @@ class Jogos extends TRecord
         $this->images[] = $images;
     }
 
-    public function getImages(){
-        return $this->images;
+    public function getImages()
+    {
+    
+        // loads the associated object
+ 
+        if (empty($this->images)) {
+        
+            $this->images = Images::where('id', '=', $this->id)->load();
+    }
+
+    // returns the associated object
+    
+    return $this->images;
+    
     }
 
     public function clearParts(){
@@ -74,13 +88,13 @@ class Jogos extends TRecord
 
     public function load($id)
     {
-        $jogosimages = JogosImages::where('jogos_id', '=', $id)->load();
+        $jogos_images = JogosImages::where('jogos_id', '=', $id)->load();
 
-        if ($jogosimages)
+        if ($jogos_images)
         {   
-            foreach ($jogosimages as $jogosimage) 
+            foreach ($jogos_images as $jogos_image) 
             { 
-                $this->addImages( new Images($jogosimage->images_id) );
+                $this->addImages( new Images($jogos_image->images_id) );
             } 
         }
         
@@ -97,10 +111,10 @@ class Jogos extends TRecord
         {
             foreach ($this->images as $image)
             {
-                $jogosimage = new JogosImages;
-                $jogosimage->jogos_id = $this->id;
-                $jogosimage->images_id = $image->id;
-                $jogosimage->store();
+                $jogos_image = new JogosImages;
+                $jogos_image->jogos_id = $this->id;
+                $jogos_image->images_id = $image->id;
+                $jogos_image->store();
             }
         }
     }
@@ -113,5 +127,37 @@ class Jogos extends TRecord
         
         parent::delete($id);
     }
-}
 
+    public function toArray($attributes = [], $relationships = [])
+    {
+        
+        try {
+    
+        TTransaction::open('jogos');
+        
+        $resource = parent::toArray($attributes);
+        
+        // if FULL
+        
+        $images = $this->getImages();
+        
+            if (count($images) > 0) {
+            $resource['images'] = array_map(
+            function ($item) {
+            return $item->toArray();
+            },
+
+        $images
+        
+            );
+        }
+
+    TTransaction::close();
+
+        return $resource;
+    } catch (Exception $e) {
+        throw new Exception($e->getMessage());
+        }
+    }
+
+}
