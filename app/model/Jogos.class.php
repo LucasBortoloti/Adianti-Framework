@@ -33,6 +33,7 @@ class Jogos extends TRecord
         parent::addAttribute('thumbnail');
         parent::addAttribute('sinopse');
         parent::addAttribute('avaliacoes');
+        parent::addAttribute('vendas');
     }
 
     public function set_desenvolvedoras(Desenvolvedoras $object)
