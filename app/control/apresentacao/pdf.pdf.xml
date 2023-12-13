@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<design>
+    <page>
+        <format>a4</format>
+        <orientation>P</orientation>
+    </page>
+    <rectangle id="1">
+        <class>Rectangle</class>
+        <x>28</x>
+        <y>44</y>
+        <width>532</width>
+        <height>662</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>1</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <rectangle id="2">
+        <class>Rectangle</class>
+        <x>54</x>
+        <y>286</y>
+        <width>240</width>
+        <height>42</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>1</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <rectangle id="3">
+        <class>Rectangle</class>
+        <x>294</x>
+        <y>286</y>
+        <width>240</width>
+        <height>42</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>1</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <rectangle id="4">
+        <class>Rectangle</class>
+        <x>294</x>
+        <y>218</y>
+        <width>240</width>
+        <height>42</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>1</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <rectangle id="5">
+        <class>Rectangle</class>
+        <x>54</x>
+        <y>218</y>
+        <width>240</width>
+        <height>42</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>1</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <text id="6">
+        <class>Text</class>
+        <x>56</x>
+        <y>206</y>
+        <font>Arial</font>
+        <size>12</size>
+        <text>Nome</text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+    <text id="7">
+        <class>Text</class>
+        <x>298</x>
+        <y>206</y>
+        <font>Arial</font>
+        <size>12</size>
+        <text>Data de nascimento</text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+    <image id="8">
+        <class>Image</class>
+        <x>56</x>
+        <y>98</y>
+        <width>60</width>
+        <height>60</height>
+        <file>/home/usuario/Downloads/logo.png</file>
+    </image>
+    <image id="9">
+        <class>Image</class>
+        <x>150</x>
+        <y>76</y>
+        <width>390</width>
+        <height>112</height>
+        <file>/var/www/html/template/app/images/capa.png</file>
+    </image>
+    <text id="10">
+        <class>Text</class>
+        <x>56</x>
+        <y>276</y>
+        <font>Arial</font>
+        <size>12</size>
+        <text>Hobby
+</text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+    <text id="11">
+        <class>Text</class>
+        <x>298</x>
+        <y>276</y>
+        <font>Arial</font>
+        <size>12</size>
+        <text>Time do coração
+</text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+    <anchor id="12">
+        <class>Anchor</class>
+        <x>72</x>
+        <y>232</y>
+        <name></name>
+    </anchor>
+    <anchor id="13">
+        <class>Anchor</class>
+        <x>314</x>
+        <y>232</y>
+        <name></name>
+    </anchor>
+    <anchor id="14">
+        <class>Anchor</class>
+        <x>74</x>
+        <y>302</y>
+        <name></name>
+    </anchor>
+    <anchor id="15">
+        <class>Anchor</class>
+        <x>316</x>
+        <y>304</y>
+        <name></name>
+    </anchor>
+    <rectangle id="16">
+        <class>Rectangle</class>
+        <x>54</x>
+        <y>352</y>
+        <width>240</width>
+        <height>42</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>1</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <rectangle id="17">
+        <class>Rectangle</class>
+        <x>294</x>
+        <y>352</y>
+        <width>240</width>
+        <height>42</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>1</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <text id="18">
+        <class>Text</class>
+        <x>56</x>
+        <y>342</y>
+        <font>Arial</font>
+        <size>12</size>
+        <text>Jogo Favorito
+</text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+    <text id="19">
+        <class>Text</class>
+        <x>300</x>
+        <y>342</y>
+        <font>Arial</font>
+        <size>12</size>
+        <text>Xbox ou Playstation
+</text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+    <image id="20">
+        <class>Image</class>
+        <x>80</x>
+        <y>434</y>
+        <width>428</width>
+        <height>226</height>
+        <file>/home/usuario/Downloads/wallhaven-g8lkel.png</file>
+    </image>
+    <anchor id="21">
+        <class>Anchor</class>
+        <x>74</x>
+        <y>368</y>
+        <name></name>
+    </anchor>
+    <anchor id="22">
+        <class>Anchor</class>
+        <x>314</x>
+        <y>366</y>
+        <name></name>
+    </anchor>
+</design>
