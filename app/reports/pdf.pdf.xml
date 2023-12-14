@@ -6,8 +6,8 @@
     </page>
     <rectangle id="1">
         <class>Rectangle</class>
-        <x>28</x>
-        <y>44</y>
+        <x>32</x>
+        <y>40</y>
         <width>532</width>
         <height>662</height>
         <fillcolor>#FFFFFF</fillcolor>
@@ -67,7 +67,7 @@
     <text id="6">
         <class>Text</class>
         <x>56</x>
-        <y>206</y>
+        <y>204</y>
         <font>Arial</font>
         <size>12</size>
         <text>Nome</text>
@@ -78,7 +78,7 @@
     <text id="7">
         <class>Text</class>
         <x>298</x>
-        <y>206</y>
+        <y>204</y>
         <font>Arial</font>
         <size>12</size>
         <text>Data de nascimento</text>
@@ -96,8 +96,8 @@
     </image>
     <image id="9">
         <class>Image</class>
-        <x>150</x>
-        <y>76</y>
+        <x>146</x>
+        <y>68</y>
         <width>390</width>
         <height>112</height>
         <file>/var/www/html/template/app/images/capa.png</file>
@@ -105,7 +105,7 @@
     <text id="10">
         <class>Text</class>
         <x>56</x>
-        <y>276</y>
+        <y>272</y>
         <font>Arial</font>
         <size>12</size>
         <text>Hobby
@@ -117,7 +117,7 @@
     <text id="11">
         <class>Text</class>
         <x>298</x>
-        <y>276</y>
+        <y>272</y>
         <font>Arial</font>
         <size>12</size>
         <text>Time do coração
@@ -129,31 +129,31 @@
     <anchor id="12">
         <class>Anchor</class>
         <x>72</x>
-        <y>232</y>
-        <name></name>
+        <y>234</y>
+        <name>nome</name>
     </anchor>
     <anchor id="13">
         <class>Anchor</class>
         <x>314</x>
-        <y>232</y>
-        <name></name>
+        <y>234</y>
+        <name>dt</name>
     </anchor>
     <anchor id="14">
         <class>Anchor</class>
-        <x>74</x>
+        <x>72</x>
         <y>302</y>
-        <name></name>
+        <name>hb</name>
     </anchor>
     <anchor id="15">
         <class>Anchor</class>
-        <x>316</x>
-        <y>304</y>
-        <name></name>
+        <x>314</x>
+        <y>302</y>
+        <name>coracao</name>
     </anchor>
     <rectangle id="16">
         <class>Rectangle</class>
         <x>54</x>
-        <y>352</y>
+        <y>356</y>
         <width>240</width>
         <height>42</height>
         <fillcolor>#FFFFFF</fillcolor>
@@ -165,7 +165,7 @@
     <rectangle id="17">
         <class>Rectangle</class>
         <x>294</x>
-        <y>352</y>
+        <y>356</y>
         <width>240</width>
         <height>42</height>
         <fillcolor>#FFFFFF</fillcolor>
@@ -188,7 +188,7 @@
     </text>
     <text id="19">
         <class>Text</class>
-        <x>300</x>
+        <x>298</x>
         <y>342</y>
         <font>Arial</font>
         <size>12</size>
@@ -200,7 +200,7 @@
     </text>
     <image id="20">
         <class>Image</class>
-        <x>80</x>
+        <x>84</x>
         <y>434</y>
         <width>428</width>
         <height>226</height>
@@ -208,14 +208,14 @@
     </image>
     <anchor id="21">
         <class>Anchor</class>
-        <x>74</x>
-        <y>368</y>
-        <name></name>
+        <x>72</x>
+        <y>372</y>
+        <name>jogo</name>
     </anchor>
     <anchor id="22">
         <class>Anchor</class>
         <x>314</x>
-        <y>366</y>
-        <name></name>
+        <y>372</y>
+        <name>xbox</name>
     </anchor>
 </design>

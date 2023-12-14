@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<design>
+    <page>
+        <format>a4</format>
+        <orientation>P</orientation>
+    </page>
+    <rectangle id="1">
+        <class>Rectangle</class>
+        <x>30</x>
+        <y>44</y>
+        <width>532</width>
+        <height>662</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>1</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <rectangle id="2">
+        <class>Rectangle</class>
+        <x>58</x>
+        <y>286</y>
+        <width>476</width>
+        <height>40</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>1</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <rectangle id="3">
+        <class>Rectangle</class>
+        <x>58</x>
+        <y>218</y>
+        <width>478</width>
+        <height>40</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>1</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <text id="4">
+        <class>Text</class>
+        <x>60</x>
+        <y>204</y>
+        <font>Arial</font>
+        <size>12</size>
+        <text>Nome do jogo</text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+    <image id="5">
+        <class>Image</class>
+        <x>56</x>
+        <y>98</y>
+        <width>60</width>
+        <height>60</height>
+        <file>/home/usuario/Downloads/logo.png</file>
+    </image>
+    <image id="6">
+        <class>Image</class>
+        <x>146</x>
+        <y>68</y>
+        <width>390</width>
+        <height>112</height>
+        <file>/var/www/html/template/app/images/capa.png</file>
+    </image>
+    <text id="7">
+        <class>Text</class>
+        <x>62</x>
+        <y>272</y>
+        <font>Arial</font>
+        <size>12</size>
+        <text>Genero
+</text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+    <anchor id="8">
+        <class>Anchor</class>
+        <x>70</x>
+        <y>232</y>
+        <name>nome</name>
+    </anchor>
+    <anchor id="9">
+        <class>Anchor</class>
+        <x>72</x>
+        <y>300</y>
+        <name>genero</name>
+    </anchor>
+    <rectangle id="10">
+        <class>Rectangle</class>
+        <x>58</x>
+        <y>356</y>
+        <width>476</width>
+        <height>38</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>1</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <text id="11">
+        <class>Text</class>
+        <x>62</x>
+        <y>342</y>
+        <font>Arial</font>
+        <size>12</size>
+        <text>Xbox ou Playstation
+</text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+    <image id="12">
+        <class>Image</class>
+        <x>80</x>
+        <y>434</y>
+        <width>428</width>
+        <height>226</height>
+        <file>/home/usuario/Downloads/wallhaven-g8lkel.png</file>
+    </image>
+    <anchor id="13">
+        <class>Anchor</class>
+        <x>70</x>
+        <y>370</y>
+        <name>xbox</name>
+    </anchor>
+</design>

@@ -98,6 +98,14 @@
                 <icon>fas:database fa-fw</icon>
                 <action>AtualizarAutomaticamente</action>
               </menuitem>
+                <menuitem label='PDF'>
+                <icon>fas:database fa-fw</icon>
+                <action>Pdf</action>
+              </menuitem>
+              <menuitem label='PDF 2'>
+                <icon>fas:database fa-fw</icon>
+                <action>Pdfdois</action>
+              </menuitem>
             <menuitem label='Conexao Manual'>
                 <icon>fas:user fa-fw</icon>
                 <action>ConexaoManual</action>
