@@ -42,19 +42,26 @@ class Pdfdois extends TPage
 
         $this->form->addAction('Gerar', new TAction([$this, 'onGenerate'], ['id' => '{id}'], ['static' => 1]), 'fa:cogs');
 
-        $image11 = new TImage('app/images/2023.png');
-        $image11->style = 'width: 10%;';
-        $image11->style = 'height: 350px;';
+        $object = new TElement('iframe');
+        $object->width       = '75%';
+        $object->height      = '655px';
+        $object->src         = '//www.youtube.com/embed/T_HYY9jQnF4';
+        $object->frameborder = '0';
+        $object->allow       = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
 
         $table = new TTable;
         $table->border = 0;
         $table->style = 'border-collapse:collapse';
         $table->width = '100%';
-        $table->addRowSet($image11);
+        $table->addRowSet($object);
 
         parent::add($this->form);
 
         parent::add($table);
+
+        $imagefooter = new TImage('app/images/sao.png');
+        $imagefooter->style = 'width: 10%;';
+        $imagefooter->style = 'height: 70px;';
     }
 
     function onGenerate($param)
