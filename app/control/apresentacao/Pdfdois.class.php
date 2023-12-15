@@ -1,6 +1,8 @@
 <?php
 
 use Adianti\Control\TPage;
+use Adianti\Database\TTransaction;
+use Adianti\Widget\Form\TEntry;
 
 /**
  * @author Lucas Bortoloti <bortoloti91@gmail.com
@@ -38,7 +40,7 @@ class Pdfdois extends TPage
         $row = $this->form->addContent([$this->games]);
         $row->layout = ['col-sm-12'];
 
-        $this->form->addAction('Gerar', new TAction([$this, 'onGenerate'], ['static' => 1]), 'fa:cogs');
+        $this->form->addAction('Gerar', new TAction([$this, 'onGenerate'], ['id' => '{id}'], ['static' => 1]), 'fa:cogs');
 
         $image11 = new TImage('app/images/2023.png');
         $image11->style = 'width: 10%;';
@@ -58,12 +60,15 @@ class Pdfdois extends TPage
     function onGenerate($param)
     {
         try {
+            TTransaction::open('jogos');
+            $jogos = new Jogos($param['jogos']);
+
             $designer = new TPDFDesigner;
             $designer->fromXml('app/reports/pdf2.pdf.xml');
             $designer->generate();
 
             $designer->SetFont('Arial', 'B', 12);
-            $designer->writeAtAnchor('nome', 'Party Animals');
+            $designer->writeAtAnchor('nome', $jogos->nome);
             $designer->writeAtAnchor('genero', utf8_decode('Ação'));
             $designer->writeAtAnchor('xbox', utf8_decode('Xbox'));
 
@@ -75,6 +80,7 @@ class Pdfdois extends TPage
             } else {
                 throw new Exception(t_('Permission Denied') . '; ' . $file);
             }
+            TTransaction::close();
         } catch (Exception $e) {
             new TMessage('error', '<b>Error</b>' . $e->getMessage());
             TTransaction::rollback();
