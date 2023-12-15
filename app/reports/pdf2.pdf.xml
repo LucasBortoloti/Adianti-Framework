@@ -109,7 +109,7 @@
         <y>342</y>
         <font>Arial</font>
         <size>12</size>
-        <text>Xbox ou Playstation
+        <text>Plataforma
 </text>
         <color>#000000</color>
         <shadowoffset>0</shadowoffset>
@@ -127,6 +127,6 @@
         <class>Anchor</class>
         <x>70</x>
         <y>370</y>
-        <name>xbox</name>
+        <name>plataforma</name>
     </anchor>
 </design>

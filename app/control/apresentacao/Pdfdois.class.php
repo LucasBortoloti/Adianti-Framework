@@ -70,7 +70,7 @@ class Pdfdois extends TPage
             $designer->SetFont('Arial', 'B', 12);
             $designer->writeAtAnchor('nome', $jogos->nome);
             $designer->writeAtAnchor('genero', utf8_decode('Ação'));
-            $designer->writeAtAnchor('xbox', utf8_decode('Xbox'));
+            $designer->writeAtAnchor('plataforma', utf8_decode('Xbox'));
 
             $file = 'app/output/pdf2.pdf';
 
