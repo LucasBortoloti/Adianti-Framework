@@ -6,7 +6,7 @@
     </page>
     <rectangle id="1">
         <class>Rectangle</class>
-        <x>32</x>
+        <x>28</x>
         <y>40</y>
         <width>532</width>
         <height>662</height>

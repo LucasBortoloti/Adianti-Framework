@@ -19,7 +19,7 @@
     <rectangle id="2">
         <class>Rectangle</class>
         <x>58</x>
-        <y>286</y>
+        <y>220</y>
         <width>476</width>
         <height>40</height>
         <fillcolor>#FFFFFF</fillcolor>
@@ -31,8 +31,8 @@
     <rectangle id="3">
         <class>Rectangle</class>
         <x>58</x>
-        <y>218</y>
-        <width>478</width>
+        <y>288</y>
+        <width>476</width>
         <height>40</height>
         <fillcolor>#FFFFFF</fillcolor>
         <linecolor>#000000</linecolor>
@@ -70,10 +70,10 @@
     <text id="7">
         <class>Text</class>
         <x>62</x>
-        <y>272</y>
+        <y>274</y>
         <font>Arial</font>
         <size>12</size>
-        <text>Genero
+        <text>Ano de lancamento
 </text>
         <color>#000000</color>
         <shadowoffset>0</shadowoffset>
@@ -81,20 +81,20 @@
     </text>
     <anchor id="8">
         <class>Anchor</class>
-        <x>70</x>
-        <y>232</y>
+        <x>72</x>
+        <y>234</y>
         <name>nome</name>
     </anchor>
     <anchor id="9">
         <class>Anchor</class>
-        <x>70</x>
-        <y>300</y>
-        <name>genero</name>
+        <x>72</x>
+        <y>302</y>
+        <name>ano</name>
     </anchor>
     <rectangle id="10">
         <class>Rectangle</class>
         <x>58</x>
-        <y>356</y>
+        <y>428</y>
         <width>476</width>
         <height>38</height>
         <fillcolor>#FFFFFF</fillcolor>
@@ -106,10 +106,10 @@
     <text id="11">
         <class>Text</class>
         <x>62</x>
-        <y>342</y>
+        <y>414</y>
         <font>Arial</font>
         <size>12</size>
-        <text>Plataforma
+        <text>Quantidade de vendas
 </text>
         <color>#000000</color>
         <shadowoffset>0</shadowoffset>
@@ -117,16 +117,76 @@
     </text>
     <image id="12">
         <class>Image</class>
-        <x>80</x>
-        <y>434</y>
-        <width>428</width>
-        <height>226</height>
+        <x>178</x>
+        <y>560</y>
+        <width>241</width>
+        <height>128</height>
         <file>/home/usuario/Downloads/wallhaven-g8lkel.png</file>
     </image>
     <anchor id="13">
         <class>Anchor</class>
         <x>70</x>
-        <y>370</y>
-        <name>plataforma</name>
+        <y>442</y>
+        <name>vendas</name>
+    </anchor>
+    <rectangle id="14">
+        <class>Rectangle</class>
+        <x>58</x>
+        <y>360</y>
+        <width>476</width>
+        <height>38</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>1</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <text id="15">
+        <class>Text</class>
+        <x>62</x>
+        <y>344</y>
+        <font>Arial</font>
+        <size>12</size>
+        <text>Quantidade de Avaliações Steam
+</text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+    <anchor id="16">
+        <class>Anchor</class>
+        <x>70</x>
+        <y>374</y>
+        <name>avaliacoes</name>
+    </anchor>
+    <text id="17">
+        <class>Text</class>
+        <x>64</x>
+        <y>482</y>
+        <font>Arial</font>
+        <size>12</size>
+        <text>Avaliações
+</text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+    <rectangle id="18">
+        <class>Rectangle</class>
+        <x>58</x>
+        <y>496</y>
+        <width>476</width>
+        <height>38</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>1</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <anchor id="19">
+        <class>Anchor</class>
+        <x>70</x>
+        <y>510</y>
+        <name>bom</name>
     </anchor>
 </design>

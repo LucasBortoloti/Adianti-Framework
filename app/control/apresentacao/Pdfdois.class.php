@@ -29,12 +29,29 @@ class Pdfdois extends TPage
         $jogos->setSize('100%');
         $jogos->setMask('({id}) {nome}');
 
+        $ano = new TDBUniqueSearch('ano', 'jogos', 'Jogos', 'id', 'ano_lancamento');
+        $ano->setMinLength(0);
+        $ano->setSize('100%');
+
+        $avaliacoes = new TDBUniqueSearch('avaliacoes', 'jogos', 'Jogos', 'id', 'quantidade_avaliacoes');
+        $avaliacoes->setMinLength(0);
+        $avaliacoes->setSize('100%');
+
+        $vendas = new TDBUniqueSearch('vendas', 'jogos', 'Jogos', 'id', 'vendas');
+        $vendas->setMinLength(0);
+        $vendas->setSize('100%');
+
+        $bom = new TDBUniqueSearch('bom', 'jogos', 'Jogos', 'id', 'avaliacoes');
+        $bom->setMinLength(0);
+        $bom->setSize('100%');
+
         $this->games = new TFieldList;
         $this->games->style = ('width: 100%');
         $this->games->addField('<b>Jogos</b>', $jogos, ['width' => '50%']);
 
         $this->form->addField($jogos);
 
+        $this->games->addHeader();
         $this->games->addDetail(new stdClass);
 
         $row = $this->form->addContent([$this->games]);
@@ -69,15 +86,21 @@ class Pdfdois extends TPage
         try {
             TTransaction::open('jogos');
             $jogos = new Jogos($param['jogos']);
+            $ano = new Jogos($param['jogos']);
+            $avaliacoes = new Jogos($param['jogos']);
+            $vendas = new Jogos($param['jogos']);
+            $bom = new Jogos($param['jogos']);
 
             $designer = new TPDFDesigner;
             $designer->fromXml('app/reports/pdf2.pdf.xml');
             $designer->generate();
 
             $designer->SetFont('Arial', 'B', 12);
-            $designer->writeAtAnchor('nome', $jogos->nome);
-            $designer->writeAtAnchor('genero', utf8_decode('Ação'));
-            $designer->writeAtAnchor('plataforma', utf8_decode('Xbox'));
+            $designer->writeAtAnchor('nome', utf8_decode($jogos->nome));
+            $designer->writeAtAnchor('ano', utf8_decode($ano->ano_lancamento));
+            $designer->writeAtAnchor('avaliacoes', utf8_decode($avaliacoes->quantidade_avaliacoes));
+            $designer->writeAtAnchor('vendas', utf8_decode($vendas->vendas));
+            $designer->writeAtAnchor('bom', utf8_decode($bom->avaliacoes));
 
             $file = 'app/output/pdf2.pdf';
 
