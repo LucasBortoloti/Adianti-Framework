@@ -106,6 +106,10 @@
                 <icon>fas:database fa-fw</icon>
                 <action>Pdfdois</action>
               </menuitem>
+              <menuitem label='PDF 3'>
+                <icon>fas:database fa-fw</icon>
+                <action>Pdftres</action>
+              </menuitem>
             <menuitem label='Conexao Manual'>
                 <icon>fas:user fa-fw</icon>
                 <action>ConexaoManual</action>

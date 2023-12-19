@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<design>
+    <page>
+        <format>a4</format>
+        <orientation>P</orientation>
+    </page>
+    <rectangle id="1">
+        <class>Rectangle</class>
+        <x>22</x>
+        <y>32</y>
+        <width>542</width>
+        <height>768</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>1</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <image id="2">
+        <class>Image</class>
+        <x>48</x>
+        <y>60</y>
+        <width>108</width>
+        <height>108</height>
+        <file>/home/usuario/Downloads/logo.png</file>
+    </image>
+    <rectangle id="3">
+        <class>Rectangle</class>
+        <x>421</x>
+        <y>55</y>
+        <width>118</width>
+        <height>38</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>1</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <text id="4">
+        <class>Text</class>
+        <x>430</x>
+        <y>70</y>
+        <font>Arial</font>
+        <size>11</size>
+        <text>&lt;b&gt;NOTA FISCAL: 001&lt;/b&gt;</text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+    <text id="5">
+        <class>Text</class>
+        <x>50</x>
+        <y>204</y>
+        <font>Arial</font>
+        <size>10</size>
+        <text>DESTINATÁRIO/REMETENTE</text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+    <rectangle id="6">
+        <class>Rectangle</class>
+        <x>46</x>
+        <y>218</y>
+        <width>496</width>
+        <height>36</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>0.5</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <anchor id="7">
+        <class>Anchor</class>
+        <x>60</x>
+        <y>230</y>
+        <name>cliente</name>
+    </anchor>
+    <rectangle id="8">
+        <class>Rectangle</class>
+        <x>46</x>
+        <y>278</y>
+        <width>494</width>
+        <height>296</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>0.5</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <line id="9">
+        <class>Line</class>
+        <x>46</x>
+        <y>298</y>
+        <x2>540</x2>
+        <y2>298</y2>
+        <linewidth>0.5</linewidth>
+        <linecolor>#000000</linecolor>
+    </line>
+    <text id="10">
+        <class>Text</class>
+        <x>64</x>
+        <y>284</y>
+        <font>Arial</font>
+        <size>10</size>
+        <text>Código</text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+    <line id="11">
+        <class>Line</class>
+        <x>118</x>
+        <y>278</y>
+        <x2>118</x2>
+        <y2>298</y2>
+        <linewidth>0.5</linewidth>
+        <linecolor>#000000</linecolor>
+    </line>
+    <text id="12">
+        <class>Text</class>
+        <x>128</x>
+        <y>284</y>
+        <font>Arial</font>
+        <size>10</size>
+        <text>Nome</text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+    <line id="13">
+        <class>Line</class>
+        <x>436</x>
+        <y>278</y>
+        <x2>436</x2>
+        <y2>298</y2>
+        <linewidth>0.5</linewidth>
+        <linecolor>#000000</linecolor>
+    </line>
+    <text id="14">
+        <class>Text</class>
+        <x>442</x>
+        <y>284</y>
+        <font>Arial</font>
+        <size>10</size>
+        <text>Valor</text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+    <line id="15">
+        <class>Line</class>
+        <x>118</x>
+        <y>298</y>
+        <x2>118</x2>
+        <y2>574</y2>
+        <linewidth>0.5</linewidth>
+        <linecolor>#000000</linecolor>
+    </line>
+    <line id="16">
+        <class>Line</class>
+        <x>436</x>
+        <y>296</y>
+        <x2>436</x2>
+        <y2>574</y2>
+        <linewidth>0.5</linewidth>
+        <linecolor>#000000</linecolor>
+    </line>
+    <anchor id="17">
+        <class>Anchor</class>
+        <x>74</x>
+        <y>308</y>
+        <name>codigo</name>
+    </anchor>
+    <anchor id="18">
+        <class>Anchor</class>
+        <x>134</x>
+        <y>308</y>
+        <name>produto</name>
+    </anchor>
+    <anchor id="19">
+        <class>Anchor</class>
+        <x>448</x>
+        <y>308</y>
+        <name>preco</name>
+    </anchor>
+    <rectangle id="20">
+        <class>Rectangle</class>
+        <x>46</x>
+        <y>610</y>
+        <width>494</width>
+        <height>96</height>
+        <fillcolor>#FFFFFF</fillcolor>
+        <linecolor>#000000</linecolor>
+        <linewidth>0.5</linewidth>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </rectangle>
+    <text id="21">
+        <class>Text</class>
+        <x>50</x>
+        <y>596</y>
+        <font>Arial</font>
+        <size>10</size>
+        <text>DADOS ADICIONAIS:</text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+    <text id="22">
+        <class>Text</class>
+        <x>52</x>
+        <y>618</y>
+        <font>Arial</font>
+        <size>10</size>
+        <text>Informações complementares: </text>
+        <color>#000000</color>
+        <shadowoffset>0</shadowoffset>
+        <shadowcolor>#000000</shadowcolor>
+    </text>
+</design>
