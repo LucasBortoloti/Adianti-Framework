@@ -60,7 +60,6 @@ class Spfc extends TPage
         $panel->add($image);
         $panel->add($table);
 
-
         $link = new THyperLink('<b>Instagram</b>', 'https://www.instagram.com/saopaulofc/', '#DC143C', 12, 'Italic');
         $link2 = new THyperLink('<b>Youtube</b>', 'https://www.youtube.com/@saopaulofc', '#000000', 12, 'Italic');
 

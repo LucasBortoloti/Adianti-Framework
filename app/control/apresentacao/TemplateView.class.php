@@ -2,19 +2,21 @@
 
 use Adianti\Control\TPage;
 
-class TemplateView extends TPage{
+class TemplateView extends TPage
+{
 
-    private $html; 
+    private $html;
 
-    public function __construct(){
+    public function __construct()
+    {
 
-        parent:: __construct();
+        parent::__construct();
 
-        try{
+        try {
             parent::include_css('app/resources/style.css');
 
-            $this-> html = new THtmlRenderer('app/resources/filme.html');
-    
+            $this->html = new THtmlRenderer('app/resources/filme.html');
+
             TTransaction::open('filme');
             $filme = new Filme(5);
 
@@ -29,28 +31,22 @@ class TemplateView extends TPage{
 
             $replace_criticas = array();
 
-            foreach ($filme->getCriticas() as $critica){
+            foreach ($filme->getCriticas() as $critica) {
 
-                $replace_criticas[] = array('dt_publicacao'=>$critica->dt_publicacao,
-                                            'veiculo'=>$critica->veiculo,
-                                            'conteudo'=>$critica->conteudo);
-
+                $replace_criticas[] = array(
+                    'dt_publicacao' => $critica->dt_publicacao,
+                    'veiculo' => $critica->veiculo,
+                    'conteudo' => $critica->conteudo
+                );
             }
 
             $this->html->enableSection('main', $replaces);
             $this->html->enableSection('criticas', $replace_criticas, TRUE);
             parent::add($this->html);
-        
-            TTransaction::close();
 
-        }
-        catch (Exception $e){
+            TTransaction::close();
+        } catch (Exception $e) {
             new TMessage('error', $e->getMessage());
         }
-
     }
-
 }
-
-
-?>
