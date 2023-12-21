@@ -78,19 +78,26 @@ class Pdftres extends TPage
     {
         try {
             TTransaction::open('sale');
-            $produtos = new Product($param['produtos']);
-            $codigo = new Product($param['produtos']);
-            $preco = new Product($param['produtos']);
+
+            // Obtém a lista de produtos selecionados
+            $produtosSelecionados = explode(',', $param['produtos']);
 
             $designer = new TPDFDesigner;
             $designer->fromXml('app/reports/pdf3.pdf.xml');
             $designer->generate();
 
             $designer->SetFont('Arial', '', 12);
-            $designer->writeAtAnchor('cliente', utf8_decode('Lucas'));
-            $designer->writeAtAnchor('codigo', utf8_decode($codigo->id));
-            $designer->writeAtAnchor('produto', utf8_decode($produtos->nome));
-            $designer->writeAtAnchor('preco', utf8_decode($preco->preco));
+
+            // Itera sobre a lista de produtos selecionados
+            foreach ($produtosSelecionados as $produtoId) {
+                $produto = new Product($produtoId);
+
+                // Ajusta a posição Y para evitar a sobrescrição
+                $designer->writeAtAnchor('cliente', utf8_decode('Lucas'));
+                $designer->writeAtAnchor('codigo', utf8_decode($produto->id));
+                $designer->writeAtAnchor('produto', utf8_decode($produto->nome));
+                $designer->writeAtAnchor('preco', utf8_decode($produto->preco));
+            }
 
             $file = 'app/output/pdf3.pdf';
 
@@ -100,6 +107,7 @@ class Pdftres extends TPage
             } else {
                 throw new Exception(t_('Permission Denied') . '; ' . $file);
             }
+
             TTransaction::close();
         } catch (Exception $e) {
             new TMessage('error', '<b>Error</b>' . $e->getMessage());
