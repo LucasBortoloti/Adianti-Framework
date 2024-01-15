@@ -24,7 +24,7 @@ class Pdftres extends TPage
         $this->form = new BootstrapFormBuilder('form_pdf3');
         $this->form->setFormTitle('Gerador de PDF 3');
 
-        $produtos = new TDBUniqueSearch('produtos', 'sale', 'Product', 'id', 'nome');
+        $produtos = new TDBUniqueSearch('produtos[]', 'sale', 'Product', 'id', 'nome');
         $produtos->setMinLength(0);
         $produtos->setSize('100%');
         $produtos->setMask('({id}) {nome}');
@@ -41,7 +41,7 @@ class Pdftres extends TPage
         $this->produto->style = ('width: 100%');
         $this->produto->addField('<b>Produtos</b>', $produtos, ['width' => '50%']);
 
-        $this->form->addField($produtos);
+        //$this->form->addField($produtos);
 
         $this->produto->addHeader();
         $this->produto->addDetail(new stdClass);
@@ -79,8 +79,7 @@ class Pdftres extends TPage
         try {
             TTransaction::open('sale');
 
-            // Obtém a lista de produtos selecionados
-            $produtosSelecionados = explode(',', $param['produtos']);
+            $produtosSelecionados = $param['produtos'];
 
             $designer = new TPDFDesigner;
             $designer->fromXml('app/reports/pdf3.pdf.xml');
@@ -88,15 +87,17 @@ class Pdftres extends TPage
 
             $designer->SetFont('Arial', '', 12);
 
-            // Itera sobre a lista de produtos selecionados
             foreach ($produtosSelecionados as $produtoId) {
                 $produto = new Product($produtoId);
 
-                // Ajusta a posição Y para evitar a sobrescrição
                 $designer->writeAtAnchor('cliente', utf8_decode('Lucas'));
                 $designer->writeAtAnchor('codigo', utf8_decode($produto->id));
                 $designer->writeAtAnchor('produto', utf8_decode($produto->nome));
                 $designer->writeAtAnchor('preco', utf8_decode($produto->preco));
+
+                echo "<pre>";
+                print_r($param);
+                echo "</pre>";
             }
 
             $file = 'app/output/pdf3.pdf';
