@@ -74,7 +74,7 @@ class Pdftres extends TPage
         $imagefooter->style = 'height: 70px;';
     }
 
-    function onGenerate($param)
+    public function onGenerate($param)
     {
         try {
             TTransaction::open('sale');

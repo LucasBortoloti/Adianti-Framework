@@ -110,6 +110,10 @@
                 <icon>fas:database fa-fw</icon>
                 <action>Pdftres</action>
               </menuitem>
+              <menuitem label='PDF Teste'>
+                <icon>fas:database fa-fw</icon>
+                <action>Pdfteste</action>
+              </menuitem>
             <menuitem label='Conexao Manual'>
                 <icon>fas:user fa-fw</icon>
                 <action>ConexaoManual</action>
