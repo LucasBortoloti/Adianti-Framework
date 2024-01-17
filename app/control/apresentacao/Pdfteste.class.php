@@ -44,9 +44,10 @@ class Pdfteste extends TPage
         $this->produto = new TFieldList;
         $this->produto->style = ('width: 100%');
         $this->produto->addField('<b>Produtos</b>', $produtos, ['width' => '50%']);
-        $this->produto->addField('<b>Quantidade</b>', $quantidade, ['width' => '50%']);
+        $this->produto->addField('<b>Qntd</b>', $quantidade, ['width' => '50%',]);
 
-        //$this->form->addField($produtos);
+        $this->form->addField($produtos);
+        $this->form->addField($quantidade);
 
         $this->produto->addHeader();
         $this->produto->addDetail(new stdClass);
@@ -79,6 +80,7 @@ class Pdfteste extends TPage
     {
         try {
             TTransaction::open('sale');
+            $data = $this->form->getData();
 
             $produtosSelecionados = $param['produtos'];
 
@@ -98,6 +100,7 @@ class Pdfteste extends TPage
 
             foreach ($produtosSelecionados as $produtoId) {
                 $produto = new Product($produtoId);
+                $produto->quantidade = $data->quantidade;
                 $this->addProduto($produto);
             }
 
@@ -142,9 +145,10 @@ class Pdfteste extends TPage
         $this->pdf->Ln(12);
         $this->pdf->SetX(20);
         $this->pdf->SetFillColor(230, 230, 230);
-        $this->pdf->Cell(80,  14, utf8_decode('Código'),     1, 0, 'C', 1);
-        $this->pdf->Cell(370, 14, utf8_decode('Nome'),  1, 0, 'L', 1);
-        $this->pdf->Cell(105, 14, 'Valor',      1, 0, 'L', 1);
+        $this->pdf->Cell(60, 14, utf8_decode('Código'),     1, 0, 'C', 1);
+        $this->pdf->Cell(335, 14, utf8_decode('Nome'),  1, 0, 'L', 1);
+        $this->pdf->Cell(80, 14, 'Qntd', 1, 0, 'L', 1);
+        $this->pdf->Cell(80, 14, 'Valor',      1, 0, 'L', 1);
     }
 
     public function addProduto($produto)
@@ -152,11 +156,11 @@ class Pdfteste extends TPage
         $this->pdf->Ln(12);
         $this->pdf->SetX(20);
         $this->pdf->SetFillColor(230, 230, 230);
-        $total = $produto->preco * $produto->quantidade;
 
-        $this->pdf->Cell(80,  18, $produto->id, 'LR', 0, 'C');
-        $this->pdf->Cell(370, 18, $produto->nome, 'LR', 0, 'L');
-        $this->pdf->Cell(105, 18, number_format($produto->preco, 2), 'LR', 0, 'R');
+        $this->pdf->Cell(60,  18, $produto->id, 'LR', 0, 'C');
+        $this->pdf->Cell(335, 18, $produto->nome, 'LR', 0, 'L');
+        $this->pdf->Cell(80, 18, $produto->quantidade, 'LR', 0, 'L');
+        $this->pdf->Cell(80, 18, number_format($produto->preco, 2), 'LR', 0, 'R');
     }
 
     public function addRodapeProduto()
@@ -165,9 +169,10 @@ class Pdfteste extends TPage
             for ($n = 0; $n < 20 - $this->count_produtos; $n++) {
                 $this->pdf->Ln(12);
                 $this->pdf->SetX(20);
-                $this->pdf->Cell(80,  14, '', 'LR', 0, 'C');
-                $this->pdf->Cell(370, 14, '', 'LR', 0, 'L');
-                $this->pdf->Cell(105, 14, '', 'LR', 0, 'R');
+                $this->pdf->Cell(60,  12, '', 'LR', 0, 'C');
+                $this->pdf->Cell(335, 12, '', 'LR', 0, 'L');
+                $this->pdf->Cell(80,  12, '', 'LR', 0, 'L');
+                $this->pdf->Cell(80,  12, '', 'LR', 0, 'R');
             }
         }
         $this->pdf->Ln(12);
