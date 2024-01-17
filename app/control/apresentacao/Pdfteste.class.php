@@ -37,9 +37,14 @@ class Pdfteste extends TPage
         $preco->setMinLength(0);
         $preco->setSize('100%');
 
+        $quantidade = new TNumeric('quantidade', 0, ',', '.');
+
+        $quantidade->setSize('20%');
+
         $this->produto = new TFieldList;
         $this->produto->style = ('width: 100%');
         $this->produto->addField('<b>Produtos</b>', $produtos, ['width' => '50%']);
+        $this->produto->addField('<b>Quantidade</b>', $quantidade, ['width' => '50%']);
 
         //$this->form->addField($produtos);
 
@@ -98,6 +103,8 @@ class Pdfteste extends TPage
 
             $this->addRodapeProduto();
 
+            $this->addRodapeNota();
+
             $file = 'app/output/pdfteste.pdf';
 
             if (!file_exists($file) or is_writable($file)) {
@@ -127,7 +134,7 @@ class Pdfteste extends TPage
     {
         $this->pdf->SetY(160);
 
-        $this->pdf->SetFont('Arial', '', 9);
+        $this->pdf->SetFont('Arial', '', 10);
         $this->pdf->SetTextColor(0, 0, 0);
         $this->pdf->SetX(20);
         $this->pdf->Cell(300, 6, 'DADOS DO PRODUTO: ', 0, 0, 'L');
@@ -135,9 +142,9 @@ class Pdfteste extends TPage
         $this->pdf->Ln(12);
         $this->pdf->SetX(20);
         $this->pdf->SetFillColor(230, 230, 230);
-        $this->pdf->Cell(80,  12, utf8_decode('Código'),     1, 0, 'L', 1);
-        $this->pdf->Cell(370, 12, utf8_decode('Nome'),  1, 0, 'L', 1);
-        $this->pdf->Cell(105,  12, 'Valor',      1, 0, 'L', 1);
+        $this->pdf->Cell(80,  14, utf8_decode('Código'),     1, 0, 'C', 1);
+        $this->pdf->Cell(370, 14, utf8_decode('Nome'),  1, 0, 'L', 1);
+        $this->pdf->Cell(105, 14, 'Valor',      1, 0, 'L', 1);
     }
 
     public function addProduto($produto)
@@ -147,9 +154,9 @@ class Pdfteste extends TPage
         $this->pdf->SetFillColor(230, 230, 230);
         $total = $produto->preco * $produto->quantidade;
 
-        $this->pdf->Cell(80,  12, $produto->id, 'LR', 0, 'C');
-        $this->pdf->Cell(370, 12, $produto->nome, 'LR', 0, 'L');
-        $this->pdf->Cell(105,  12, number_format($produto->preco, 2), 'LR', 0, 'R');
+        $this->pdf->Cell(80,  18, $produto->id, 'LR', 0, 'C');
+        $this->pdf->Cell(370, 18, $produto->nome, 'LR', 0, 'L');
+        $this->pdf->Cell(105, 18, number_format($produto->preco, 2), 'LR', 0, 'R');
     }
 
     public function addRodapeProduto()
@@ -158,12 +165,67 @@ class Pdfteste extends TPage
             for ($n = 0; $n < 20 - $this->count_produtos; $n++) {
                 $this->pdf->Ln(12);
                 $this->pdf->SetX(20);
-                $this->pdf->Cell(80,  12, '', 'LR', 0, 'C');
-                $this->pdf->Cell(370, 12, '', 'LR', 0, 'L');
-                $this->pdf->Cell(105,  12, '', 'LR', 0, 'R');
+                $this->pdf->Cell(80,  14, '', 'LR', 0, 'C');
+                $this->pdf->Cell(370, 14, '', 'LR', 0, 'L');
+                $this->pdf->Cell(105, 14, '', 'LR', 0, 'R');
             }
         }
         $this->pdf->Ln(12);
         $this->pdf->Line(20, $this->pdf->GetY(), 575, $this->pdf->GetY());
+    }
+
+    public function addRodapeNota()
+    {
+        $this->pdf->Ln(28);
+
+        $this->pdf->SetFont('Arial', '', 10);
+        $this->pdf->SetTextColor(0, 0, 0);
+        $this->pdf->SetX(20);
+        $this->pdf->Cell(320, 8, 'DADOS ADICIONAIS: ', 0, 0, 'L');
+
+        $this->pdf->Ln(12);
+        $this->pdf->SetTextColor(100, 100, 100);
+        $this->pdf->SetX(20);
+        $this->pdf->Cell(285, 14, utf8_decode('Informações complementares'), 'LTR', 0, 'L');
+        $this->pdf->Cell(270, 14, 'Reservado ao fisco', 'LTR', 0, 'L');
+
+        $this->pdf->Ln(8);
+
+        $this->pdf->SetTextColor(0, 0, 0);
+        $this->pdf->SetX(20);
+        $this->pdf->Cell(285, 48, '', 'LBR', 0, 'L');
+        $this->pdf->Cell(270, 48, '', 'LBR', 0, 'L');
+
+        $this->pdf->Ln(52);
+
+        $this->pdf->SetX(20);
+        $this->pdf->Cell(300, 20, utf8_decode('INFORMAÇÕES DE RECEBIMENTO: '), 0, 0, 'L');
+
+        $this->pdf->Ln(18);
+        $this->pdf->SetTextColor(100, 100, 100);
+        $this->pdf->SetX(20);
+        $this->pdf->Cell(400, 16, 'Recebemos de Tutor os produtos constantes na nota fiscal indicada ao lado', 'LTR', 0, 'L');
+        $this->pdf->SetTextColor(0, 0, 0);
+        $this->pdf->Cell(155, 16, 'NOTA FISCAL', 'LTR', 0, 'C');
+
+        $this->pdf->Ln(4);
+        $this->pdf->SetX(20);
+        $this->pdf->SetTextColor(0, 0, 0);
+        $this->pdf->Cell(400, 12, '', 'LBR', 0, 'L');
+
+        $this->pdf->Ln(12);
+
+        $this->pdf->SetX(20);
+        $this->pdf->SetTextColor(100, 100, 100);
+        $this->pdf->Cell(200, 14, 'Data do recebimento', 'LTR', 0, 'L');
+        $this->pdf->Cell(200, 14, utf8_decode('Identificação e assinatura do recebedor'), 'LTR', 0, 'L');
+        $this->pdf->Cell(155, 14, '', 'LR', 0, 'L');
+
+        $this->pdf->Ln(8);
+        $this->pdf->SetX(20);
+        $this->pdf->SetTextColor(0, 0, 0);
+        $this->pdf->Cell(200, 35, '', 'LBR', 0, 'L');
+        $this->pdf->Cell(200, 35, '', 'LBR', 0, 'L');
+        $this->pdf->Cell(155, 35, '', 'LBR', 0, 'L');
     }
 }
