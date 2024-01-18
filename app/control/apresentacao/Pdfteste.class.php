@@ -33,18 +33,14 @@ class Pdfteste extends TPage
         $codigo->setMinLength(0);
         $codigo->setSize('100%');
 
-        $preco = new TDBUniqueSearch('preco', 'sale', 'Product', 'id', 'preco');
-        $preco->setMinLength(0);
-        $preco->setSize('100%');
-
-        $quantidade = new TNumeric('quantidade', 0, ',', '.');
+        $quantidade = new TNumeric('quantidade[]', 0, ',', '.');
 
         $quantidade->setSize('20%');
 
         $this->produto = new TFieldList;
         $this->produto->style = ('width: 100%');
         $this->produto->addField('<b>Produtos</b>', $produtos, ['width' => '50%']);
-        $this->produto->addField('<b>Qntd</b>', $quantidade, ['width' => '50%',]);
+        $this->produto->addField('<b>Qntd</b>', $quantidade, ['width' => '50%']);
 
         $this->form->addField($produtos);
         $this->form->addField($quantidade);
@@ -98,9 +94,9 @@ class Pdfteste extends TPage
 
             $this->addCabecalhoProduto();
 
-            foreach ($produtosSelecionados as $produtoId) {
+            foreach ($produtosSelecionados as $index => $produtoId) {
                 $produto = new Product($produtoId);
-                $produto->quantidade = $data->quantidade;
+                $produto->quantidade = $data->quantidade[$index] ?? 1;
                 $this->addProduto($produto);
             }
 
@@ -204,7 +200,7 @@ class Pdfteste extends TPage
         $this->pdf->Ln(52);
 
         $this->pdf->SetX(20);
-        $this->pdf->Cell(300, 20, utf8_decode('INFORMAÇÕES DE RECEBIMENTO: '), 0, 0, 'L');
+        $this->pdf->Cell(300, 19, utf8_decode('INFORMAÇÕES DE RECEBIMENTO: '), 0, 0, 'L');
 
         $this->pdf->Ln(18);
         $this->pdf->SetTextColor(100, 100, 100);
