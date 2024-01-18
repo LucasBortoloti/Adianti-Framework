@@ -35,22 +35,29 @@ class Pdfteste extends TPage
 
         $quantidade = new TNumeric('quantidade[]', 0, ',', '.');
         $preco = new TNumeric('preco[]', 2, ',', '.');
+        $total = new TNumeric('total[]', 2, ',', '.');
 
         $preco->setEditable(FALSE);
+        $total->setEditable(FALSE);
 
         $produtos->setChangeAction(new TAction([$this, 'onChange']));
+        $quantidade->setExitAction(new TAction([$this, 'onChange']));
 
+        $quantidade->setSize('100%');
         $preco->setSize('100%');
+        $total->setSize('100%');
 
         $this->produto = new TFieldList;
         $this->produto->style = ('width: 100%');
         $this->produto->addField('<b>Produtos</b>', $produtos, ['width' => '50%']);
-        $this->produto->addField('<b>Preço unitário</b>', $preco, ['width' => '40%']);
-        $this->produto->addField('<b>Qntd</b>', $quantidade, ['width' => '50%']);
+        $this->produto->addField('<b>Qntd</b>', $quantidade, ['width' => '10%']);
+        $this->produto->addField('<b>Preço unitário</b>', $preco, ['width' => '20%']);
+        $this->produto->addField('<b>Total</b>', $total, ['width' => '20%']);
 
         $this->form->addField($produtos);
-        $this->form->addField($preco);
         $this->form->addField($quantidade);
+        $this->form->addField($preco);
+        $this->form->addField($total);
 
         $this->produto->addHeader();
         $this->produto->addDetail(new stdClass);
@@ -148,10 +155,11 @@ class Pdfteste extends TPage
         $this->pdf->Ln(12);
         $this->pdf->SetX(20);
         $this->pdf->SetFillColor(230, 230, 230);
-        $this->pdf->Cell(60, 14, utf8_decode('Código'),     1, 0, 'C', 1);
-        $this->pdf->Cell(335, 14, utf8_decode('Nome'),  1, 0, 'L', 1);
-        $this->pdf->Cell(80, 14, 'Qntd', 1, 0, 'L', 1);
-        $this->pdf->Cell(80, 14, 'Valor',      1, 0, 'L', 1);
+        $this->pdf->Cell(40, 14, utf8_decode('Código'),     1, 0, 'C', 1);
+        $this->pdf->Cell(330, 14, utf8_decode('Nome'),  1, 0, 'L', 1);
+        $this->pdf->Cell(55, 14, 'Qntd', 1, 0, 'L', 1);
+        $this->pdf->Cell(60, 14, 'Valor', 1, 0, 'L', 1);
+        $this->pdf->Cell(70, 14, 'Total', 1, 0, 'L', 1);
     }
 
     public function addProduto($produto)
@@ -159,11 +167,15 @@ class Pdfteste extends TPage
         $this->pdf->Ln(12);
         $this->pdf->SetX(20);
         $this->pdf->SetFillColor(230, 230, 230);
+        $total = $produto->preco * $produto->quantidade;
 
-        $this->pdf->Cell(60,  18, $produto->id, 'LR', 0, 'C');
-        $this->pdf->Cell(335, 18, $produto->nome, 'LR', 0, 'L');
-        $this->pdf->Cell(80, 18, $produto->quantidade, 'LR', 0, 'C');
-        $this->pdf->Cell(80, 18, number_format($produto->preco, 2), 'LR', 0, 'R');
+        $this->pdf->Cell(40, 18, $produto->id, 'LR', 0, 'C');
+        $this->pdf->Cell(330, 18, $produto->nome, 'LR', 0, 'L');
+        $this->pdf->Cell(55, 18, $produto->quantidade, 'LR', 0, 'C');
+        $this->pdf->Cell(60, 18, number_format($produto->preco, 2), 'LR', 0, 'R');
+        $this->pdf->Cell(70, 18, number_format($total, 2), 'LR', 0, 'R');
+
+        $this->total_produtos += $total;
     }
 
     public function addRodapeProduto()
@@ -172,10 +184,11 @@ class Pdfteste extends TPage
             for ($n = 0; $n < 20 - $this->count_produtos; $n++) {
                 $this->pdf->Ln(12);
                 $this->pdf->SetX(20);
-                $this->pdf->Cell(60,  12, '', 'LR', 0, 'C');
-                $this->pdf->Cell(335, 12, '', 'LR', 0, 'L');
-                $this->pdf->Cell(80,  12, '', 'LR', 0, 'L');
-                $this->pdf->Cell(80,  12, '', 'LR', 0, 'R');
+                $this->pdf->Cell(40,  12, '', 'LR', 0, 'C');
+                $this->pdf->Cell(330, 12, '', 'LR', 0, 'L');
+                $this->pdf->Cell(55,  12, '', 'LR', 0, 'L');
+                $this->pdf->Cell(60,  12, '', 'LR', 0, 'R');
+                $this->pdf->Cell(70,  12, '', 'LR', 0, 'R');
             }
         }
         $this->pdf->Ln(12);
@@ -242,16 +255,20 @@ class Pdfteste extends TPage
         try {
             TTransaction::open('sale');
             $preco = [];
+            $total = [];
 
             $produtosSelecionados = $param['produtos'];
 
-            foreach ($produtosSelecionados as $produtos) {
+            foreach ($produtosSelecionados as $i => $produtos) {
                 $produto = new Product($produtos);
+                $quantidade = (float) str_replace(',', '.', str_replace('.', '', ($param['quantidade'][$i] ?? 1)));
 
                 $preco[] = number_format($produto->preco, 2, ',', '.');
+                $total[] = number_format($produto->preco * $quantidade, 2, ',', '.');
             }
             $data = new stdClass;
             $data->preco = $preco;
+            $data->total = $total;
 
             TForm::sendData('form_pdf3', $data, false, true);
             TTransaction::close();
