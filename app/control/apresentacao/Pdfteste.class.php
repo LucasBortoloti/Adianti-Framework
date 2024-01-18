@@ -34,15 +34,22 @@ class Pdfteste extends TPage
         $codigo->setSize('100%');
 
         $quantidade = new TNumeric('quantidade[]', 0, ',', '.');
+        $preco = new TNumeric('preco[]', 2, ',', '.');
 
-        $quantidade->setSize('20%');
+        $preco->setEditable(FALSE);
+
+        $produtos->setChangeAction(new TAction([$this, 'onChange']));
+
+        $preco->setSize('100%');
 
         $this->produto = new TFieldList;
         $this->produto->style = ('width: 100%');
         $this->produto->addField('<b>Produtos</b>', $produtos, ['width' => '50%']);
+        $this->produto->addField('<b>Preço unitário</b>', $preco, ['width' => '40%']);
         $this->produto->addField('<b>Qntd</b>', $quantidade, ['width' => '50%']);
 
         $this->form->addField($produtos);
+        $this->form->addField($preco);
         $this->form->addField($quantidade);
 
         $this->produto->addHeader();
@@ -155,7 +162,7 @@ class Pdfteste extends TPage
 
         $this->pdf->Cell(60,  18, $produto->id, 'LR', 0, 'C');
         $this->pdf->Cell(335, 18, $produto->nome, 'LR', 0, 'L');
-        $this->pdf->Cell(80, 18, $produto->quantidade, 'LR', 0, 'L');
+        $this->pdf->Cell(80, 18, $produto->quantidade, 'LR', 0, 'C');
         $this->pdf->Cell(80, 18, number_format($produto->preco, 2), 'LR', 0, 'R');
     }
 
@@ -228,5 +235,29 @@ class Pdfteste extends TPage
         $this->pdf->Cell(200, 35, '', 'LBR', 0, 'L');
         $this->pdf->Cell(200, 35, '', 'LBR', 0, 'L');
         $this->pdf->Cell(155, 35, '', 'LBR', 0, 'L');
+    }
+
+    public static function onChange($param)
+    {
+        try {
+            TTransaction::open('sale');
+            $preco = [];
+
+            $produtosSelecionados = $param['produtos'];
+
+            foreach ($produtosSelecionados as $produtos) {
+                $produto = new Product($produtos);
+
+                $preco[] = number_format($produto->preco, 2, ',', '.');
+            }
+            $data = new stdClass;
+            $data->preco = $preco;
+
+            TForm::sendData('form_pdf3', $data, false, true);
+            TTransaction::close();
+        } catch (Exception $e) {
+            TTransaction::rollback();
+            new TMessage('error', $e->getMessage());
+        }
     }
 }
