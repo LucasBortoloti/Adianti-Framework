@@ -39,6 +39,7 @@ class Pdfhtml2 extends TPage
 
         $this->produto->addHeader();
         $this->produto->addDetail(new stdClass);
+        $this->produto->addCloneAction();
 
         $row = $this->form->addContent([$this->produto]);
         $row->layout = ['col-sm-12'];
@@ -84,6 +85,8 @@ class Pdfhtml2 extends TPage
                 $produto->quantidade = $data->quantidade[$index] ?? 1;
                 $this->addProduto($produto);
             }
+
+            $this->addVariosProdutos();
 
             // wrap the page content using vertical box
             $vbox = new TVBox;
@@ -131,12 +134,7 @@ class Pdfhtml2 extends TPage
 
         $replace['object'] = $pdf;
 
-        //$replace['header'] = [[
-        //    'name' => 'Field test',
-        //    'value' => 'Field vaue'
-        //]];
-
-        $replace['accounts1'] = [
+        $replace['produtos'] = [
             [
                 'date' => '2023-01-19',
                 'details' => [
@@ -150,5 +148,17 @@ class Pdfhtml2 extends TPage
         ];
 
         $this->html->enableSection('main', $replace);
+
+        echo "<pre>";
+        print_r($produto);
+        echo "</pre>";
+    }
+
+    public function addVariosProdutos()
+    {
+        if ($this->count_produtos < 20) {
+            for ($n = 0; $n < 20 - $this->count_produtos; $n++) {
+            }
+        }
     }
 }
