@@ -1,6 +1,8 @@
 <?php
 
 use Adianti\Control\TPage;
+use Adianti\Database\TTransaction;
+use Adianti\Widget\Form\TEntry;
 
 /**
  * @author Lucas Bortoloti <bortoloti91@gmail.com
@@ -88,6 +90,10 @@ class Pdfhtml2 extends TPage
 
             $this->addVariosProdutos();
 
+            echo "<pre>";
+            print_r($param);
+            echo "</pre>";
+
             // wrap the page content using vertical box
             $vbox = new TVBox;
             $vbox->style = 'width: 100%';
@@ -136,22 +142,19 @@ class Pdfhtml2 extends TPage
 
         $replace['produtos'] = [
             [
-                'date' => '2023-01-19',
+                //'date' => '2023-01-19',
                 'details' => [
                     [
                         'nome' => ($produto->nome),
                         'quantidade' => ($produto->quantidade),
                         'preco' => ($produto->preco)
+
                     ],
                 ]
             ],
         ];
 
         $this->html->enableSection('main', $replace);
-
-        echo "<pre>";
-        print_r($produto);
-        echo "</pre>";
     }
 
     public function addVariosProdutos()

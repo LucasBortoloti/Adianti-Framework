@@ -1,62 +1,56 @@
 .customform {
-    font-family: 'Arial';
-    border-radius: 3px 3px 3px 3px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-    font-size: 14px;
+    font-family: 'Arial', sans-serif;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
     width: 840px;
-    background: white;
-    -moz-box-shadow: 3px 3px 3px #ececec;
-    -webkit-box-shadow: 3px 3px 3px #ececec;
-    box-shadow: 3px 3px 3px #ececec;
-    border-spacing: 0px !important;
-    border-collapse: collapse;
-    margin-top: 2px;
-    border: 1px solid #000000;
+    background: #f9f9f9;
+    border: 2px solid #000;
+    margin-top: 20px;
 }
 
 .customform .formtitle {
-    position: relative;
-    padding: 10px;
+    padding: 15px;
     text-decoration: none;
     font-weight: bold;
-    font-size: 14px;
-    color: #FFF;
-    background: #525151;
-    border-radius: 3px 3px 3px 3px;
+    font-size: 18px;
+    color: #fff;
+    background: #333;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .customform td.sectiontitle {
-    position: relative;
     padding: 10px;
     text-decoration: none;
     font-weight: bold;
-    font-size: 14px;
-    color: #FFF;
-    background: #525151;
-    border-radius: 2px 2px 2px 2px;
-    border: 0;
+    font-size: 16px;
+    color: #fff;
+    background: #333;
+    border-radius: 0;
 }
 
 .customform .formfield {
-    background: #fff2e0;
-    border: 1px solid #A0A0A0;
-    border-radius: 2px 2px 2px 2px;
-    height: 24px;
-    z-index: 1;
+    background: #ffffff;
+    border: 1px solid #000;
+    border-radius: 3px;
+    height: 30px;
     display: block;
     padding: 4px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .customform tr.oddrow {
-    background: whiteSmoke;
+    background: #f2f2f2;
 }
 
 .customform td {
-    padding: 4px;
+    padding: 8px;
 }
 
 .customform tbody.formdata td {
-    padding: 4px;
-    border-left: 1px solid #808080;
-    border-right: 1px solid #808080;
+    padding: 8px;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
 }
