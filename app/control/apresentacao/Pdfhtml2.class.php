@@ -64,10 +64,6 @@ class Pdfhtml2 extends TPage
         parent::add($this->form);
 
         parent::add($table);
-
-        $imagefooter = new TImage('app/images/sao.png');
-        $imagefooter->style = 'width: 10%;';
-        $imagefooter->style = 'height: 70px;';
     }
 
     public function onGenerate($param)
@@ -87,8 +83,6 @@ class Pdfhtml2 extends TPage
                 $produto->quantidade = $data->quantidade[$index] ?? 1;
                 $this->addProduto($produto);
             }
-
-            $this->addVariosProdutos();
 
             echo "<pre>";
             print_r($param);
@@ -136,11 +130,19 @@ class Pdfhtml2 extends TPage
         $pdf = new stdClass;
         $pdf->name = 'Lucas';
 
+        $array_object['name'] = $pdf->name;
+
+        $this->html->enableSection('main', $array_object);
+
         $replace = array();
 
-        $replace['object'] = $pdf;
+        $replace[] = array(
+            'nome' => $produto->nome,
+            'quantidade' => $produto->quantidade,
+            'preco' => $produto->preco
+        );
 
-        $replace['produtos'] = [
+        /*$replace['produtos'] = [
             [
                 //'date' => '2023-01-19',
                 'details' => [
@@ -153,15 +155,8 @@ class Pdfhtml2 extends TPage
                 ]
             ],
         ];
+        */
 
-        $this->html->enableSection('main', $replace);
-    }
-
-    public function addVariosProdutos()
-    {
-        if ($this->count_produtos < 20) {
-            for ($n = 0; $n < 20 - $this->count_produtos; $n++) {
-            }
-        }
+        $this->html->enableSection('produtos', $replace, TRUE);
     }
 }
