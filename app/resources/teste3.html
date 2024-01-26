@@ -1,0 +1,37 @@
+<!--[main]-->
+<link href="app/resources/styles.css" rel="stylesheet" type="text/css" media="screen" />
+
+<table class="customform" style="width:100%">
+    <tr>
+        <td><b>Nome</b></td>
+        <td colspan="3"><span class="formfield">{$name}</span></td>
+    </tr>
+</table>
+<table class="customform" style="width:100%">
+    <tr>
+        <td class="sectiontitle" colspan="4">Details</td>
+    </tr>
+    <!--[produtos]-->
+    <!--<tr bgcolor="#e0e0e0">
+    <td align="center" colspan="4"><b>Date</b>: date_format({$date}, 'd/m/Y')
+    </td>
+</tr>-->
+    <tr>
+        <td align="center"><b>Produto</b></td>
+        <td align="center"><b>Quantidade</b></td>
+        <td align="center"><b>Valor</b></td>
+        <td align="center"><b>Total</b></td>
+    </tr>
+    <tr>
+        <td align="center">{$nome}</td>
+        <td align="center">{$quantidade}</td>
+        <td align="center">R$ number_format({$preco},2,',', '.')</td>
+        <td align="center">R$ number_format(evaluate({$quantidade} * {$preco}), 2, ',', '.')</td>
+    </tr>
+    <!--<tr bgcolor="#e0e0e0">
+    <td align="center" colspan="4"><b>Total</b>: R$ number_format(evaluate({$quantidade} * {$preco}), 2, ',', '.')
+    </td>
+</tr>-->
+    <!--[/produtos]-->
+</table>
+<!--[/main]-->

@@ -122,6 +122,10 @@
                 <icon>fas:database fa-fw</icon>
                 <action>Pdfhtml2</action>
               </menuitem>
+              <menuitem label='PDF HTML 3'>
+                <icon>fas:database fa-fw</icon>
+                <action>Pdfhtml3</action>
+              </menuitem>
             <menuitem label='Conexao Manual'>
                 <icon>fas:user fa-fw</icon>
                 <action>ConexaoManual</action>

@@ -7,9 +7,9 @@ use Adianti\Widget\Form\TEntry;
 /**
  * @author Lucas Bortoloti <bortoloti91@gmail.com
  */
-class Pdfhtml2 extends TPage
+class Pdfhtml3 extends TPage
 {
-    private $form; // form
+    protected $form;     // registration form
 
     use Adianti\Base\AdiantiStandardFormTrait; // Standard form methods
 
@@ -18,32 +18,28 @@ class Pdfhtml2 extends TPage
 
         parent::__construct();
 
-        $this->setDatabase('sale');              // defines the database
-        $this->setActiveRecord('Product');
+        $this->setDatabase('sale');          // defines the database
+        $this->setActiveRecord('Sale');         // defines the active record
 
-        $this->form = new BootstrapFormBuilder('form_pdf_html2');
-        $this->form->setFormTitle('Gerador PDF html teste 2 ');
+        $this->form = new BootstrapFormBuilder('form_pdf_html3');
+        $this->form->setFormTitle('Gerador PDF html teste 3 ');
 
-        $produtos = new TDBUniqueSearch('produtos[]', 'sale', 'Product', 'id', 'nome');
-        $produtos->setMinLength(0);
-        $produtos->setSize('100%');
-        $produtos->setMask('({id}) {nome}');
+        $cliente = new TDBUniqueSearch('cliente[]', 'sale', 'Cliente', 'id', 'nome');
+        $cliente->setMinLength(0);
+        $cliente->setSize('100%');
+        $cliente->setMask('{nome} ({id})');
 
-        $quantidade = new TNumeric('quantidade[]', 0, ',', '.');
+        $this->venda = new TFieldList;
+        $this->venda->style = ('width: 100%');
+        $this->venda->addField('<b>Cliente</b>', $cliente, ['width' => '50%']);
 
-        $this->produto = new TFieldList;
-        $this->produto->style = ('width: 100%');
-        $this->produto->addField('<b>Produtos</b>', $produtos, ['width' => '50%']);
-        $this->produto->addField('<b>Qntd</b>', $quantidade, ['width' => '10%']);
+        $this->form->addField($cliente);
 
-        $this->form->addField($produtos);
-        $this->form->addField($quantidade);
+        $this->venda->addHeader();
+        $this->venda->addDetail(new stdClass);
+        $this->venda->addCloneAction();
 
-        $this->produto->addHeader();
-        $this->produto->addDetail(new stdClass);
-        $this->produto->addCloneAction();
-
-        $row = $this->form->addContent([$this->produto]);
+        $row = $this->form->addContent([$this->venda]);
         $row->layout = ['col-sm-12'];
 
         $this->form->addAction('Gerar', new TAction([$this, 'onGenerate'], ['id' => '{id}'], ['static' => 1]), 'fa:cogs');
@@ -72,16 +68,14 @@ class Pdfhtml2 extends TPage
         try {
 
             TTransaction::open('sale');
-            $data = $this->form->getData();
 
-            $produtosSelecionados = $param['produtos'];
+            $clienteSelecionado = $param['cliente_id'];
 
-            $this->html = new THtmlRenderer('app/resources/teste2.html');
+            $this->html = new THtmlRenderer('app/resources/teste3.html');
 
-            foreach ($produtosSelecionados as $index => $produtoId) {
-                $produtos = new Product($produtoId);
-                $produtos->quantidade = $data->quantidade[$index] ?? 1;
-                $this->addProduto($produtos);
+            foreach ($clienteSelecionado as $clienteId) {
+                $clientes = new Product($clienteId);
+                $this->addProduto($clientes);
             }
 
             echo "<pre>";
@@ -125,49 +119,32 @@ class Pdfhtml2 extends TPage
         }
     }
 
-    public function addProduto($produto)
+    public function addProduto()
     {
-        $pdf = new stdClass;
-        $pdf->name = 'Lucas';
+        $data = $this->form->getData();
 
-        $array_object['name'] = $pdf->name;
+        TTransaction::open('sale');
+
+        $object = Sale::find($data->cliente_id);
+
+        $array_object['nome'] = $object->name;
 
         $this->html->enableSection('main', $array_object);
 
         $replace = array();
 
-        $replace[] = array(
-            'nome' => $produto->nome,
-            'quantidade' => $produto->quantidade,
-            'preco' => $produto->preco
-        );
+        $products = $object->get_product();
 
-        $this->html->enableSection('produtos', $replace, TRUE);
-    }
-
-    /*public function addProduto($produtos)
-    {
-
-        $object = new stdClass;
-        $object->name = 'Lucas';
-
-        $array_object['name'] = $object->name;
-
-        $this->html->enableSection('main', $array_object);
-
-        $replace = array();
-
-        $produtos = $object->getProduct();
-
-        foreach ($produtos as $produto) {
+        foreach ($products as $product) {
 
             $replace[] = array(
-                'nome' => $produto->nome,
-                'quantidade' => $produto->quantidade,
-                'preco' => $produto->preco
+                'nome' => $product->nome,
+                'quantidade' => $product->quantidade,
+                'preco' => $product->preco
             );
 
             $this->html->enableSection('produtos', $replace, TRUE);
         }
-    }*/
+        TTransaction::close();
+    }
 }
