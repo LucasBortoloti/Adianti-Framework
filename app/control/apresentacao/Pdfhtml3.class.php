@@ -24,23 +24,17 @@ class Pdfhtml3 extends TPage
         $this->form = new BootstrapFormBuilder('form_pdf_html3');
         $this->form->setFormTitle('Gerador PDF html teste 3 ');
 
-        $cliente = new TDBUniqueSearch('cliente[]', 'sale', 'Cliente', 'id', 'nome');
-        $cliente->setMinLength(0);
-        $cliente->setSize('100%');
-        $cliente->setMask('{nome} ({id})');
+        $sale_item = new TDBUniqueSearch('sale_item', 'sale', 'SaleItem', 'id', 'id');
+        $sale_item->setMinLength(0);
+        $sale_item->setSize('100%');
 
-        $this->venda = new TFieldList;
-        $this->venda->style = ('width: 100%');
-        $this->venda->addField('<b>Cliente</b>', $cliente, ['width' => '50%']);
+        /*
+        $cliente_id = new TDBUniqueSearch('cliente_id', 'sale', 'Sale', 'id', 'nome');
+        $cliente_id->setMinLength(0);
+        $cliente_id->setSize('100%');
+        */
 
-        $this->form->addField($cliente);
-
-        $this->venda->addHeader();
-        $this->venda->addDetail(new stdClass);
-        $this->venda->addCloneAction();
-
-        $row = $this->form->addContent([$this->venda]);
-        $row->layout = ['col-sm-12'];
+        $this->form->addFields([new TLabel('Nota')], [$sale_item]);
 
         $this->form->addAction('Gerar', new TAction([$this, 'onGenerate'], ['id' => '{id}'], ['static' => 1]), 'fa:cogs');
 
@@ -69,19 +63,29 @@ class Pdfhtml3 extends TPage
 
             TTransaction::open('sale');
 
-            $clienteSelecionado = $param['cliente_id'];
+            $master_object = new SaleItem($param['sale_item']);
 
             $this->html = new THtmlRenderer('app/resources/teste3.html');
 
-            foreach ($clienteSelecionado as $clienteId) {
-                $clientes = new Product($clienteId);
-                $this->addProduto($clientes);
-            }
+            $pdf = new stdClass;
+            $pdf->name = 'Lucas';
 
-            echo "<pre>";
-            print_r($param);
-            echo "</pre>";
+            $array_object['name'] = $pdf->name;
 
+            //A chave estrangeira cliente_id está na tabela sale e não na sale_item, terá que ver como puxar o cliente
+            //$array_object['name'] = (Cliente::find($master_object->cliente_id)->nome);
+
+            $this->html->enableSection('main', $array_object);
+
+            $replace = array();
+
+            $replace[] = array(
+                'nome' => (Product::find($master_object->product_id)->nome),
+                'quantidade' => $master_object->quantidade,
+                'preco' => $master_object->sale_price
+            );
+
+            $this->html->enableSection('produtos', $replace, TRUE);
             // wrap the page content using vertical box
             $vbox = new TVBox;
             $vbox->style = 'width: 100%';
@@ -117,34 +121,5 @@ class Pdfhtml3 extends TPage
         } catch (Exception $e) {
             new TMessage('error', $e->getMessage());
         }
-    }
-
-    public function addProduto()
-    {
-        $data = $this->form->getData();
-
-        TTransaction::open('sale');
-
-        $object = Sale::find($data->cliente_id);
-
-        $array_object['nome'] = $object->name;
-
-        $this->html->enableSection('main', $array_object);
-
-        $replace = array();
-
-        $products = $object->get_product();
-
-        foreach ($products as $product) {
-
-            $replace[] = array(
-                'nome' => $product->nome,
-                'quantidade' => $product->quantidade,
-                'preco' => $product->preco
-            );
-
-            $this->html->enableSection('produtos', $replace, TRUE);
-        }
-        TTransaction::close();
     }
 }

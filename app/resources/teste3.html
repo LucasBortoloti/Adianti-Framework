@@ -20,18 +20,16 @@
         <td align="center"><b>Produto</b></td>
         <td align="center"><b>Quantidade</b></td>
         <td align="center"><b>Valor</b></td>
-        <td align="center"><b>Total</b></td>
     </tr>
     <tr>
         <td align="center">{$nome}</td>
         <td align="center">{$quantidade}</td>
         <td align="center">R$ number_format({$preco},2,',', '.')</td>
-        <td align="center">R$ number_format(evaluate({$quantidade} * {$preco}), 2, ',', '.')</td>
     </tr>
-    <!--<tr bgcolor="#e0e0e0">
-    <td align="center" colspan="4"><b>Total</b>: R$ number_format(evaluate({$quantidade} * {$preco}), 2, ',', '.')
-    </td>
-</tr>-->
-    <!--[/produtos]-->
+    <<tr bgcolor="#e0e0e0">
+        <td align="center" colspan="4"><b>Total</b>: R$ number_format(evaluate({$quantidade} * {$preco}), 2, ',', '.')
+        </td>
+        </tr>
+        <!--[/produtos]-->
 </table>
 <!--[/main]-->
