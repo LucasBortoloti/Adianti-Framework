@@ -24,9 +24,9 @@ class Pdfhtml3 extends TPage
         $this->form = new BootstrapFormBuilder('form_pdf_html3');
         $this->form->setFormTitle('Gerador PDF html teste 3 ');
 
-        $sale_item = new TDBUniqueSearch('sale_item', 'sale', 'SaleItem', 'id', 'id');
-        $sale_item->setMinLength(0);
-        $sale_item->setSize('100%');
+        $sale_id = new TDBUniqueSearch('sale_id', 'sale', 'Sale', 'id', 'id');
+        $sale_id->setMinLength(0);
+        $sale_id->setSize('100%');
 
         /*
         $cliente_id = new TDBUniqueSearch('cliente_id', 'sale', 'Sale', 'id', 'nome');
@@ -34,7 +34,7 @@ class Pdfhtml3 extends TPage
         $cliente_id->setSize('100%');
         */
 
-        $this->form->addFields([new TLabel('Nota')], [$sale_item]);
+        $this->form->addFields([new TLabel('Nota')], [$sale_id]);
 
         $this->form->addAction('Gerar', new TAction([$this, 'onGenerate'], ['id' => '{id}'], ['static' => 1]), 'fa:cogs');
 
@@ -63,27 +63,32 @@ class Pdfhtml3 extends TPage
 
             TTransaction::open('sale');
 
-            $master_object = new SaleItem($param['sale_item']);
-
             $this->html = new THtmlRenderer('app/resources/teste3.html');
 
-            $pdf = new stdClass;
-            $pdf->name = 'Lucas';
+            $master_object = new Sale($param['sale_id']);
 
-            $array_object['name'] = $pdf->name;
+            $cliente = $master_object->get_clientes();
 
-            //A chave estrangeira cliente_id está na tabela sale e não na sale_item, terá que ver como puxar o cliente
-            //$array_object['name'] = (Cliente::find($master_object->cliente_id)->nome);
+            $array_object['name'] = ($cliente->nome);
 
             $this->html->enableSection('main', $array_object);
 
             $replace = array();
 
-            $replace[] = array(
-                'nome' => (Product::find($master_object->product_id)->nome),
-                'quantidade' => $master_object->quantidade,
-                'preco' => $master_object->sale_price
-            );
+            $products = $master_object->get_products();
+
+            foreach ($products as $product) {
+
+                $replace[] = array(
+                    'nome' => $product->nome,
+                    //'quantidade' => $product->quantidade,
+                    'preco' => $product->preco
+                );
+            }
+
+            echo "<pre>";
+            print_r($param);
+            echo "</pre>";
 
             $this->html->enableSection('produtos', $replace, TRUE);
             // wrap the page content using vertical box

@@ -12,7 +12,7 @@ class Sale extends TRecord
     const PRIMARYKEY = 'id';
     const IDPOLICY =  'max'; // {max, serial}
     private $cliente;
-    private $product;
+    private $products;
 
     /**
      * Constructor method
@@ -27,6 +27,22 @@ class Sale extends TRecord
         parent::addAttribute('cliente_id');
         parent::addAttribute('total');
         parent::addAttribute('status_id');
+    }
+
+    public function get_products()
+    {
+        $product_ids = SaleItem::where('sale_id', '=', $this->id)->getIndexedArray('id');
+        $this->products = Product::where('id', 'IN', $product_ids)->load();
+
+        return $this->products;
+    }
+
+    public function get_clientes()
+    {
+        $cliente_id = Sale::where('id', '=', $this->id)->getIndexedArray('id');
+        $this->cliente = Cliente::where('id', 'IN', $cliente_id)->load();
+
+        return $this->cliente;
     }
 
     public function set_product(Product $object)
