@@ -31,18 +31,10 @@ class Sale extends TRecord
 
     public function get_products()
     {
-        $product_ids = SaleItem::where('sale_id', '=', $this->id)->getIndexedArray('id');
+        $product_ids = SaleItem::where('sale_id', '=', $this->id)->getIndexedArray('product_id');
         $this->products = Product::where('id', 'IN', $product_ids)->load();
 
         return $this->products;
-    }
-
-    public function get_clientes()
-    {
-        $cliente_id = Sale::where('id', '=', $this->id)->getIndexedArray('id');
-        $this->cliente = Cliente::where('id', 'IN', $cliente_id)->load();
-
-        return $this->cliente;
     }
 
     public function set_product(Product $object)

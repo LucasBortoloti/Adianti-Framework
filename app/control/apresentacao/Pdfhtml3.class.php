@@ -10,6 +10,7 @@ use Adianti\Widget\Form\TEntry;
 class Pdfhtml3 extends TPage
 {
     protected $form;     // registration form
+    private $object;
 
     use Adianti\Base\AdiantiStandardFormTrait; // Standard form methods
 
@@ -65,17 +66,15 @@ class Pdfhtml3 extends TPage
 
             $this->html = new THtmlRenderer('app/resources/teste3.html');
 
-            $master_object = new Sale($param['sale_id']);
+            $sale = new Sale($param['sale_id']);
 
-            $cliente = $master_object->get_clientes();
-
-            $array_object['name'] = ($cliente->nome);
+            $array_object['name'] = $sale->cliente->nome;
 
             $this->html->enableSection('main', $array_object);
 
             $replace = array();
 
-            $products = $master_object->get_products();
+            $products = $sale->get_products();
 
             foreach ($products as $product) {
 
@@ -84,13 +83,14 @@ class Pdfhtml3 extends TPage
                     //'quantidade' => $product->quantidade,
                     'preco' => $product->preco
                 );
+
+                echo "<pre>";
+                print_r($param);
+                echo "</pre>";
             }
 
-            echo "<pre>";
-            print_r($param);
-            echo "</pre>";
-
             $this->html->enableSection('produtos', $replace, TRUE);
+
             // wrap the page content using vertical box
             $vbox = new TVBox;
             $vbox->style = 'width: 100%';
