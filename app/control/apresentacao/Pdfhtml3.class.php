@@ -74,20 +74,44 @@ class Pdfhtml3 extends TPage
 
             $replace = array();
 
-            $products = $sale->get_products();
+            $sale_items = $sale->get_saleitems();
 
-            foreach ($products as $product) {
+            //$products = $sale->get_products();
+
+            /*foreach ($products as $index => $product) {
 
                 $replace[] = array(
                     'nome' => $product->nome,
-                    //'quantidade' => $product->quantidade,
+                    'quantidade' => $sale_items[$index]->quantidade,
                     'preco' => $product->preco
                 );
 
-                echo "<pre>";
-                print_r($param);
-                echo "</pre>";
+                //echo "<pre>";
+                //print_r($replace);
+                //echo "</pre>";
             }
+            */
+
+            //Existem duas maneiras de fazer:
+
+            foreach ($sale_items as $sale_item) {
+
+                $replace[] = array(
+                    'nome' => $sale_item->product->nome,
+                    'quantidade' => $sale_item->quantidade,
+                    'preco' => $sale_item->product->preco
+                );
+            }
+
+            /*foreach ($sale_items as $index => $sale_item) {
+
+                $replace[] = array(
+                    'nome' => $sale_item->product->nome,
+                    'quantidade' => $sale_items[$index]->quantidade,
+                    'preco' => $sale_item->product->preco
+                );
+            }
+            */
 
             $this->html->enableSection('produtos', $replace, TRUE);
 

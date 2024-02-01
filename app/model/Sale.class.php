@@ -13,6 +13,7 @@ class Sale extends TRecord
     const IDPOLICY =  'max'; // {max, serial}
     private $cliente;
     private $products;
+    private $sale_items;
 
     /**
      * Constructor method
@@ -29,6 +30,16 @@ class Sale extends TRecord
         parent::addAttribute('status_id');
     }
 
+    //feito para eu pegar a quantidade da tabela sale_items e do model saleitems
+    public function get_saleitems()
+    {
+        if (empty($this->sale_items)) {
+            $this->sale_items = SaleItem::where('sale_id', '=', $this->id)->load();
+        }
+        return $this->sale_items;
+    }
+
+    // feito para eu pegar os produtos da tabela e do model product
     public function get_products()
     {
         $product_ids = SaleItem::where('sale_id', '=', $this->id)->getIndexedArray('product_id');
