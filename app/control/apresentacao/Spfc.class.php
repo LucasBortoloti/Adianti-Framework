@@ -103,7 +103,7 @@ class Spfc extends TPage
         $image11->style = 'width: 10%;';
         $image11->style = 'height: 123px;';
 
-        $image12 = new TImage('app/images/gabriel.png');
+        $image12 = new TImage('app/images/alisson.png');
         $image12->style = 'width: 10%;';
         $image12->style = 'height: 120px;';
 
@@ -111,7 +111,7 @@ class Spfc extends TPage
         $image13->style = 'width: 10%;';
         $image13->style = 'height: 119px;';
 
-        $image14 = new TImage('app/images/james.png');
+        $image14 = new TImage('app/images/nestor.png');
         $image14->style = 'width: 10%;';
         $image14->style = 'height: 127px;';
 
@@ -119,7 +119,7 @@ class Spfc extends TPage
         $image15->style = 'width: 10%;';
         $image15->style = 'height: 125px;';
 
-        $image16 = new TImage('app/images/luciano.png');
+        $image16 = new TImage('app/images/rato.png');
         $image16->style = 'width: 10%;';
         $image16->style = 'height: 120px;';
 
@@ -137,11 +137,11 @@ class Spfc extends TPage
         $table->addRowSet('ㅤ', '', '', '', '');
         $table->addRowSet('', '<b>Laterais: Caio Paulista e Rafinha</b>', $image10, $image11);
         $table->addRowSet('ㅤ', '', '', '', '');
-        $table->addRowSet('', '<b>Volantes: Gabi Neves e Pablo Maia </b>', $image12, $image13);
+        $table->addRowSet('', '<b>Volantes: Alisson e Pablo Maia </b>', $image12, $image13);
         $table->addRowSet('ㅤ', '', '', '', '');
-        $table->addRowSet('', '<b>Pontas/Meias: James Rodríguez e Lucas Moura</b>', $image14, $image15);
+        $table->addRowSet('', '<b>Pontas/Meias: Rodrigo Nestor e Wellington Rato</b>', $image14, $image16);
         $table->addRowSet('ㅤ', '', '', '', '');
-        $table->addRowSet('', '<b>Atacantes: Luciano e Calleri</b>', $image16, $image17);
+        $table->addRowSet('', '<b>Atacantes: Lucas e Calleri</b>', $image15, $image17);
         $table->addRowSet('ㅤ', '', '', '', '');
         $table->addRowSet('', '<b>Técnico: Dorival Jr</b>', $image18);
         $table->addRowSet('ㅤ', '', '', '', '');

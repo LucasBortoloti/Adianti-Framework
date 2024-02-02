@@ -9,6 +9,13 @@
     margin-top: 20px;
 }
 
+.customform .img {
+    max-width: 80px;
+    max-height: 80px;
+    width: auto;
+    height: auto;
+}
+
 .customform .formtitle {
     padding: 15px;
     text-decoration: none;
