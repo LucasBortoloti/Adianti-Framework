@@ -97,6 +97,7 @@ class Pdfhtml3 extends TPage
             foreach ($sale_items as $sale_item) {
 
                 $replace[] = array(
+                    'codigo' => $sale_item->product->id,
                     'nome' => $sale_item->product->nome,
                     'quantidade' => $sale_item->quantidade,
                     'preco' => $sale_item->product->preco

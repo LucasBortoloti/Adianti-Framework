@@ -10,17 +10,19 @@
 </table>
 <table class="customform" style="width:100%">
     <tr>
-        <td class="sectiontitle" colspan="4">Details</td>
+        <td class="sectiontitle" colspan="5">Detalhes</td>
     </tr>
     <tr>
-        <td align="center"><b>Produto</b></td>
+        <td align="center"><b>Código</b></td>
+        <td class="bordas" align="center"><b>Produto</b></td>
         <td class="bordas" align="center"><b>Quantidade</b></td>
         <td class="bordas" align="center"><b>Valor</b></td>
         <td class="bordas" align="center"><b>Total</b></td>
     </tr>
     <!--[produtos]-->
     <tr>
-        <td align="center">{$nome}</td>
+        <td align="center">{$codigo}</td>
+        <td class="bordas" align="center">{$nome}</td>
         <td class="bordas" align="center">{$quantidade}</td>
         <td class="bordas" align="center">R$ number_format({$preco},2,',', '.')</td>
         <td class="bordas" align="center">R$ number_format(evaluate({$quantidade} * {$preco}), 2, ',', '.')</td>
