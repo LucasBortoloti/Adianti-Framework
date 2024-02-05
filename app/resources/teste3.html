@@ -12,18 +12,18 @@
     <tr>
         <td class="sectiontitle" colspan="4">Details</td>
     </tr>
-    <!--[produtos]-->
     <tr>
         <td align="center"><b>Produto</b></td>
-        <td align="center"><b>Quantidade</b></td>
-        <td align="center"><b>Valor</b></td>
-        <td align="center"><b>Total</b></td>
+        <td class="bordas" align="center"><b>Quantidade</b></td>
+        <td class="bordas" align="center"><b>Valor</b></td>
+        <td class="bordas" align="center"><b>Total</b></td>
     </tr>
+    <!--[produtos]-->
     <tr>
         <td align="center">{$nome}</td>
-        <td align="center">{$quantidade}</td>
-        <td align="center">R$ number_format({$preco},2,',', '.')</td>
-        <td align="center">R$ number_format(evaluate({$quantidade} * {$preco}), 2, ',', '.')</td>
+        <td class="bordas" align="center">{$quantidade}</td>
+        <td class="bordas" align="center">R$ number_format({$preco},2,',', '.')</td>
+        <td class="bordas" align="center">R$ number_format(evaluate({$quantidade} * {$preco}), 2, ',', '.')</td>
     </tr>
     <!--[/produtos]-->
 </table>
