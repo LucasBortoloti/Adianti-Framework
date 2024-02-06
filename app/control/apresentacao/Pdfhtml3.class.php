@@ -116,6 +116,8 @@ class Pdfhtml3 extends TPage
 
             $this->html->enableSection('produtos', $replace, TRUE);
 
+            $this->html->enableSection('eae');
+
             // wrap the page content using vertical box
             $vbox = new TVBox;
             $vbox->style = 'width: 100%';
