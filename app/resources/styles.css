@@ -7,6 +7,8 @@
     background: #f9f9f9;
     border: 1px solid #000;
     margin-top: 20px;
+    border-collapse: collapse;
+    /* esse border-collapse é o responsável pelas bordas ficarem completas e sem sobras entre uma e outra*/
 }
 
 .customform .img {
@@ -37,8 +39,13 @@
     border-radius: 0;
 }
 
+.customform td.bordash {
+    border-bottom: 1px solid #443f3f;
+    border-left: 1px solid #443f3f;
+}
+
 .customform td.bordas {
-    border-left: 1px solid #898989;
+    border-left: 1px solid #443f3f;
 }
 
 .customform .formfield {
@@ -61,6 +68,7 @@
 }
 
 .customform tbody.formdata td {
+    /*não serve pra nada está aqui só de exemplo*/
     padding: 8px;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
