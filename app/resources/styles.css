@@ -35,13 +35,27 @@
     font-weight: bold;
     font-size: 17px;
     color: #ffffff;
-    background: #443f3f;
+    background: #023b53;
     border-radius: 0;
 }
+
+/*
+Fazer gradiente:
+.customform {
+   background-image: linear-gradient(to right, #023b53, #000000);
+}
+*/
 
 .customform td.bordash {
     border-bottom: 1px solid #443f3f;
     border-left: 1px solid #443f3f;
+}
+
+.customform td.bordasl {
+    color: #ffffff;
+    border-bottom: 1px solid #000000;
+    border-left: 1px solid #000000;
+    background: #023b53;
 }
 
 .customform td.bordas {
