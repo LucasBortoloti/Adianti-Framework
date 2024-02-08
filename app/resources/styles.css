@@ -4,12 +4,21 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     font-size: 19px;
     width: 840px;
-    background: #f9f9f9;
+    background: #00000017;
     border: 1px solid #000;
     margin-top: 20px;
     border-collapse: collapse;
     /* esse border-collapse é o responsável pelas bordas ficarem completas e sem sobras entre uma e outra*/
 }
+
+/*como puxar uma fonte baixada
+@font-face {
+    font-family: 'Danger';
+    src: url('app/resources/anotherdanger.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+*/
 
 .customform .img {
     max-width: 80px;
@@ -63,8 +72,9 @@ Fazer gradiente:
 }
 
 .customform .formfield {
-    background: #ffffff;
+    background: #ffffff3a;
     border: 1px solid #000;
+    color: #000000;
     border-radius: 3px;
     height: 30px;
     display: block;
@@ -82,8 +92,36 @@ Fazer gradiente:
 }
 
 .customform tbody.formdata td {
-    /*não serve pra nada está aqui só de exemplo*/
+    /*não serve pra nada, está aqui só de exemplo*/
     padding: 8px;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
 }
+
+/* A pseudo-classe é usada quando quer que ao passar o mouse por cima de algum
+elemento ele mude de cor, ou sublinhe, por exemplo
+
+a {
+    color: red;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
+o pseudo-elemento é usado para adicionar estilos a partes específicas de um 
+elemento que não são representadas diretamente no código HTML.
+
+.a::before{
+    content:'->';
+}
+
+.a::after{
+    content:'<-';
+}
+
+nesses exemplos de pseudo-classe e elemento, tudo esta relacionado com a classe a
+*/
