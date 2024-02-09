@@ -118,6 +118,8 @@ class Pdfhtml3 extends TPage
 
             $this->html->enableSection('eae');
 
+            $this->html->enableSection('salve');
+
             // wrap the page content using vertical box
             $vbox = new TVBox;
             $vbox->style = 'width: 100%';

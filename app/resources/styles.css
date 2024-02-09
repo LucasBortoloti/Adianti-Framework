@@ -72,7 +72,7 @@ Fazer gradiente:
 }
 
 .customform .formfield {
-    background: #ffffff3a;
+    background: #ffffff29;
     border: 1px solid #000;
     color: #000000;
     border-radius: 3px;
@@ -112,7 +112,7 @@ a:hover {
     text-decoration: underline;
 }
 
-o pseudo-elemento é usado para adicionar estilos a partes específicas de um 
+O pseudo-elemento é usado para adicionar estilos a partes específicas de um 
 elemento que não são representadas diretamente no código HTML.
 
 .a::before{
@@ -123,5 +123,14 @@ elemento que não são representadas diretamente no código HTML.
     content:'<-';
 }
 
-nesses exemplos de pseudo-classe e elemento, tudo esta relacionado com a classe a
+nesses exemplos de pseudo-classe e elemento, tudo esta relacionado com a classe "a"
+
+Esse símbolo > indica children, no caso ser o filho, exemplo: 
+
+    div > p{
+        display: none;
+    }
+
+    Os paragráfos que estao dentro da div não irá aparecer
+
 */
