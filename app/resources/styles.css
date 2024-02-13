@@ -89,11 +89,11 @@ caption {
     padding: 10px;
 }
 
-td.bordas:nth-of-type(even) {
+td.bordas:nth-of-type(odd) {
     background: #e1e0e0;
 }
 
-td.bordash:nth-of-type(even) {
+td.bordash:nth-of-type(odd) {
     background: #e1e0e0;
 }
 
