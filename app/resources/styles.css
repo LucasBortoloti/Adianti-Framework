@@ -11,15 +11,6 @@
     /* esse border-collapse é o responsável pelas bordas ficarem completas e sem sobras entre uma e outra*/
 }
 
-/*como puxar uma fonte baixada
-@font-face {
-    font-family: 'Danger';
-    src: url('app/resources/anotherdanger.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-*/
-
 .customform .img {
     max-width: 80px;
     max-height: 80px;
@@ -33,7 +24,7 @@
     font-weight: bold;
     font-size: 18px;
     color: #fff;
-    background: #1f1c1c;
+    background: #e0e0e0ef;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
@@ -48,13 +39,6 @@
     border-radius: 0;
 }
 
-/*
-Fazer gradiente:
-.customform {
-   background-image: linear-gradient(to right, #023b53, #000000);
-}
-*/
-
 .customform td.bordash {
     border-bottom: 1px solid #000000;
     border-left: 1px solid #000000;
@@ -68,12 +52,16 @@ Fazer gradiente:
     background: #023b53;
 }
 
+.customform td.rodape {
+    border-left: 1px solid #000000;
+}
+
 .customform td.bordas {
     border-left: 1px solid #000000;
 }
 
 .customform .formfield {
-    background: #7d7d7d22;
+    background: #e1e0e0;
     border: 1px solid #000;
     color: #000000;
     border-radius: 3px;
@@ -101,12 +89,40 @@ caption {
     padding: 10px;
 }
 
+td.bordas:nth-of-type(even) {
+    background: #e1e0e0;
+}
+
+td.bordash:nth-of-type(even) {
+    background: #e1e0e0;
+}
+
+td.rodape:nth-of-type(odd) {
+    background: #e1e0e0;
+}
+
 .customform tbody.formdata td {
     /*não serve pra nada, está aqui só de exemplo*/
     padding: 8px;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
 }
+
+/*
+Fazer gradiente:
+.customform {
+   background-image: linear-gradient(to right, #023b53, #000000);
+}
+*/
+
+/*como puxar uma fonte baixada
+@font-face {
+    font-family: 'Danger';
+    src: url('app/resources/anotherdanger.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+*/
 
 /* A pseudo-classe é usada quando quer que ao passar o mouse por cima de algum
 elemento ele mude de cor, ou sublinhe, por exemplo
