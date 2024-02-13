@@ -1,10 +1,10 @@
 .customform {
     font-family: 'Arial', sans-serif;
     border-radius: 1px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    font-size: 19px;
+    box-shadow: 0 2px 4px #00000033;
+    font-size: 18px;
     width: 840px;
-    background: #00000017;
+    background: #ffffff;
     border: 1px solid #000;
     margin-top: 20px;
     border-collapse: collapse;
@@ -42,7 +42,7 @@
     padding: 10px;
     text-decoration: none;
     font-weight: bold;
-    font-size: 17px;
+    font-size: 18px;
     color: #ffffff;
     background: #023b53;
     border-radius: 0;
@@ -56,23 +56,24 @@ Fazer gradiente:
 */
 
 .customform td.bordash {
-    border-bottom: 1px solid #443f3f;
-    border-left: 1px solid #443f3f;
+    border-bottom: 1px solid #000000;
+    border-left: 1px solid #000000;
 }
 
 .customform td.bordasl {
     color: #ffffff;
+    font-size: 18px;
     border-bottom: 1px solid #000000;
     border-left: 1px solid #000000;
     background: #023b53;
 }
 
 .customform td.bordas {
-    border-left: 1px solid #443f3f;
+    border-left: 1px solid #000000;
 }
 
 .customform .formfield {
-    background: #ffffff29;
+    background: #7d7d7d22;
     border: 1px solid #000;
     color: #000000;
     border-radius: 3px;
@@ -83,8 +84,17 @@ Fazer gradiente:
     box-sizing: border-box;
 }
 
+caption {
+    font-size: 18px;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    padding: 10px;
+    color: #ffffff;
+    background-color: #023b53;
+}
+
 .customform tr.oddrow {
-    background: #f2f2f2;
+    background: #ffffff;
 }
 
 .customform td {
