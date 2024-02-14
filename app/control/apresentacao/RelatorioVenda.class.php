@@ -2,22 +2,24 @@
 
 use Adianti\Control\TPage;
 
-class RelatorioVenda extends TPage{
-    
+class RelatorioVenda extends TPage
+{
+
     private $form;
     private $faturamento;
     private $total;
     private $valorProduto;
 
-        public function __construct(){
+    public function __construct()
+    {
 
-        parent:: __construct();
-        
+        parent::__construct();
+
         $this->form = new TForm('form_Customer_Report');
         $this->form->class = 'tform';
 
         $table = new TTable;
-        $table-> width = '100%';
+        $table->width = '100%';
         $this->form->add($table);
 
         $quantidade = new TEntry('quantidade');
@@ -25,7 +27,7 @@ class RelatorioVenda extends TPage{
         $produto_id = new TDBCombo('produto_id', 'venda', 'Produto', 'id', 'nome');
         $output_type = new TRadioGroup('output_type');
 
-        $options = array('html' =>'HTML', 'pdf' => 'PDF', 'rtf' => 'RTF');
+        $options = array('html' => 'HTML', 'pdf' => 'PDF', 'rtf' => 'RTF');
         $output_type->addItems($options);
         $output_type->setValue('pdf');
         $output_type->setLayout('horizontal');
@@ -37,12 +39,12 @@ class RelatorioVenda extends TPage{
         $row = $table->addRowSet(new TLabel('Venda', ''));
         $row->class = 'tformtittle';
 
-        $table->addRowSet( [ new TLabel('Quantidade')] , [ $quantidade ] );
-        $table->addRowSet( [ new TLabel('Venda')] , [ $venda_id ] );
-        $table->addRowSet( [ new TLabel('Produto')] , [ $produto_id ] );
-        $table->addRowSet( [ new TLabel('Output')] , [ $output_type ] );
-        
-        $save_button=new TButton('generate');
+        $table->addRowSet([new TLabel('Quantidade')], [$quantidade]);
+        $table->addRowSet([new TLabel('Venda')], [$venda_id]);
+        $table->addRowSet([new TLabel('Produto')], [$produto_id]);
+        $table->addRowSet([new TLabel('Output')], [$output_type]);
+
+        $save_button = new TButton('generate');
         $save_button->setAction(new TAction(array($this, 'onGenerate')), 'Generate');
         $save_button->setImage('ico_save.png');
 
@@ -56,8 +58,7 @@ class RelatorioVenda extends TPage{
 
     function onGenerate()
     {
-        try
-        {
+        try {
             // open a transaction with database 'samples'
             TTransaction::open('venda');
             $object = $this->form->getData();
@@ -65,26 +66,26 @@ class RelatorioVenda extends TPage{
             $reposity = new TRepository('VendaProduto');
             $criteria = new TCriteria;
 
-            if($object->quantidade){
+            if ($object->quantidade) {
                 $criteria->add(new TFilter('quantidade', 'like', "%{$object->quantidade}%"));
             }
 
-            if($object->venda_id){
+            if ($object->venda_id) {
                 $criteria->add(new TFilter('venda_id', 'like', "%{$object->venda_id}%"));
             }
 
-            if($object->produto_id){
+            if ($object->produto_id) {
                 $criteria->add(new TFilter('produto_id', '=', "{$object->produto_id}"));
             }
-            
+
             $customers = $reposity->load($criteria);
             $format = $object->output_type;
-            
-            if($customers){
-                
+
+            if ($customers) {
+
                 $widths = array(90, 130, 80, 90, 70);
-                switch ($format){
-                    
+                switch ($format) {
+
                     case 'html':
                         $tr = new TTableWriterHTML($widths);
                         break;
@@ -109,90 +110,49 @@ class RelatorioVenda extends TPage{
                 $tr->addCell('Venda',           'left', 'tittle');
                 $tr->addCell('Produto',         'left', 'tittle');
                 $tr->addCell('Quantidade',      'left', 'tittle');
-                $tr->addCell('Valor do produto','left', 'tittle');
+                $tr->addCell('Valor do produto', 'left', 'tittle');
                 $tr->addCell('Total',           'left', 'tittle');
 
-                $colour= FALSE;
+                $colour = FALSE;
                 $total = 0;
                 $faturamento = 0;
                 $valorProduto = 0;
 
-                foreach ($customers as $customer){
+                foreach ($customers as $customer) {
                     $style = $colour ? 'datap' : 'datai';
 
                     $tr->addRow();
-                    $tr->addCell($customer->venda->cliente,'left', $style);
+                    $tr->addCell($customer->venda->cliente, 'left', $style);
                     $tr->addCell($customer->produto->nome, 'left', $style);
                     $tr->addCell($customer->quantidade,    'left', $style);
-                    
+
                     $colour = !$colour;
 
-                    $valorProduto = number_format($customer->produto->preco, 2, ',', '.');
+                    $valorProduto = number_format($customer->produto->sale_price, 2, ',', '.');
                     $tr->addCell($valorProduto, 'left', $style);
 
-                    $total = number_format($customer->produto->preco*$customer->quantidade, 2, ',', '.');
+                    $total = number_format($customer->produto->sale_price * $customer->quantidade, 2, ',', '.');
                     $tr->addCell($total, 'left', $style);
-                    
-                    $faturamento += ($customer->produto->preco*$customer->quantidade);
+
+                    $faturamento += ($customer->produto->sale_price * $customer->quantidade);
                 }
 
                 $faturamento = number_format($faturamento, 2, ',', '.');
 
-            $tr->addRow();
-            $tr->addCell('Faturamento',           'left', 'tittle');
-            $tr->addCell($faturamento,            'left', $style);
-            $tr->addCell(date('Y-m-d h:i:s'), 'center', 'footer', 3);
-            $tr->save("app/output/tabular3.{$format}");
-            new TMessage('info', 'Relatório gerado');
-        }
-                else{
-                    new TMessage('error', 'Não encontrou registros');
-                }
-                $this->form->setData($object);
-                TTransaction::close();
+                $tr->addRow();
+                $tr->addCell('Faturamento',           'left', 'tittle');
+                $tr->addCell($faturamento,            'left', $style);
+                $tr->addCell(date('Y-m-d h:i:s'), 'center', 'footer', 3);
+                $tr->save("app/output/tabular3.{$format}");
+                new TMessage('info', 'Relatório gerado');
+            } else {
+                new TMessage('error', 'Não encontrou registros');
             }
-            catch(Exception $e){
-                new TMessage('error', '<b>Error</b>' . $e->getMessage());
-                TTransaction::rollback();
-            }
-
+            $this->form->setData($object);
+            TTransaction::close();
+        } catch (Exception $e) {
+            new TMessage('error', '<b>Error</b>' . $e->getMessage());
+            TTransaction::rollback();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+}

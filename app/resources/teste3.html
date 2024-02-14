@@ -23,13 +23,22 @@
     </tr>
     <!--[produtos]-->
     <tr>
-        <td class="bordas" align="center">{$codigo}</td>
-        <td class="bordas" align="center">{$nome}</td>
-        <td class="bordas" align="center">{$quantidade}</td>
-        <td class="bordas" align="center">R$ number_format({$preco},2,',', '.')</td>
-        <td class="bordas" align="center">R$ number_format(evaluate({$quantidade} * {$preco}), 2, ',', '.')</td>
+        <td class="bordash" align="center">{$codigo}</td>
+        <td class="bordash" align="center">{$nome}</td>
+        <td class="bordash" align="center">{$quantidade}</td>
+        <td class="bordash" align="center">R$ number_format({$preco},2,',', '.')</td>
+        <td class="bordash" align="center">R$ number_format(evaluate({$quantidade} * {$preco}), 2, ',', '.')</td>
     </tr>
     <!--[/produtos]-->
+</table>
+<br>
+<table class="customform" style="width:100%">
+    <!--[rodape]-->
+    <tr>
+        <td class="bordash" align="center" colspan="1"><b>Total de Vendas</b>: R$ number_format({$totalnota}, 2, ',',
+            '.')</td>
+    </tr>
+    <!--[/rodape]-->
 </table>
 <br>
 <table class="customform" style="width:100%">

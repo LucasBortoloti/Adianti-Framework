@@ -94,15 +94,23 @@ class Pdfhtml3 extends TPage
 
             //Existem duas maneiras de fazer:
 
+            $total = 0;
+
             foreach ($sale_items as $sale_item) {
+
+                $total += ($sale_item->product->preco * $sale_item->quantidade);
 
                 $replace[] = array(
                     'codigo' => $sale_item->product->id,
                     'nome' => $sale_item->product->nome,
                     'quantidade' => $sale_item->quantidade,
-                    'preco' => $sale_item->product->preco
+                    'preco' => $sale_item->product->preco,
                 );
             }
+
+            $replacee[] = array(
+                'totalnota' => $total
+            );
 
             /*foreach ($sale_items as $index => $sale_item) {
 
@@ -115,6 +123,8 @@ class Pdfhtml3 extends TPage
             */
 
             $this->html->enableSection('produtos', $replace, TRUE);
+
+            $this->html->enableSection('rodape', $replacee, TRUE);
 
             $this->html->enableSection('eae');
 
