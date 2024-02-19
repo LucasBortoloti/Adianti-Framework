@@ -8,6 +8,7 @@
     border: 1px solid #000;
     margin-top: 20px;
     border-collapse: collapse;
+    padding: 10px;
     /* esse border-collapse é o responsável pelas bordas ficarem completas e sem sobras entre uma e outra*/
 }
 
@@ -107,6 +108,14 @@ td.rodape:nth-of-type(odd) {
     padding: 8px;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
+}
+
+.contagem {
+    margin-top: 1px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    font-size: 16px;
 }
 
 /*

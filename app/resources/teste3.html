@@ -9,26 +9,26 @@
         <td colspan="3"><span class="formfield">{$name}</span></td>
     </tr>
 </table>
-<br>
 <table class="customform" style="width:100%">
     <tr>
         <td class="sectiontitle" colspan="5">Detalhes</td>
     </tr>
     <tr>
-        <td class="bordash" align="center"><b>Código</b></td>
-        <td class="bordash" align="center"><b>Produto</b></td>
-        <td class="bordash" align="center"><b>Quantidade</b></td>
-        <td class="bordash" align="center"><b>Valor</b></td>
-        <td class="bordash" align="center"><b>Total</b></td>
+        <td class="bordas" align="center"><b>Código</b></td>
+        <td class="bordas" align="center"><b>Produto</b></td>
+        <td class="bordas" align="center"><b>Quantidade</b></td>
+        <td class="bordas" align="center"><b>Valor</b></td>
+        <td class="bordas" align="center"><b>Total</b></td>
     </tr>
     <!--[produtos]-->
     <tr>
-        <td class="bordash" align="center">{$codigo}</td>
-        <td class="bordash" align="center">{$nome}</td>
-        <td class="bordash" align="center">{$quantidade}</td>
-        <td class="bordash" align="center">R$ number_format({$preco},2,',', '.')</td>
-        <td class="bordash" align="center">R$ number_format(evaluate({$quantidade} * {$preco}), 2, ',', '.')</td>
+        <td class="bordas" align="center">{$codigo}</td>
+        <td class="bordas" align="center">{$nome}</td>
+        <td class="bordas" align="center">{$quantidade}</td>
+        <td class="bordas" align="center">R$ number_format({$preco},2,',', '.')</td>
+        <td class="bordas" align="center">R$ number_format(evaluate({$quantidade} * {$preco}), 2, ',', '.')</td>
     </tr>
+    <p class="contagem"><b>1</b></p>
     <!--[/produtos]-->
     <!--[rodape]-->
     <tr>
