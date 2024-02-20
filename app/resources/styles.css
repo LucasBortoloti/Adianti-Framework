@@ -118,6 +118,24 @@ td.rodape:nth-of-type(odd) {
     font-size: 16px;
 }
 
+.footer::after {
+    content: content '' counter(page);
+}
+
+.footer {
+    position: fixed;
+    bottom: -10px;
+    right: 10px;
+    height: 12px;
+}
+
+@page {
+    font-family: Arial, Helvetica, sans-serif;
+    size: A4 portrait;
+    margin: 1.5cm 1cm 1.2cm;
+    counter-increment: page;
+}
+
 /*
 Fazer gradiente:
 .customform {
