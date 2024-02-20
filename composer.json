@@ -12,11 +12,18 @@
     "adianti/pdfdesigner": "dev-master",
     "pablodalloglio/ole": "dev-master",
     "pablodalloglio/spreadsheet_excel_writer": "dev-master",
-    "pablodalloglio/fpdf": "dev-master"
+    "pablodalloglio/fpdf": "dev-master",
+    "marcelonees/ttinymceadianti": "dev-main"
   },
   "config": {
     "preferred-install": {
       "*": "dist"
+    }
+  },
+  "repositories": {
+    "ttinymceadianti": {
+      "type": "vcs",
+      "url": "https://github.com/marcelonees/ttinymceadianti"
     }
   }
 }

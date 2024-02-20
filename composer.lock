@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff7863b58cc6d3daa941f7f39c189867",
+    "content-hash": "6bbdd906f9fafa16ccda9e8fb3994125",
     "packages": [
         {
             "name": "adianti/pdfdesigner",
@@ -373,6 +373,43 @@
                 "source": "https://github.com/jrgp/linfo/tree/v4.0.7"
             },
             "time": "2022-06-18T05:21:05+00:00"
+        },
+        {
+            "name": "marcelonees/ttinymceadianti",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marcelonees/ttinymceadianti.git",
+                "reference": "4481f3dbe0068cc9ce3b3cc8121953fd38cc5c70"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marcelonees/ttinymceadianti/zipball/4481f3dbe0068cc9ce3b3cc8121953fd38cc5c70",
+                "reference": "4481f3dbe0068cc9ce3b3cc8121953fd38cc5c70",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MarceloNees\\TTinyMceAdianti\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcelo Barreto Nees",
+                    "email": "marcelo.linux@gmail.com"
+                }
+            ],
+            "description": "TTinyMceEditor for Adianti Framework",
+            "support": {
+                "source": "https://github.com/marcelonees/ttinymceadianti/tree/main",
+                "issues": "https://github.com/marcelonees/ttinymceadianti/issues"
+            },
+            "time": "2024-02-19T18:46:40+00:00"
         },
         {
             "name": "pablodalloglio/fpdf",
@@ -934,11 +971,12 @@
         "adianti/pdfdesigner": 20,
         "pablodalloglio/ole": 20,
         "pablodalloglio/spreadsheet_excel_writer": 20,
-        "pablodalloglio/fpdf": 20
+        "pablodalloglio/fpdf": 20,
+        "marcelonees/ttinymceadianti": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.6.0"
 }
