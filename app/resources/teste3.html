@@ -1,13 +1,26 @@
 <!--[main]-->
 <link href="app/resources/styles.css" rel="stylesheet" type="text/css" media="screen" />
 
-<table class="customform" style="width:100%">
-    <caption>Listagem de produtos</caption>
-    <tr>
-        <img class="img" src="app/images/spfcblue.png" alt="SPFC">
-        <td><b>Nome</b></td>
-        <td colspan="3"><span class="formfield">{$name}</span></td>
-    </tr>
+<div class="header">
+    <table class="customform" style="width:100%">
+        <caption>Listagem de produtos</caption>
+        <tr>
+            <img class="img" src="app/images/spfcblue.png" alt="SPFC">
+            <td><b>Cliente</b></td>
+            <td colspan="3"><span class="formfield">{$name}</span></td>
+        </tr>
+    </table>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <td>
+                <!--place holder for the fixed-position header-->
+                <div class="page-header-space"></div>
+            </td>
+        </tr>
+    </thead>
 </table>
 <table class="customform" style="width:100%">
     <tr>
@@ -26,7 +39,8 @@
         <td class="bordash" align="center">{$nome}</td>
         <td class="bordash" align="center">{$quantidade}</td>
         <td class="bordash" align="center">R$ number_format({$preco},2,',', '.')</td>
-        <td class="bordash" align="center">R$ number_format(evaluate({$quantidade} * {$preco}), 2, ',', '.')</td>
+        <td class="bordash" align="center">R$ number_format(evaluate({$quantidade} * {$preco}), 2, ',',
+            '.')</td>
     </tr>
     <!--[/produtos]-->
     <!--[rodape]-->

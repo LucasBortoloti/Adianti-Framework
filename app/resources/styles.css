@@ -12,11 +12,21 @@
     /* esse border-collapse é o responsável pelas bordas ficarem completas e sem sobras entre uma e outra*/
 }
 
-.customform .img {
+.header {
+    position: fixed;
+    top: 0mm;
+    width: 100%;
+}
+
+.header .img {
     max-width: 80px;
     max-height: 80px;
     width: auto;
     height: auto;
+}
+
+.page-header-space {
+    height: 150px;
 }
 
 .customform .formtitle {
@@ -119,12 +129,12 @@ td.rodape:nth-of-type(odd) {
 }
 
 .footer::after {
-    content: content '' counter(page);
+    content: counter(page);
 }
 
 .footer {
     position: fixed;
-    bottom: -10px;
+    bottom: -15px;
     right: 10px;
     height: 12px;
 }
@@ -132,7 +142,7 @@ td.rodape:nth-of-type(odd) {
 @page {
     font-family: Arial, Helvetica, sans-serif;
     size: A4 portrait;
-    margin: 1.5cm 1cm 1.2cm;
+    margin: 1.1cm 1cm 1.2cm;
     counter-increment: page;
 }
 
