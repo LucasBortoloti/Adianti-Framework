@@ -13,9 +13,15 @@
 }
 
 .header {
-    position: fixed;
-    top: 0mm;
+    /*position: fixed;*/
+    top: 0;
     width: 100%;
+    height: 1mm;
+    background-color: #ffffff;
+}
+
+.content {
+    margin-top: 45mm;
 }
 
 .header .img {
@@ -23,10 +29,6 @@
     max-height: 80px;
     width: auto;
     height: auto;
-}
-
-.page-header-space {
-    height: 150px;
 }
 
 .customform .formtitle {
@@ -113,30 +115,17 @@ td.rodape:nth-of-type(odd) {
     background: #e1e0e0;
 }
 
-.customform tbody.formdata td {
-    /*não serve pra nada, está aqui só de exemplo*/
-    padding: 8px;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-}
-
-.contagem {
-    margin-top: 1px;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    font-size: 16px;
-}
-
 .footer::after {
     content: counter(page);
 }
 
 .footer {
     position: fixed;
-    bottom: -15px;
-    right: 10px;
-    height: 12px;
+    bottom: 0px;
+    padding: 8px;
+    text-align: right;
+    width: 100%;
+    border-top: 1px solid #000000;
 }
 
 @page {

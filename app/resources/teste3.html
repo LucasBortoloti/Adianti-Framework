@@ -12,72 +12,64 @@
     </table>
 </div>
 
-<table>
-    <thead>
+<div class="content">
+    <table class="customform" style="width:100%">
         <tr>
-            <td>
-                <!--place holder for the fixed-position header-->
-                <div class="page-header-space"></div>
-            </td>
+            <td class="sectiontitle" colspan="5">Detalhes</td>
         </tr>
-    </thead>
-</table>
-<table class="customform" style="width:100%">
-    <tr>
-        <td class="sectiontitle" colspan="5">Detalhes</td>
-    </tr>
-    <tr>
-        <td class="bordash" align="center"><b>Código</b></td>
-        <td class="bordash" align="center"><b>Produto</b></td>
-        <td class="bordash" align="center"><b>Quantidade</b></td>
-        <td class="bordash" align="center"><b>Valor</b></td>
-        <td class="bordash" align="center"><b>Total</b></td>
-    </tr>
-    <!--[produtos]-->
-    <tr>
-        <td class="bordash" align="center">{$codigo}</td>
-        <td class="bordash" align="center">{$nome}</td>
-        <td class="bordash" align="center">{$quantidade}</td>
-        <td class="bordash" align="center">R$ number_format({$preco},2,',', '.')</td>
-        <td class="bordash" align="center">R$ number_format(evaluate({$quantidade} * {$preco}), 2, ',',
-            '.')</td>
-    </tr>
-    <!--[/produtos]-->
-    <!--[rodape]-->
-    <tr>
-        <td class="bordash" align="center" colspan="4"><b>Total de Vendas</b>: </td>
-        <td class="bordash" align="center" colspan="1">R$ number_format({$totalnota}, 2, ',',
-            '.')</td>
-    </tr>
-    <!--[/rodape]-->
-</table>
-<br>
-<table class="customform" style="width:100%">
-    <tr>
-        <td class="bordasl" align="left"><b>Informações complementares</b></td>
-        <td class="bordasl" align="left"><b>bla bla bla</b></td>
-        <td class="bordasl" align="left"><b> a a a a a a </b></td>
-    </tr>
-    <!--[eae]-->
-    <tr>
-        <td class="rodape" align="left">eae, tranquilo?</td>
-        <td class="rodape" align="left">de boa?</td>
-        <td class="rodape" align="left">salve?</td>
-    </tr>
-    <!--[/eae]-->
-</table>
-<br>
-<table class="customform" style="width:100%">
-    <tr>
-        <td class="bordasl" align="left"><b>São Paulo Futebol Clube</b></td>
-        <td class="bordasl" align="left"><b>Maior do Brasil</b></td>
-    </tr>
-    <!--[salve]-->
-    <tr>
-        <td class="rodape" align="left">Ganhou tudo possível</td>
-        <td class="rodape" align="left">Campeão de tudo</td>
-    </tr>
-</table>
-<!--[/salve]-->
-<p class="footer"></p>
+        <tr>
+            <td class="bordash" align="center"><b>Código</b></td>
+            <td class="bordash" align="center"><b>Produto</b></td>
+            <td class="bordash" align="center"><b>Quantidade</b></td>
+            <td class="bordash" align="center"><b>Valor</b></td>
+            <td class="bordash" align="center"><b>Total</b></td>
+        </tr>
+        <!--[produtos]-->
+        <tr>
+            <td class="bordash" align="center">{$codigo}</td>
+            <td class="bordash" align="center">{$nome}</td>
+            <td class="bordash" align="center">{$quantidade}</td>
+            <td class="bordash" align="center">R$ number_format({$preco},2,',', '.')</td>
+            <td class="bordash" align="center">R$ number_format(evaluate({$quantidade} * {$preco}), 2, ',',
+                '.')</td>
+        </tr>
+        <!--[/produtos]-->
+        <!--[rodape]-->
+        <tr>
+            <td class="bordash" align="center" colspan="4"><b>Total de Vendas</b>: </td>
+            <td class="bordash" align="center" colspan="1">R$ number_format({$totalnota}, 2, ',',
+                '.')</td>
+        </tr>
+        <!--[/rodape]-->
+    </table>
+    <br>
+    <table class="customform" style="width:100%">
+        <tr>
+            <td class="bordasl" align="left"><b>Informações complementares</b></td>
+            <td class="bordasl" align="left"><b>bla bla bla</b></td>
+            <td class="bordasl" align="left"><b> a a a a a a </b></td>
+        </tr>
+        <!--[eae]-->
+        <tr>
+            <td class="rodape" align="left">eae, tranquilo?</td>
+            <td class="rodape" align="left">de boa?</td>
+            <td class="rodape" align="left">salve?</td>
+        </tr>
+        <!--[/eae]-->
+    </table>
+    <br>
+    <table class="customform" style="width:100%">
+        <tr>
+            <td class="bordasl" align="left"><b>São Paulo Futebol Clube</b></td>
+            <td class="bordasl" align="left"><b>Maior do Brasil</b></td>
+        </tr>
+        <!--[salve]-->
+        <tr>
+            <td class="rodape" align="left">Ganhou tudo possível</td>
+            <td class="rodape" align="left">Campeão de tudo</td>
+        </tr>
+        <!--[/salve]-->
+    </table>
+</div>
+<footer class="footer"></footer>
 <!--[/main]-->
