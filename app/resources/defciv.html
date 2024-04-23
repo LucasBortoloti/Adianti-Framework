@@ -1,0 +1,52 @@
+<!--[main]-->
+<link href="app/resources/styles.css" rel="stylesheet" type="text/css" media="screen" />
+
+<body>
+    <div class="header">
+        <table class="customform" style="width:100%">
+            <caption>Ocorrencias</caption>
+            <tr>
+                <img class="img" src="app/images/spfcblue.png" alt="SPFC">
+                <td><b>Cliente</b></td>
+                <td colspan="3"><span class="formfield">{$descricao}</span></td>
+            </tr>
+        </table>
+    </div>
+    <footer>
+        <!-- o footer não deve ficar no final do html, pq se não ele só vai aparecer na útilma página, ele deve ficar no meio do html -->
+    </footer>
+    <main>
+        <div class="content">
+            <table class="customform" style="width:100%">
+                <tr>
+                    <td class="sectiontitle" colspan="5">Detalhes</td>
+                </tr>
+                <tr>
+                    <td class="bordash" align="center"><b>Código</b></td>
+                    <td class="bordash" align="center"><b>Produto</b></td>
+                    <td class="bordash" align="center"><b>Quantidade</b></td>
+                    <td class="bordash" align="center"><b>Valor</b></td>
+                    <td class="bordash" align="center"><b>Total</b></td>
+                </tr>
+                <!--[produtos]-->
+                <tr>
+                    <td class="bordash" align="center">{$codigo}</td>
+                    <td class="bordash" align="center">{$nome}</td>
+                    <td class="bordash" align="center">{$quantidade}</td>
+                    <td class="bordash" align="center">R$ number_format({$preco},2,',', '.')</td>
+                    <td class="bordash" align="center">R$ number_format(evaluate({$quantidade} * {$preco}), 2, ',',
+                        '.')</td>
+                </tr>
+                <!--[/produtos]-->
+                <!--[rodape]-->
+                <tr>
+                    <td class="bordash" align="center" colspan="4"><b>Total de Vendas</b>: </td>
+                    <td class="bordash" align="center" colspan="1">R$ number_format({$totalnota}, 2, ',',
+                        '.')</td>
+                </tr>
+                <!--[/rodape]-->
+            </table>
+        </div>
+    </main>
+</body>
+<!--[/main]-->

@@ -126,6 +126,10 @@
                 <icon>fas:database fa-fw</icon>
                 <action>Pdfhtml3</action>
               </menuitem>
+              <menuitem label='Sinistro List'>
+                <icon>fas:database fa-fw</icon>
+                <action>SinistroList</action>
+              </menuitem>
             <menuitem label='Conexao Manual'>
                 <icon>fas:user fa-fw</icon>
                 <action>ConexaoManual</action>
