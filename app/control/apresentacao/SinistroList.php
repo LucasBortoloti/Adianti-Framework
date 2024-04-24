@@ -1,6 +1,7 @@
 <?php
 
 use Adianti\Control\TPage;
+use Adianti\Database\TDatabase;
 use Adianti\Database\TTransaction;
 use Adianti\Widget\Form\TDate;
 use Adianti\Widget\Form\TEntry;
@@ -25,7 +26,6 @@ class SinistroList extends TPage
         $this->setActiveRecord('Ocorrencia');         // defines the active record
         $this->setDefaultOrder('id', 'asc');    // defines the default order
         $this->addFilterField('id', '=', 'id'); // filterField, operator, formField
-        $this->addFilterField('sinistro_id', '=', 'sinistro_id');
 
         $this->addFilterField('date', '>=', 'date_from', function ($value) {
             return TDate::convertToMask($value, 'dd/mm/yyyy', 'yyyy-mm-dd');
@@ -35,28 +35,40 @@ class SinistroList extends TPage
             return TDate::convertToMask($value, 'dd/mm/yyyy', 'yyyy-mm-dd');
         });
 
-        $this->form = new BootstrapFormBuilder('form_search_Sale');
+        $this->form = new BootstrapFormBuilder('form_search_Ocorrencias');
         $this->form->setFormTitle(('Ocorrencias'));
 
-        $id = new TEntry('id');
+        // $id = new TEntry('id');
         $date_from = new TDate('date_from');
         $date_to = new TDate('date_to');
 
-        $sinistro_id   = new TDBUniqueSearch('sinistro_id', 'defciv', 'Sinistro', 'id', 'descricao');
+        $sinistro_id = new TDBUniqueSearch('sinistro_id', 'defciv', 'Sinistro', 'id', 'descricao');
         $sinistro_id->setMinLength(1);
         $sinistro_id->setMask('{descricao} ({id})');
+        $output_type  = new TRadioGroup('output_type');
 
-        $this->form->addFields([new TLabel('Id')],     [$id]);
-        $this->form->addFields([new TLabel('Data')], [$date_from]);
-        $this->form->addFields([new TLabel('Data')], [$date_to]);
 
-        $id->setSize('50%');
+        $this->form->addFields([new TLabel('De (Data do cadastro)')], [$date_from]);
+        $this->form->addFields([new TLabel('Até (Data do cadastro)')], [$date_to]);
+        $this->form->addFields([new TLabel('Output')],   [$output_type]);
+
+        //$this->form->addFields([new TLabel('Id')], [$id]);
+
+        $date_from->setSize('50%');
+        $date_to->setSize('50%');
+
+        $output_type->setUseButton();
+        $options = ['html' => 'HTML', 'pdf' => 'PDF', 'rtf' => 'RTF', 'xls' => 'XLS'];
+        $output_type->addItems($options);
+        $output_type->setValue('pdf');
+        $output_type->setLayout('horizontal');
+
         $date_from->setSize('100%');
         $date_to->setSize('100%');
-        $date_from->setMask('dd/mm/yyyy');
-        $date_to->setMask('dd/mm/yyyy');
+        // $date_from->setMask('dd/mm/yyyy');
+        // $date_to->setMask('dd/mm/yyyy');
 
-        $this->form->addAction('Gerar', new TAction([$this, 'onGenerate'], ['id' => '{sinistro_id}'], ['static' => 1]), 'fa:cogs');
+        $this->form->addAction('Gerar', new TAction(array($this, 'onGenerate')), 'fa:download blue');
 
         $table = new TTable;
         $table->border = 0;
@@ -68,20 +80,124 @@ class SinistroList extends TPage
         parent::add($table);
     }
 
-    public function onGenerate($param)
+    public function onGenerate()
     {
 
         try {
+            $data = $this->form->getData();
+            $date_from = $data->date_from;
+            $date_to = $data->date_to;
 
-            TTransaction::open('defciv');
+            $this->form->setData($data);
 
-            $this->html = new THtmlRenderer('app/resources/defciv.html');
+            $format = $data->output_type;
 
-            $sinistros = new Ocorrencia($param['id']);
+            $source = TTransaction::open('defciv');
 
-            $array_object['descricao'] = $sinistros->sinistro->descricao;
+            $query = "  SELECT      o.sinistro_id,
+                                    s.descricao, 
+                                    count(*) as QTDE,
+                                    sum(
+                                        case status
+                                            when 'B' then 1
+                                            when 'A' then 0
+                                        end
+                                    ) as BAIXADAS,
+                                    sum(
+                                        case status
+                                            when 'B' then 0
+                                            when 'A' then 1
+                                        end
+                                    ) as ABERTAS
+                        from        ocorrencia o
+                        left join   sinistro s on s.id = o.sinistro_id
+                        where o.data_cadastro >= '{$date_from}' and data_cadastro <= '{$date_to}'
+                        group by    o.sinistro_id,
+                                    s.descricao
+                        order by    s.descricao";
 
-            $this->html->enableSection('main', $array_object);
+            $rows = TDatabase::getData($source, $query, null, null);
+
+            // echo "<pre>";
+            // print_r($data);
+            // echo "<pre>";
+
+            if ($rows) {
+                $widths = array(30, 320, 80, 80, 80);
+
+                switch ($format) {
+                    case 'html':
+                        $table = new TTableWriterHTML($widths);
+                        break;
+                    case 'pdf':
+                        $table = new TTableWriterPDF($widths);
+                        break;
+                    case 'rtf':
+                        $table = new TTableWriterRTF($widths);
+                        break;
+                    case 'xls':
+                        $table = new TTableWriterXLS($widths);
+                        break;
+                }
+
+                if (!empty($table)) {
+                    // create the document styles
+                    $table->addStyle('header', 'Helvetica', '16', 'B', '#ffffff', '#368ABF');
+                    $table->addStyle('title',  'Helvetica', '10', '', '#ffffff', '#368ABF');
+                    $table->addStyle('datap',  'Helvetica', '10', '',  '#000000', '#E3E3E3', 'LR');
+                    $table->addStyle('datai',  'Helvetica', '10', '',  '#000000', '#ffffff', 'LR');
+                    $table->addStyle('footer', 'Helvetica', '10', 'B',  '#ffffff', '#368ABF');
+
+                    $table->setHeaderCallback(function ($table) {
+                        $table->addRow();
+                        $table->addCell('Prefeitura Municipal de Jaraguá do Sul', 'center', 'header', 5);
+
+                        $table->addRow();
+                        $table->addCell('Id',        'center', 'title');
+                        $table->addCell('Descrição',   'left', 'title');
+                        $table->addCell('Quantidade', 'center', 'title');
+                        $table->addCell('Baixadas',    'center', 'title');
+                        $table->addCell('Abertas',   'center', 'title');
+                    });
+
+                    $table->setFooterCallback(function ($table) {
+                        $table->addRow();
+                        $table->addCell(date('Y-m-d h:i:s'), 'center', 'footer', 5);
+                    });
+
+                    // controls the background filling
+                    $colour = FALSE;
+                    foreach ($rows as $row) {
+                        $style = $colour ? 'datap' : 'datai';
+                        $table->addRow();
+                        $table->addCell($row['sinistro_id'],  'center', $style);
+                        $table->addCell($row['descricao'], 'left', $style);
+                        $table->addCell($row['QTDE'],      'center',   $style);
+                        $table->addCell($row['BAIXADAS'],  'center', $style);
+                        $table->addCell($row['ABERTAS'],   'center',   $style);
+
+                        $colour = !$colour;
+                    }
+
+                    $output = "app/output/tabular.{$format}";
+
+                    // stores the file
+                    if (!file_exists($output) or is_writable($output)) {
+                        $table->save($output);
+                        parent::openFile($output);
+                    } else {
+                        throw new Exception(_t('Permission denied') . ': ' . $output);
+                    }
+
+                    // shows the success message
+                    new TMessage('info', "Report generated. Please, enable popups in the browser. <br> <a href='$output'>Click here for download</a>");
+                }
+            } else {
+                new TMessage('error', 'No records found');
+            }
+
+            // close the transaction
+            TTransaction::close();
         } catch (Exception $e) {
             new TMessage('error', $e->getMessage());
         }

@@ -22,5 +22,6 @@ class Sinistro extends TRecord
 
         parent::addAttribute('id');
         parent::addAttribute('descricao');
+        parent::addAttribute('created_at');
     }
 }

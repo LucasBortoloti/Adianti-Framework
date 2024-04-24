@@ -2,16 +2,6 @@
 <link href="app/resources/styles.css" rel="stylesheet" type="text/css" media="screen" />
 
 <body>
-    <div class="header">
-        <table class="customform" style="width:100%">
-            <caption>Ocorrencias</caption>
-            <tr>
-                <img class="img" src="app/images/spfcblue.png" alt="SPFC">
-                <td><b>Cliente</b></td>
-                <td colspan="3"><span class="formfield">{$descricao}</span></td>
-            </tr>
-        </table>
-    </div>
     <footer>
         <!-- o footer não deve ficar no final do html, pq se não ele só vai aparecer na útilma página, ele deve ficar no meio do html -->
     </footer>
@@ -30,7 +20,7 @@
                 </tr>
                 <!--[produtos]-->
                 <tr>
-                    <td class="bordash" align="center">{$codigo}</td>
+                    <td class="bordash" align="center">{$descricao}</td>
                     <td class="bordash" align="center">{$nome}</td>
                     <td class="bordash" align="center">{$quantidade}</td>
                     <td class="bordash" align="center">R$ number_format({$preco},2,',', '.')</td>
