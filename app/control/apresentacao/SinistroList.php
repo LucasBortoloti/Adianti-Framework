@@ -133,7 +133,7 @@ class SinistroList extends TPage
             // echo "<pre>";
 
             if ($rows) {
-                $widths = array(30, 320, 80, 80, 80);
+                $widths = array(40, 320, 80, 80, 80);
 
                 switch ($format) {
                     case 'html':
@@ -159,11 +159,16 @@ class SinistroList extends TPage
                     $table->addStyle('datai',  'Helvetica', '10', '',  '#000000', '#ffffff', 'LR');
                     $table->addStyle('footer', 'Helvetica', '10', 'B',  '#000000', '#ffffff');
 
-                    $table->setHeaderCallback(function ($table) {
+                    $date_from_formatado = date('d/m/Y', strtotime($date_from));
+                    $date_to_formatado = date('d/m/Y', strtotime($date_to));
+
+                    $table->setHeaderCallback(function ($table) use ($date_from_formatado, $date_to_formatado) {
                         $table->addRow();
                         $table->addCell('Prefeitura Municipal de Jaraguá do Sul', 'center', 'header', 5);
                         $table->addRow();
                         $table->addCell('prefeitura@jaraguadosul.com.br     83.102.459/0001-23    (047) 2106-8000', 'center', 'title', 5);
+                        $table->addRow();
+                        $table->addCell("Ocorrências de {$date_from_formatado} até {$date_to_formatado} por tipo de ação (TODAS)", 'center', 'italico', 5);
                         $table->addRow();
                         $table->addCell('Id',        'center', 'title');
                         $table->addCell('Descrição',   'left', 'title');
@@ -172,19 +177,19 @@ class SinistroList extends TPage
                         $table->addCell('Abertas',   'center', 'title');
                     });
 
-                    $date_from_formatado = date('d/m/Y', strtotime($date_from));
-                    $date_to_formatado = date('d/m/Y', strtotime($date_to));
-
-                    $table->setFooterCallback(function ($table) use ($date_from_formatado, $date_to_formatado) {
-                        $table->addRow();
-                        $table->addCell("Ocorrências de {$date_from_formatado} até {$date_to_formatado} por tipo de ação (TODAS)", 'center', 'italico', 5);
-                        $table->addRow();
-                        $table->addCell(date('d/m/Y   h:i:s'), 'center', 'footer', 5);
-                    });
+                    $totalQtde = 0;
+                    $totalBaixadas = 0;
+                    $totalAbertas = 0;
 
                     // controls the background filling
                     $colour = FALSE;
+
                     foreach ($rows as $row) {
+
+                        $totalQtde += $row['QTDE'];
+                        $totalBaixadas += $row['BAIXADAS'];
+                        $totalAbertas += $row['ABERTAS'];
+
                         $style = $colour ? 'datap' : 'datai';
                         $table->addRow();
                         $table->addCell($row['sinistro_id'],  'center', $style);
@@ -195,6 +200,16 @@ class SinistroList extends TPage
 
                         $colour = !$colour;
                     }
+
+                    $table->setFooterCallback(function ($table) use ($totalQtde, $totalBaixadas, $totalAbertas) {
+                        $table->addRow();
+                        $table->addCell('Total', 'center', 'title', 2);
+                        $table->addCell("{$totalQtde}", 'center', 'footer');
+                        $table->addCell("{$totalBaixadas}", 'center', 'footer');
+                        $table->addCell("{$totalAbertas}", 'center', 'footer');
+                        $table->addRow();
+                        $table->addCell(date('d/m/Y   h:i:s'), 'center', 'footer', 5);
+                    });
 
                     $output = "app/output/tabular.{$format}";
 
