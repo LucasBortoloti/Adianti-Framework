@@ -5,6 +5,7 @@ use Adianti\Database\TDatabase;
 use Adianti\Database\TTransaction;
 use Adianti\Widget\Form\TDate;
 use Adianti\Widget\Form\TEntry;
+use Adianti\Widget\Form\TRadioGroup;
 use Adianti\Widget\Template\THtmlRenderer;
 
 class SinistroList extends TPage
@@ -45,17 +46,24 @@ class SinistroList extends TPage
         $sinistro_id = new TDBUniqueSearch('sinistro_id', 'defciv', 'Sinistro', 'id', 'descricao');
         $sinistro_id->setMinLength(1);
         $sinistro_id->setMask('{descricao} ({id})');
+        $pesquisa = new TRadioGroup('pesquisa');
         $output_type  = new TRadioGroup('output_type');
 
 
-        $this->form->addFields([new TLabel('De (Data do cadastro)')], [$date_from]);
-        $this->form->addFields([new TLabel('Até (Data do cadastro)')], [$date_to]);
+        $this->form->addFields([new TLabel('De')], [$date_from]);
+        $this->form->addFields([new TLabel('Até')], [$date_to]);
+        $this->form->addFields([new TLabel('Tipo de pesquisa')], [$pesquisa]);
         $this->form->addFields([new TLabel('Output')],   [$output_type]);
 
         //$this->form->addFields([new TLabel('Id')], [$id]);
 
         $date_from->setSize('50%');
         $date_to->setSize('50%');
+
+        $pesquisa->setUseButton();
+        $options = ['data_cadastro' => 'Data do Cadastro', 'data_evento' => 'Data do Evento', 'created_at' => 'Data de Criação'];
+        $pesquisa->addItems($options);
+        $pesquisa->setLayout('horizontal');
 
         $output_type->setUseButton();
         $options = ['html' => 'HTML', 'pdf' => 'PDF', 'rtf' => 'RTF', 'xls' => 'XLS'];
@@ -88,6 +96,8 @@ class SinistroList extends TPage
             $date_from = $data->date_from;
             $date_to = $data->date_to;
 
+            $pesquisa = $data->pesquisa;
+
             $this->form->setData($data);
 
             $format = $data->output_type;
@@ -111,7 +121,7 @@ class SinistroList extends TPage
                                     ) as ABERTAS
                         from        ocorrencia o
                         left join   sinistro s on s.id = o.sinistro_id
-                        where o.data_cadastro >= '{$date_from}' and data_cadastro <= '{$date_to}'
+                        where o.{$pesquisa} >= '{$date_from}' and o.{$pesquisa} <= '{$date_to}'
                         group by    o.sinistro_id,
                                     s.descricao
                         order by    s.descricao";
@@ -142,16 +152,18 @@ class SinistroList extends TPage
 
                 if (!empty($table)) {
                     // create the document styles
-                    $table->addStyle('header', 'Helvetica', '16', 'B', '#ffffff', '#368ABF');
-                    $table->addStyle('title',  'Helvetica', '10', '', '#ffffff', '#368ABF');
-                    $table->addStyle('datap',  'Helvetica', '10', '',  '#000000', '#E3E3E3', 'LR');
+                    $table->addStyle('header', 'Helvetica', '16', 'B', '#000000', '#ffffff');
+                    $table->addStyle('title',  'Helvetica', '10', '', '#000000', '#ffffff');
+                    $table->addStyle('italico', 'Helvetica', '10', 'I', '#ff0000', '#ffffff');
+                    $table->addStyle('datap',  'Helvetica', '10', '',  '#000000', '#ffffff', 'LR');
                     $table->addStyle('datai',  'Helvetica', '10', '',  '#000000', '#ffffff', 'LR');
-                    $table->addStyle('footer', 'Helvetica', '10', 'B',  '#ffffff', '#368ABF');
+                    $table->addStyle('footer', 'Helvetica', '10', 'B',  '#000000', '#ffffff');
 
                     $table->setHeaderCallback(function ($table) {
                         $table->addRow();
                         $table->addCell('Prefeitura Municipal de Jaraguá do Sul', 'center', 'header', 5);
-
+                        $table->addRow();
+                        $table->addCell('prefeitura@jaraguadosul.com.br     83.102.459/0001-23    (047) 2106-8000', 'center', 'title', 5);
                         $table->addRow();
                         $table->addCell('Id',        'center', 'title');
                         $table->addCell('Descrição',   'left', 'title');
@@ -160,9 +172,14 @@ class SinistroList extends TPage
                         $table->addCell('Abertas',   'center', 'title');
                     });
 
-                    $table->setFooterCallback(function ($table) {
+                    $date_from_formatado = date('d/m/Y', strtotime($date_from));
+                    $date_to_formatado = date('d/m/Y', strtotime($date_to));
+
+                    $table->setFooterCallback(function ($table) use ($date_from_formatado, $date_to_formatado) {
                         $table->addRow();
-                        $table->addCell(date('Y-m-d h:i:s'), 'center', 'footer', 5);
+                        $table->addCell("Ocorrências de {$date_from_formatado} até {$date_to_formatado} por tipo de ação (TODAS)", 'center', 'italico', 5);
+                        $table->addRow();
+                        $table->addCell(date('d/m/Y   h:i:s'), 'center', 'footer', 5);
                     });
 
                     // controls the background filling
