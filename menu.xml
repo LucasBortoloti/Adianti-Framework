@@ -130,6 +130,10 @@
                 <icon>fas:database fa-fw</icon>
                 <action>SinistroList</action>
               </menuitem>
+              <menuitem label='Sinistro List 2'>
+                <icon>fas:database fa-fw</icon>
+                <action>SinistroListDois</action>
+              </menuitem>
             <menuitem label='Conexao Manual'>
                 <icon>fas:user fa-fw</icon>
                 <action>ConexaoManual</action>

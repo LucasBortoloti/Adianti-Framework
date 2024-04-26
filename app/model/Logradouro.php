@@ -6,9 +6,9 @@ use Adianti\Database\TRecord;
 /**
  * @author Lucas Bortoloti <bortoloti91@gmail.com
  */
-class Ocorrencia extends TRecord
+class Logradouro extends TRecord
 {
-    const TABLENAME = 'ocorrencia';
+    const TABLENAME = 'logradouro';
     const PRIMARYKEY = 'id';
     const IDPOLICY =  'max'; // {max, serial}
 
@@ -21,10 +21,6 @@ class Ocorrencia extends TRecord
         parent::__construct($id, $callObjectLoad);
 
         parent::addAttribute('id');
-        parent::addAttribute('sinistro_id');
-        parent::addAttribute('data_cadastro');
-        parent::addAttribute('status');
-        parent::addAttribute('bairro_id');
-        parent::addAttribute('logradouro_id');
+        parent::addAttribute('nome');
     }
 }
