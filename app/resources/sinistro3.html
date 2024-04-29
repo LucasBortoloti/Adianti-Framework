@@ -1,0 +1,62 @@
+<!--[main]-->
+<link href="app/resources/sinistro.css" rel="stylesheet" type="text/css" media="screen" />
+
+<body>
+    <div class="header">
+        <table class="cabecalho" style="width:100%">
+            <tr>
+                <td><b>Sinistro</b></td>
+                <td>
+                    <p><i>Prefeitura Municipal de Jaraguá do Sul</i></p>
+                    <p>prefeitura@jaraguadosul.com.br 83.102.459/0001-23 (047) 2106-8000</p>
+                    <!-- <p>"Ocorrências de {$date_from_formatado} até {$date_to_formatado} por tipo de ação (DATA DO
+                        CADASTRO)
+                    <p> -->
+                </td>
+            </tr>
+        </table>
+    </div>
+    <footer>
+        <!-- o footer não deve ficar no final do html, pq se não ele só vai aparecer na útilma página, ele deve ficar no meio do html -->
+    </footer>
+    <main>
+        <div class="content">
+            <table class="customform" style="width:100%">
+                <tr>
+                    <td class="sectiontitle" colspan="12">Detalhes</td>
+                </tr>
+                <tr>
+                    <td class="bordash" align="center"><b>Id bairro</b></td>
+                    <td class="bordash" align="center"><b>Nome do Bairro</b></td>
+                    <td class="bordash" align="center"><b>Sinistro Id</b></td>
+                    <td class="bordash" align="center"><b>Descrição</b></td>
+                    <td class="bordash" align="center"><b>Id Rua</b></td>
+                    <td class="bordash" align="center"><b>Nome da Rua</b></td>
+                    <td class="bordash" align="center"><b>Qtde</b></td>
+                    <td class="bordash" align="center"><b>Desalojados</b></td>
+                    <td class="bordash" align="center"><b>Desabrigados</b></td>
+                    <td class="bordash" align="center"><b>TQt</b></td>
+                    <td class="bordash" align="center"><b>Tds</b></td>
+                    <td class="bordash" align="center"><b>Tdb</b></td>
+                </tr>
+                <!--[registros]-->
+                <tr>
+                    <td class="bordash" align="center">{$bairro_id}</td>
+                    <td class="bordash" align="center">{$bairro_nome}</td>
+                    <td class="bordash" align="center">{$sinistro_id}</td>
+                    <td class="bordash" align="center">{$sinistro_descricao}</td>
+                    <td class="bordash" align="center">{$logradouro_id}</td>
+                    <td class="bordash" align="center">{$logradouro_nome}</td>
+                    <td class="bordash" align="center">{$QTDE}</td>
+                    <td class="bordash" align="center">{$DESALOJADOS}</td>
+                    <td class="bordash" align="center">{$DESABRIGADOS}</td>
+                    <td class="bordash" align="center">{$totalQtde}</td>
+                    <td class="bordash" align="center">{$totalDesalojados}</td>
+                    <td class="bordash" align="center">{$totalDesabrigados}</td>
+                </tr>
+                <!--[/registros]-->
+            </table>
+        </div>
+    </main>
+</body>
+<!--[/main]-->

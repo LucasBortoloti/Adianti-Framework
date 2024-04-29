@@ -158,9 +158,9 @@ class SinistroListDois extends TPage
                         $table->addRow();
                         $table->addCell('prefeitura@jaraguadosul.com.br     83.102.459/0001-23    (047) 2106-8000', 'center', 'title', 9);
                         $table->addRow();
-                        $table->addCell("Ocorrências de {$date_from_formatado} até {$date_to_formatado} por tipo de ação (TODAS)", 'center', 'italico', 9);
+                        $table->addCell("Ocorrências de {$date_from_formatado} até {$date_to_formatado} por tipo de ação (DATA DO CADASTRO)", 'center', 'italico', 9);
                         $table->addRow();
-                        $table->addCell('Id do bairro', 'center', 'title');
+                        $table->addCell('Id', 'center', 'title');
                         $table->addCell('Nome do bairro',   'left', 'title');
                         $table->addCell('Sinistro id', 'center', 'title');
                         $table->addCell('Descrição',    'center', 'title');
@@ -205,7 +205,7 @@ class SinistroListDois extends TPage
 
                     $table->setFooterCallback(function ($table) use ($totalQtde, $totalDesalojados, $totalDesabrigados) {
                         $table->addRow();
-                        $table->addCell('Total', 'center', 'title', 9);
+                        $table->addCell('Total', 'center', 'title', 6);
                         $table->addCell("{$totalQtde}", 'center', 'footer');
                         $table->addCell("{$totalDesalojados}", 'center', 'footer');
                         $table->addCell("{$totalDesabrigados}", 'center', 'footer');
