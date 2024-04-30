@@ -35,23 +35,21 @@ body {
     padding: 5px;
     text-decoration: none;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 15px;
     color: #ffffff;
     background: #023b53;
     border-radius: 0;
 }
 
 .customform td.bordash {
-    border-bottom: 1px solid #000000;
-    border-left: 1px solid #000000;
-    font-size: 11px;
-    padding: 3px;
+    border: 1px solid #000000;
+    font-size: 14px;
 }
 
 .customform td.bordasl {
     padding: 6px;
     color: #ffffff;
-    font-size: 18px;
+    font-size: 20px;
     border-bottom: 1px solid #000000;
     border-left: 1px solid #000000;
     background: #023b53;

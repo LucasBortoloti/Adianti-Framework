@@ -7,10 +7,10 @@
             <tr>
                 <td><b>Sinistro</b></td>
                 <td>
-                    <p><i>Prefeitura Municipal de Jaraguá do Sul</i></p>
-                    <p>prefeitura@jaraguadosul.com.br 83.102.459/0001-23 (047) 2106-8000</p>
+                    <p><b><i>Prefeitura Municipal de Jaraguá do Sul</i></b></p>
+                    <p> prefeitura@jaraguadosul.com.br 83.102.459/0001-23 (047) 2106-8000</p>
                     <!-- <p>"Ocorrências de {$date_from_formatado} até {$date_to_formatado} por tipo de ação (DATA DO
-                        CADASTRO)
+                    CADASTRO)
                     <p> -->
                 </td>
             </tr>
@@ -23,36 +23,40 @@
         <div class="content">
             <table class="customform" style="width:100%">
                 <tr>
-                    <td class="sectiontitle" colspan="12">Detalhes</td>
-                </tr>
-                <tr>
-                    <td class="bordash" align="center"><b>Id bairro</b></td>
-                    <td class="bordash" align="center"><b>Nome do Bairro</b></td>
-                    <td class="bordash" align="center"><b>Sinistro Id</b></td>
-                    <td class="bordash" align="center"><b>Descrição</b></td>
-                    <td class="bordash" align="center"><b>Id Rua</b></td>
-                    <td class="bordash" align="center"><b>Nome da Rua</b></td>
-                    <td class="bordash" align="center"><b>Qtde</b></td>
-                    <td class="bordash" align="center"><b>Desalojados</b></td>
-                    <td class="bordash" align="center"><b>Desabrigados</b></td>
-                    <td class="bordash" align="center"><b>TQt</b></td>
-                    <td class="bordash" align="center"><b>Tds</b></td>
-                    <td class="bordash" align="center"><b>Tdb</b></td>
+                    <td class="sectiontitle" colspan="14">Detalhes</td>
                 </tr>
                 <!--[registros]-->
                 <tr>
-                    <td class="bordash" align="center">{$bairro_id}</td>
-                    <td class="bordash" align="center">{$bairro_nome}</td>
-                    <td class="bordash" align="center">{$sinistro_id}</td>
-                    <td class="bordash" align="center">{$sinistro_descricao}</td>
-                    <td class="bordash" align="center">{$logradouro_id}</td>
-                    <td class="bordash" align="center">{$logradouro_nome}</td>
-                    <td class="bordash" align="center">{$QTDE}</td>
-                    <td class="bordash" align="center">{$DESALOJADOS}</td>
-                    <td class="bordash" align="center">{$DESABRIGADOS}</td>
-                    <td class="bordash" align="center">{$totalQtde}</td>
+                    <td class="bordash" align="center" colspan="4"><b>Id Bairro</b></td>
+                    <td class="bordash" align="center" colspan="8"><b>Bairro</b></td>
+                    <td class="bordash" align="center" colspan="4"><b>Sinis. Id</b></td>
+                    <td class="bordash" align="center" colspan="8"><b>Descrição</b></td>
+                    <td class="bordash" align="center" colspan="4"><b>Id Rua</b></td>
+                    <td class="bordash" align="center" colspan="8"><b>Nome da Rua</b></td>
+                </tr>
+                <tr>
+                    <td class="bordash" align="center" colspan="4">{$bairro_id}</td>
+                    <td class="bordash" align="center" colspan="8">{$bairro_nome}</td>
+                    <td class="bordash" align="center" colspan="4">{$sinistro_id}</td>
+                    <td class="bordash" align="center" colspan="8">{$sinistro_descricao}</td>
+                    <td class="bordash" align="center" colspan="4">{$logradouro_id}</td>
+                    <td class="bordash" align="center" colspan="8">{$logradouro_nome}</td>
+                </tr>
+                <tr>
+                    <td class="bordash" align="center" colspan="12"><b>Qtde</b></td>
+                    <td class="bordash" align="center" colspan="12"><b>Desalojados</b></td>
+                    <td class="bordash" align="center" colspan="12"><b>Desabrigados</b></td>
+                    <!-- <td class="bordash" align="center"><b>Quantidade total</b></td> -->
+                    <!-- <td class="bordash" align="center"><b>Total Desalojados</b></td>
+                    <td class="bordash" align="center"><b>Total Despejados</b></td> -->
+                </tr>
+                <tr>
+                    <td class="bordash" align="center" colspan="12">{$QTDE}</td>
+                    <td class="bordash" align="center" colspan="12">{$DESALOJADOS}</td>
+                    <td class="bordash" align="center" colspan="12">{$DESABRIGADOS}</td>
+                    <!-- <td class="bordash" align="center">{$totalQtde}</td>
                     <td class="bordash" align="center">{$totalDesalojados}</td>
-                    <td class="bordash" align="center">{$totalDesabrigados}</td>
+                    <td class="bordash" align="center">{$totalDesabrigados}</td> -->
                 </tr>
                 <!--[/registros]-->
             </table>
