@@ -138,6 +138,10 @@
                 <icon>fas:database fa-fw</icon>
                 <action>SinistroListTres</action>
               </menuitem>
+              <menuitem label='Sinistro List 4'>
+                <icon>fas:database fa-fw</icon>
+                <action>SinistroList4</action>
+              </menuitem>
             <menuitem label='Conexao Manual'>
                 <icon>fas:user fa-fw</icon>
                 <action>ConexaoManual</action>
