@@ -8,7 +8,7 @@ use Adianti\Widget\Form\TEntry;
 use Adianti\Widget\Form\TRadioGroup;
 use Adianti\Widget\Template\THtmlRenderer;
 
-class SinistroList4 extends TPage
+class SinistroList5 extends TPage
 {
     protected $form;     // registration form
     protected $datagrid; // listing
@@ -37,7 +37,7 @@ class SinistroList4 extends TPage
         });
 
         $this->form = new BootstrapFormBuilder('form_search_Ocorrencias');
-        $this->form->setFormTitle(('Ocorrencias 4'));
+        $this->form->setFormTitle(('Ocorrencias 5'));
 
         // $id = new TEntry('id');
         $date_from = new TDate('date_from');
@@ -163,33 +163,64 @@ class SinistroList4 extends TPage
                     //     'totalDesabrigados' => $totalDesabrigados
                     // );
                 }
+
                 // print_r($bairros);
+
                 $registrogeral = array();
+                $content = ' <html>
+                <head> <title>Ocorrencias</title>
+                    <link href="app/resources/sinistro.css" rel="stylesheet" type="text/css" media="screen" />
+                </head>
+                <footer></footer>
+                <body>
+                    <div class="header">
+                        <table class="cabecalho" style="width:100%">
+                    <tr>
+                    <td><b>Sinistro</b></td>
+                    <p><b><i>Prefeitura Municipal de Jaraguá do Sul</i></b></p>
+                    <p> prefeitura@jaraguadosul.com.br 83.102.459/0001-23 (047) 2106-8000</p>
+                </td>
+                    </tr>
+                        </table>
+                </div>
+                    <table class="customform">';
 
                 for ($i = 0; $i < count($bairros); $i++) {
-                    $registros[] = array();
+                    $content .= "<tr>";
+
+                    // echo $bairros[$i]["bairro_nome"] . "<br>";
+
+                    $content .= "<td class='bairro'>" . $bairros[$i]["id"] . "</td> <td class='bairro'>" . $bairros[$i]["bairro_nome"] . "</td> </tr>";
+                    $r = "";
 
                     for ($j = 0; $j < count($sinistros); $j++) {
-                        // echo $sinistros[$j]["sinistro_id"] . "<br>";
+
                         if ($sinistros[$j]["idpai"] == $bairros[$i]["id"]) {
-                            $registros[] = [
-                                'sinistro_id' => $sinistros[$j]["sinistro_id"],
-                                'sinistro_descricao' => $sinistros[$j]["sinistro_descricao"],
-                                'logradouro_id' => $sinistros[$j]["logradouro_id"],
-                                'logradouro_nome' => $sinistros[$j]["logradouro_nome"]
-                            ];
+                            $r .= "<tr> <td>" . $sinistros[$j]["sinistro_id"] . "</td> <td class='desc'>" . $sinistros[$j]["sinistro_descricao"] . "</td> </tr>" .
+                                "<tr> <td>Nome da rua" . "</td> </tr><tr>" . $sinistros[$j]["logradouro_id"] . "</td> <td>" . $sinistros[$j]["logradouro_nome"] . "</td> </tr>";
                         }
                     }
-                    $registrogeral[] = [
-                        "bairro_id" => $bairros[$i]["id"],
-                        "bairro_nome" => $bairros[$i]["bairro_nome"],
-                        "sini_array" => $registros
-                    ];
-                    unset($registros);
+                    $content .= $r;
+
+                    $content .= "</tr>";
+
+                    $registrogeral[] = ["registro" => $content];
+                    // $content = "";
+                    // $registrogeral[] = [
+                    //     "bairro_id" => $bairros[$i]["id"],
+                    //     "bairro_nome" => $bairros[$i]["bairro_nome"],
+                    //     "sini_array" => $registros
+                    // ];
+                    // unset($registros);
                 }
 
-                print_r($registrogeral);
-                // echo $registrogeral[0]["bairro_nome"];
+                $content .= '</table> 
+                </body>
+                </html>
+                ';
+
+                // print_r($registrogeral);
+                echo $registrogeral[0]["registro"];
 
                 $html->enableSection('registros', $registrogeral, TRUE);
             }
@@ -200,7 +231,8 @@ class SinistroList4 extends TPage
             $vbox->add($this->html);
             parent::add($vbox);
 
-            $contents = $html->getContents();
+            // $contents = $html->getContents();
+            $contents = $content;
 
             $options = new \Dompdf\Options();
             $options->setChroot(getcwd());

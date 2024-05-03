@@ -5,9 +5,9 @@
     font-size: 18px;
     width: 840px;
     background: #ffffff;
-    border: 1px solid #000;
     margin-top: 20px;
     border-collapse: collapse;
+    border-bottom: 1px solid black;
     padding: 2px;
     /* esse border-collapse é o responsável pelas bordas ficarem completas e sem sobras entre uma e outra*/
 }
@@ -39,6 +39,21 @@ body {
     color: #ffffff;
     background: #023b53;
     border-radius: 0;
+}
+
+.bairro {
+    color: #022453;
+    font-weight: bold;
+    border: 1px solid black;
+}
+
+.detalhe {
+    font-weight: bold;
+    border-top: 1px solid black;
+}
+
+.desc {
+    width: 100px;
 }
 
 .customform td.bordash {

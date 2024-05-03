@@ -1,0 +1,38 @@
+<!--[main]-->
+<link href="app/resources/sinistro.css" rel="stylesheet" type="text/css" media="screen" />
+
+<body>
+    <div class="header">
+        <table class="cabecalho" style="width:100%">
+            <tr>
+                <td><b>Sinistro</b></td>
+                <td>
+                    <p><b><i>Prefeitura Municipal de Jaraguá do Sul</i></b></p>
+                    <p> prefeitura@jaraguadosul.com.br 83.102.459/0001-23 (047) 2106-8000</p>
+                    <!-- <p>"Ocorrências de {$date_from_formatado} até {$date_to_formatado} por tipo de ação (DATA DO
+                    CADASTRO)
+                    <p> -->
+                </td>
+            </tr>
+        </table>
+    </div>
+    <footer>
+        <!-- o footer não deve ficar no final do html, pq se não ele só vai aparecer na útilma página, ele deve ficar no meio do html -->
+    </footer>
+    <main>
+        <div class="content">
+            <!--[registros]-->
+            <div>
+                <pre>{$registro}</pre>
+            </div>
+            <!--[/registros]-->
+            <table class="customform" style="width:100%">
+                <tr>
+                    <td class="sectiontitle" colspan="14">Detalhes</td>
+                </tr>
+
+            </table>
+        </div>
+    </main>
+</body>
+<!--[/main]-->

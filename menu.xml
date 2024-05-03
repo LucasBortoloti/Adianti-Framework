@@ -142,6 +142,10 @@
                 <icon>fas:database fa-fw</icon>
                 <action>SinistroList4</action>
               </menuitem>
+              <menuitem label='Sinistro List 5'>
+                <icon>fas:database fa-fw</icon>
+                <action>SinistroList5</action>
+              </menuitem>
             <menuitem label='Conexao Manual'>
                 <icon>fas:user fa-fw</icon>
                 <action>ConexaoManual</action>
