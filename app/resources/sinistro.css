@@ -7,19 +7,18 @@
     background: #ffffff;
     margin-top: 20px;
     border-collapse: collapse;
-    border-bottom: 1px solid black;
     padding: 2px;
     /* esse border-collapse é o responsável pelas bordas ficarem completas e sem sobras entre uma e outra*/
 }
 
 .cabecalho {
-    padding: 5px;
+    padding: 15px;
     border: 1px solid #000000;
     font-size: 16px;
 }
 
 body {
-    margin-top: 3.2cm;
+    margin-top: 4.7cm;
     margin-bottom: 1cm;
 }
 
@@ -31,20 +30,30 @@ body {
     background-color: #ffffff;
 }
 
-.customform td.sectiontitle {
-    padding: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 15px;
-    color: #ffffff;
-    background: #023b53;
-    border-radius: 0;
-}
-
 .bairro {
-    color: #022453;
     font-weight: bold;
     border: 1px solid black;
+}
+
+.cor {
+    font-weight: bold;
+    color: #032a61;
+}
+
+.rua {
+    font-weight: bold;
+    border-bottom: 1px solid black;
+}
+
+.red {
+    color: red;
+    text-align: right;
+    font-weight: bold;
+}
+
+.desa {
+    font-weight: bold;
+    border-bottom: 1px solid black;
 }
 
 .detalhe {
@@ -54,20 +63,6 @@ body {
 
 .desc {
     width: 100px;
-}
-
-.customform td.bordash {
-    border: 1px solid #000000;
-    font-size: 14px;
-}
-
-.customform td.bordasl {
-    padding: 6px;
-    color: #ffffff;
-    font-size: 20px;
-    border-bottom: 1px solid #000000;
-    border-left: 1px solid #000000;
-    background: #023b53;
 }
 
 .customform td.rodape {

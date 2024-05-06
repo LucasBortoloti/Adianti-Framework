@@ -94,8 +94,8 @@ class SinistroList5 extends TPage
                                     l.id as logradouro_id,
                                     l.nome as logradouro_nome,
                                     count(*) as QTDE,
-                                    sum(OCO_DHDESALOJADOS) as DESALOJADOS,
-                                    sum(OCO_DHDESABRIGADOS) as DESABRIGADOS
+                                    o.OCO_DHDESALOJADOS as DESALOJADOS,
+                                    o.OCO_DHDESABRIGADOS as DESABRIGADOS
                                 from defciv.ocorrencia o 
                                 left join defciv.sinistro s on s.id = o.sinistro_id
                                 left join vigepi.bairro b on b.id = o.bairro_id
@@ -145,7 +145,11 @@ class SinistroList5 extends TPage
                         "sinistro_id" => $row['sinistro_id'],
                         "sinistro_descricao" => $row['sinistro_descricao'],
                         "logradouro_id" => $row['logradouro_id'],
-                        "logradouro_nome" => $row['logradouro_nome']
+                        "logradouro_nome" => $row['logradouro_nome'],
+                        "QTDE" => $row['QTDE'],
+                        "DESALOJADOS" => $row['DESALOJADOS'],
+                        "DESABRIGADOS" => $row['DESABRIGADOS'],
+
                     ];
 
                     // $replace[] = array(
@@ -166,6 +170,9 @@ class SinistroList5 extends TPage
 
                 // print_r($bairros);
 
+                $date_from_formatado = date('d/m/Y', strtotime($date_from));
+                $date_to_formatado = date('d/m/Y', strtotime($date_to));
+
                 $registrogeral = array();
                 $content = ' <html>
                 <head> <title>Ocorrencias</title>
@@ -176,28 +183,38 @@ class SinistroList5 extends TPage
                     <div class="header">
                         <table class="cabecalho" style="width:100%">
                     <tr>
-                    <td><b>Sinistro</b></td>
-                    <p><b><i>Prefeitura Municipal de Jaraguá do Sul</i></b></p>
-                    <p> prefeitura@jaraguadosul.com.br 83.102.459/0001-23 (047) 2106-8000</p>
-                </td>
+                    <td><b><i>PREFEITURA MUNICIPAL DE JARAGUÁ DO SUL</i></b></td>
+                    </tr>
+                    <tr>
+                    <td> prefeitura@jaraguadosul.com.br</td>
+                    </tr>
+                    <tr>
+                    <td>83.102.459/0001-23</td>
+                    </tr>
+                    <tr>
+                    <td>(047) 2106-8000</td>
+                    </tr>
+                    <tr>
+                    <td class="red">Ocorrência de ' . $date_from_formatado . ' até ' . $date_to_formatado . '</td>
                     </tr>
                         </table>
                 </div>
-                    <table class="customform">';
+                    <table class="customform" style="width: 100%">';
 
                 for ($i = 0; $i < count($bairros); $i++) {
                     $content .= "<tr>";
 
                     // echo $bairros[$i]["bairro_nome"] . "<br>";
 
-                    $content .= "<td class='bairro'>" . $bairros[$i]["id"] . "</td> <td class='bairro'>" . $bairros[$i]["bairro_nome"] . "</td> </tr>";
+                    $content .= "<td class='bairro'>" . $bairros[$i]["id"] . "</td> <td class='bairro' colspan='2'>" . $bairros[$i]["bairro_nome"] . "</td> </tr>";
                     $r = "";
 
                     for ($j = 0; $j < count($sinistros); $j++) {
 
                         if ($sinistros[$j]["idpai"] == $bairros[$i]["id"]) {
-                            $r .= "<tr> <td>" . $sinistros[$j]["sinistro_id"] . "</td> <td class='desc'>" . $sinistros[$j]["sinistro_descricao"] . "</td> </tr>" .
-                                "<tr> <td>Nome da rua" . "</td> </tr><tr>" . $sinistros[$j]["logradouro_id"] . "</td> <td>" . $sinistros[$j]["logradouro_nome"] . "</td> </tr>";
+                            $r .= "<tr> <td class='cor'>" . $sinistros[$j]["sinistro_id"] . "</td> <td class='cor' colspan='2'>" . $sinistros[$j]["sinistro_descricao"] . "</td> </tr>" .
+                                "<tr> <td class='rua'>Nome da rua" . "</td> </tr> <tr> <td>" . $sinistros[$j]["logradouro_nome"] . "</td> </tr> .
+                                <tr> <td class='desa'>Quantidade" . "</td> <td class='desa'>Desabrigados </td>. <td class='desa'>Desalojados </td> </tr> <tr> <td>" . $sinistros[$j]["QTDE"] . "</td> <td>" . $sinistros[$j]["DESABRIGADOS"] . "</td> <td>" . $sinistros[$j]["DESALOJADOS"] . "</td></tr><br>";
                         }
                     }
                     $content .= $r;
@@ -220,7 +237,7 @@ class SinistroList5 extends TPage
                 ';
 
                 // print_r($registrogeral);
-                echo $registrogeral[0]["registro"];
+                // echo $registrogeral[0]["registro"];
 
                 $html->enableSection('registros', $registrogeral, TRUE);
             }
