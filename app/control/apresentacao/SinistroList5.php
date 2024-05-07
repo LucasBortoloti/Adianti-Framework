@@ -213,7 +213,7 @@ class SinistroList5 extends TPage
 
                         if ($sinistros[$j]["idpai"] == $bairros[$i]["id"]) {
                             $r .= "<tr> <td class='cor'>" . $sinistros[$j]["sinistro_id"] . "</td> <td class='cor' colspan='2'>" . $sinistros[$j]["sinistro_descricao"] . "</td> </tr>" .
-                                "<tr> <td class='rua'>Nome da rua" . "</td> </tr> <tr> <td>" . $sinistros[$j]["logradouro_nome"] . "</td> </tr> .
+                                "<tr> <td class='rua'>Nome da rua" . "</td> </tr> <tr> <td>" . $sinistros[$j]["logradouro_id"] . " " . $sinistros[$j]["logradouro_nome"] . "</td> </tr> .
                                 <tr> <td class='desa'>Quantidade" . "</td> <td class='desa'>Desabrigados </td>. <td class='desa'>Desalojados </td> </tr> <tr> <td>" . $sinistros[$j]["QTDE"] . "</td> <td>" . $sinistros[$j]["DESABRIGADOS"] . "</td> <td>" . $sinistros[$j]["DESALOJADOS"] . "</td></tr><br>";
                         }
                     }
