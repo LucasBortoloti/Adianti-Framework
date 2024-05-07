@@ -206,15 +206,16 @@ class SinistroList5 extends TPage
 
                     // echo $bairros[$i]["bairro_nome"] . "<br>";
 
-                    $content .= "<td class='bairro'>" . $bairros[$i]["id"] . "</td> <td class='bairro' colspan='2'>" . $bairros[$i]["bairro_nome"] . "</td> </tr>";
+                    $content .= "<td class='bairro' colspan='4'>" . $bairros[$i]["id"] . " - " . $bairros[$i]["bairro_nome"] . "</td> </tr>";
                     $r = "";
 
                     for ($j = 0; $j < count($sinistros); $j++) {
 
                         if ($sinistros[$j]["idpai"] == $bairros[$i]["id"]) {
-                            $r .= "<tr> <td class='cor'>" . $sinistros[$j]["sinistro_id"] . "</td> <td class='cor' colspan='2'>" . $sinistros[$j]["sinistro_descricao"] . "</td> </tr>" .
-                                "<tr> <td class='rua'>Nome da rua" . "</td> </tr> <tr> <td>" . $sinistros[$j]["logradouro_id"] . " " . $sinistros[$j]["logradouro_nome"] . "</td> </tr> .
-                                <tr> <td class='desa'>Quantidade" . "</td> <td class='desa'>Desabrigados </td>. <td class='desa'>Desalojados </td> </tr> <tr> <td>" . $sinistros[$j]["QTDE"] . "</td> <td>" . $sinistros[$j]["DESABRIGADOS"] . "</td> <td>" . $sinistros[$j]["DESALOJADOS"] . "</td></tr><br>";
+                            $r .= "<tr> <td class='cor' colspan=4>" . $sinistros[$j]["sinistro_id"] . "  " . $sinistros[$j]["sinistro_descricao"] . "</td> </tr>" .
+                                "<tr> <td class='desa'>Nome da rua</td>" . "<td class='desa'>Quantidade" . "</td>" . "<td class='desa'>Desabrigados </td>" .
+                                "<td class='desa'>Desalojados</td>" . "</tr> <tr> <td>" . " " . $sinistros[$j]["logradouro_id"] . " - " . $sinistros[$j]["logradouro_nome"] .
+                                "</td><td> " . $sinistros[$j]["QTDE"] . "</td> <td>" . $sinistros[$j]["DESABRIGADOS"] . "</td> <td>" . $sinistros[$j]["DESALOJADOS"] . "</td></tr><br>";
                         }
                     }
                     $content .= $r;
