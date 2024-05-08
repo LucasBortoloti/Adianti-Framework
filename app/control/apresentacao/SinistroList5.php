@@ -172,6 +172,8 @@ class SinistroList5 extends TPage
 
                 $date_from_formatado = date('d/m/Y', strtotime($date_from));
                 $date_to_formatado = date('d/m/Y', strtotime($date_to));
+                $data = date('d/m/Y   h:i:s');
+
 
                 $registrogeral = array();
                 $content = ' <html>
@@ -190,12 +192,11 @@ class SinistroList5 extends TPage
                     </tr>
                     <tr>
                     <td>83.102.459/0001-23</td>
+                    <td class="hora"><b>' . $data . '</b></td>
                     </tr>
                     <tr>
                     <td>(047) 2106-8000</td>
-                    </tr>
-                    <tr>
-                    <td class="red">Ocorrência de ' . $date_from_formatado . ' até ' . $date_to_formatado . '</td>
+                    <td class="red">Ocorrência de ' . $date_from_formatado . ' até ' . $date_to_formatado . '</td>                     
                     </tr>
                         </table>
                 </div>
