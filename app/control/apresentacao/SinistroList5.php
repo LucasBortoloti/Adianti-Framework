@@ -131,10 +131,6 @@ class SinistroList5 extends TPage
 
                 foreach ($rows as $row) {
 
-                    $totalQtde += $row['QTDE'];
-                    $totalDesalojados += $row['DESALOJADOS'];
-                    $totalDesabrigados += $row['DESABRIGADOS'];
-
                     if ($id != $row['bairro_id']) {
                         $id = $row['bairro_id'];
                         $bairros[] = ["id" => $row['bairro_id'], "bairro_nome" => $row['bairro_nome']];
@@ -203,6 +199,11 @@ class SinistroList5 extends TPage
                     <table class="customform" style="width: 100%">';
 
                 for ($i = 0; $i < count($bairros); $i++) {
+
+                    $totalQtde = 0;
+                    $totalDesalojados = 0;
+                    $totalDesabrigados = 0;
+
                     $content .= "<tr>";
 
                     // echo $bairros[$i]["bairro_nome"] . "<br>";
@@ -216,12 +217,17 @@ class SinistroList5 extends TPage
                             $r .= "<tr> <td class='cor' colspan=4>" . $sinistros[$j]["sinistro_id"] . "  " . $sinistros[$j]["sinistro_descricao"] . "</td> </tr>" .
                                 "<tr> <td class='desa'>Nome da rua</td>" . "<td class='desa'>Quantidade" . "</td>" . "<td class='desa'>Desabrigados </td>" .
                                 "<td class='desa'>Desalojados</td>" . "</tr> <tr> <td>" . " " . $sinistros[$j]["logradouro_id"] . " - " . $sinistros[$j]["logradouro_nome"] .
-                                "</td><td> " . $sinistros[$j]["QTDE"] . "</td> <td>" . $sinistros[$j]["DESABRIGADOS"] . "</td> <td>" . $sinistros[$j]["DESALOJADOS"] . "</td></tr><br>";
+                                "</td><td> " . $sinistros[$j]["QTDE"] . "</td> <td>" . $sinistros[$j]["DESABRIGADOS"] . "</td> <td>" . $sinistros[$j]["DESALOJADOS"] . "</td></tr>";
+
+                            $totalQtde += $sinistros[$j]['QTDE'];
+                            $totalDesalojados += $sinistros[$j]['DESALOJADOS'];
+                            $totalDesabrigados += $sinistros[$j]['DESABRIGADOS'];
                         }
                     }
                     $content .= $r;
 
-                    $content .= "</tr>";
+                    $content .= "<br><tr> <td class='total'>Total do bairro:</td>" . "<td class='total'> $totalQtde " . "</td>" . "<td class='total'> $totalDesalojados </td>" .
+                        "<td class='total'> $totalDesabrigados </td>" . "</tr><br>";
 
                     $registrogeral[] = ["registro" => $content];
                     // $content = "";

@@ -18,8 +18,13 @@
 }
 
 body {
-    margin-top: 3.6cm;
+    margin-top: 3.8cm;
     margin-bottom: 1cm;
+}
+
+.total {
+    border-top: 1px solid black;
+    font-weight: bold;
 }
 
 .header {
