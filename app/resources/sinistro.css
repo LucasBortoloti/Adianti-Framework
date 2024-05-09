@@ -1,11 +1,7 @@
 .customform {
     font-family: 'Arial', sans-serif;
-    border-radius: 1px;
-    box-shadow: 0 2px 4px #00000033;
     font-size: 16px;
-    width: 840px;
     background: #ffffff;
-    margin-top: 20px;
     border-collapse: collapse;
     padding: 2px;
     /* esse border-collapse é o responsável pelas bordas ficarem completas e sem sobras entre uma e outra*/
@@ -18,7 +14,7 @@
 }
 
 body {
-    margin-top: 3.8cm;
+    margin-top: 4.1cm;
     margin-bottom: 1cm;
 }
 
@@ -70,36 +66,8 @@ body {
     border-top: 1px solid black;
 }
 
-.desc {
-    width: 100px;
-}
-
-.customform td.rodape {
-    border-left: 1px solid #000000;
-}
-
-.customform td.bordas {
-    border-left: 1px solid #000000;
-}
-
-.customform tr.oddrow {
-    background: #ffffff;
-}
-
 .customform td {
     padding: 10px;
-}
-
-td.bordas:nth-of-type(odd) {
-    background: #e1e0e0;
-}
-
-td.bordash:nth-of-type(odd) {
-    background: #e1e0e0;
-}
-
-td.rodape:nth-of-type(odd) {
-    background: #e1e0e0;
 }
 
 footer::after {
