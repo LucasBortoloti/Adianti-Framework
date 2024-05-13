@@ -223,7 +223,7 @@ class SinistroList5 extends TPage
                                         <td class='desa'>Desalojados</td>
                                     </tr>
                                     <tr> 
-                                        <td>{$sinistros[$j]['logradouro_id']} {$sinistros[$j]['logradouro_nome']} </td>
+                                        <td>{$sinistros[$j]['logradouro_id']} - {$sinistros[$j]['logradouro_nome']} </td>
                                         <td>{$sinistros[$j]['QTDE']} </td> 
                                         <td>{$sinistros[$j]['DESABRIGADOS']} </td>
                                         <td>{$sinistros[$j]['DESALOJADOS']}</td>
