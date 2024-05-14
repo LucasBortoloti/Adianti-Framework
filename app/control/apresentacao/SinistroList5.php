@@ -192,7 +192,7 @@ class SinistroList5 extends TPage
                             </tr>
                             <tr>
                                 <td>(047) 2106-8000</td>
-                                <td class="red">Ocorrência de ' . $date_from_formatado . ' até ' . $date_to_formatado . '</td>                     
+                                <td class="red colspan=4">Ocorrência de ' . $date_from_formatado . ' até ' . $date_to_formatado . '</td>                     
                             </tr>
                         </table>
                     </div>
@@ -217,7 +217,8 @@ class SinistroList5 extends TPage
                             $r .= "<tr> 
                                         <td class='cor' colspan=4> {$sinistros[$j]['sinistro_id']} {$sinistros[$j]['sinistro_descricao']} </td> 
                                     </tr>
-                                    <tr><td class='desa'>Nome da rua</td>
+                                    <tr>
+                                        <td class='desa'>Nome da rua</td>
                                         <td class='desa'>Quantidade</td>
                                         <td class='desa'>Desabrigados</td>
                                         <td class='desa'>Desalojados</td>
@@ -240,8 +241,11 @@ class SinistroList5 extends TPage
                             <td class='total'>Total do bairro:</td>
                             <td class='total'> $totalQtde</td>
                             <td class='total'> $totalDesalojados</td>
-                            <td class='total'> $totalDesabrigados</td>
-                        </tr>";
+                            <td class='total'> $totalDesabrigados</td>    
+                            </tr>
+                            <tr>
+                            <td></td>
+                            </tr>";
 
                     $registrogeral[] = ["registro" => $content];
                     // $content = "";

@@ -14,7 +14,7 @@
 }
 
 body {
-    margin-top: 4.1cm;
+    margin-top: 4cm;
     margin-bottom: 1cm;
 }
 
@@ -58,7 +58,6 @@ body {
 
 .desa {
     font-weight: bold;
-    border-bottom: 1px solid black;
 }
 
 .detalhe {
