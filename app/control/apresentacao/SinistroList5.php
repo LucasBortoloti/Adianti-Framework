@@ -244,7 +244,7 @@ class SinistroList5 extends TPage
                             <td class='total'> $totalDesabrigados</td>    
                             </tr>
                             <tr>
-                            <td></td>
+                            <td colspan=4></td>
                             </tr>";
 
                     $registrogeral[] = ["registro" => $content];
