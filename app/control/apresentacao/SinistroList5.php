@@ -170,7 +170,6 @@ class SinistroList5 extends TPage
                 $date_to_formatado = date('d/m/Y', strtotime($date_to));
                 $data = date('d/m/Y   h:i:s');
 
-
                 $registrogeral = array();
                 $content = ' <html>
                 <head> <title>Ocorrencias</title>
