@@ -126,7 +126,7 @@
                 <icon>fas:database fa-fw</icon>
                 <action>Pdfhtml3</action>
               </menuitem>
-              <menuitem label='Sinistro List'>
+              <menuitem label='Sinistro List Correto'>
                 <icon>fas:database fa-fw</icon>
                 <action>SinistroList</action>
               </menuitem>
@@ -142,9 +142,13 @@
                 <icon>fas:database fa-fw</icon>
                 <action>SinistroList4</action>
               </menuitem>
-              <menuitem label='Sinistro List 5'>
+              <menuitem label='Sinistro List Correto 2'>
                 <icon>fas:database fa-fw</icon>
                 <action>SinistroList5</action>
+              </menuitem>
+              <menuitem label='Sinistro List 6 - Ainda não mexer'>
+                <icon>fas:database fa-fw</icon>
+                <action>SinistroList6</action>
               </menuitem>
             <menuitem label='Conexao Manual'>
                 <icon>fas:user fa-fw</icon>
