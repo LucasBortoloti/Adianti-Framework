@@ -150,6 +150,10 @@
                 <icon>fas:database fa-fw</icon>
                 <action>SinistroList6</action>
               </menuitem>
+              <menuitem label='Gráficos Sinistro'>
+                <icon>fas:table fa-fw</icon>
+                <action>GraficoSinistro</action>
+              </menuitem>
             <menuitem label='Conexao Manual'>
                 <icon>fas:user fa-fw</icon>
                 <action>ConexaoManual</action>
