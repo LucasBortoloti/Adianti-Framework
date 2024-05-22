@@ -117,14 +117,17 @@ class GraficoSinistro extends TPage
 
         $div = new TElement('div');
         $div->id = 'container';
-        $div->style = 'width:1500px;height:1150px';
+        $div->style = 'width:1555px;height:1150px';
         $div->add($html);
+
+        $date_from_formatado = date('d/m/Y', strtotime($date_from));
+        $date_to_formatado = date('d/m/Y', strtotime($date_to));
 
         $html->enableSection('main', array(
             'data' => json_encode($dados),
             'width' => '100%',
             'height' => '1000px',
-            'title'  => 'Sinistros'
+            'title'  => "Sinistros: {$date_from_formatado} até {$date_to_formatado}"
         ));
 
         TTransaction::close();
