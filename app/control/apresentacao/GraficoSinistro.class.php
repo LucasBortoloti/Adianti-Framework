@@ -89,6 +89,7 @@ class GraficoSinistro extends TPage
 
         $query = "SELECT
                 s.descricao,
+                b.nome AS bairro_nome,
                 count(*) as QTDE
               FROM
                 ocorrencia o
@@ -127,10 +128,11 @@ class GraficoSinistro extends TPage
             'data' => json_encode($dados),
             'width' => '100%',
             'height' => '1000px',
-            'title'  => "Sinistros: {$date_from_formatado} até {$date_to_formatado}"
+            'title'  => "Sinistros: {$date_from_formatado} até {$date_to_formatado}, Bairro: {$coluna['bairro_nome']}"
         ));
 
         TTransaction::close();
+
         parent::add($div);
     }
 }
