@@ -142,8 +142,6 @@ class GraficoSinistro extends TPage
     function onGeneratePDF()
     {
         try {
-            $html = new THtmlRenderer('app/resources/google_pie_chart.html');
-
             $data = $this->form->getData();
             $date_from = $data->date_from;
             $date_to = $data->date_to;
@@ -153,22 +151,21 @@ class GraficoSinistro extends TPage
             $this->form->setData($data);
 
             TTransaction::open('defciv');
-
             $sinistro = TTransaction::get();
 
+            // Build the query
             $query = "SELECT
-               s.descricao,
-               b.nome AS bairro_nome,
-               count(*) as QTDE
-             FROM
-               ocorrencia o
-             LEFT JOIN
-               sinistro s ON s.id = o.sinistro_id
-             LEFT JOIN vigepi.bairro b on b.id = o.bairro_id
-             WHERE
-               o.{$pesquisa} >= '{$date_from}' AND
-               o.{$pesquisa} <= '{$date_to}'";
-
+                    s.descricao,
+                    b.nome AS bairro_nome,
+                    count(*) as QTDE
+                  FROM
+                    ocorrencia o
+                  LEFT JOIN
+                    sinistro s ON s.id = o.sinistro_id
+                  LEFT JOIN vigepi.bairro b on b.id = o.bairro_id
+                  WHERE
+                    o.{$pesquisa} >= '{$date_from}' AND
+                    o.{$pesquisa} <= '{$date_to}'";
 
             if (!empty($bairro_id)) {
                 $query .= " AND o.bairro_id = '{$bairro_id}'";
@@ -176,55 +173,131 @@ class GraficoSinistro extends TPage
 
             $query .= " GROUP BY s.descricao ORDER BY s.descricao;";
 
-            $colunas = $sinistro->query($query);
+            $stmt = $sinistro->query($query);
+            $colunas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            // var_dump($colunas);
-
-            $dados[] = ['Sinistro', 'Quantidade'];
-
+            // Prepare data for the chart
+            $dados = [[]];
             foreach ($colunas as $coluna) {
                 $dados[] = [$coluna['descricao'], (float)$coluna['QTDE']];
             }
 
-            $div = new TElement('div');
-            $div->id = 'container';
-            $div->style = 'width:1555px;height:1150px';
-            $div->add($html);
-
             $date_from_formatado = date('d/m/Y', strtotime($date_from));
             $date_to_formatado = date('d/m/Y', strtotime($date_to));
+            $bairro_nome = !empty($colunas) ? $colunas[0]['bairro_nome'] : '';
 
-            $html->enableSection('main', array(
-                'data' => json_encode($dados),
-                'width' => '100%',
-                'height' => '1000px',
-                'title'  => "Sinistros: {$date_from_formatado} até {$date_to_formatado}, Bairro: {$coluna['bairro_nome']}"
-            ));
+            // Generate the base64 image URL
+            $chartData = json_encode($dados);
+            $chartUrl = "https://quickchart.io/chart?c=" . urlencode(json_encode([
+                'type' => 'pie',
+                'data' => [
+                    'labels' => array_column($dados, 0),
+                    'datasets' => [
+                        [
+                            'data' => array_column($dados, 1),
+                            'borderColor' => 'black',
+                            'borderWidth' => 2,
+                        ],
+                    ],
+                ],
+                'options' => [
+                    'title' => [
+                        'display' => true,
+                        'text' => "Sinistros: {$date_from_formatado} até {$date_to_formatado}, Bairro: {$bairro_nome}",
+                        'fontColor' => 'black',
+                    ],
+                    'legend' => [
+                        'labels' => [
+                            'fontColor' => 'black',
+                        ],
+                    ],
+                    'plugins' => [
+                        'datalabels' => [
+                            'color' => 'black',
+                        ],
+                    ],
+                ],
+            ]));
+            $base64Image = base64_encode(file_get_contents($chartUrl));
+            $googleChartImageUrl = 'data:image/png;base64,' . $base64Image;
 
-            echo json_encode($dados);
+            $html_content = '
+            <html>
+            <head>
+                <style>
+                .cabecalho {
+                    padding: 14px;
+                    border: 1px solid #000000;
+                    font-size: 16px;
+                    font-family: Arial, Helvetica, sans-serif;
+                }
+                .header {
+                    position: fixed;
+                    top: 0cm;
+                    width: 100%;
+                    height: 2cm;
+                    background-color: #ffffff;
+                }
+                
+                body {
+                    margin-top: 4cm;
+                    margin-bottom: 1cm;
+                }
 
-            $vbox = new TVBox;
-            $vbox->style = 'width: 100%';
-            $vbox->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
-            $vbox->add($this->html);
-            parent::add($vbox);
+                footer::after {
+                    content: "Página " counter(page);
+                }
+                
+                footer {
+                    position: fixed;
+                    bottom: 0cm;
+                    left: 0cm;
+                    right: 0cm;
+                    text-align: right;
+                    font-family: Sans-serif;
+                    width: 100%;
+                    border-top: 1px solid #000000;
+                    margin-bottom: -10px;
+                    padding: 6px;
+                }
+                </style>
+            </head>
+            <footer></footer>
+            <body>
+                <div class="header">
+                    <table class="cabecalho" style="width:100%">
+                <tr>
+                    <td><b><i>PREFEITURA MUNICIPAL DE JARAGUÁ DO SUL</i></b></td>
+                </tr>
+                <tr>
+                    <td> prefeitura@jaraguadosul.com.br</td>
+                </tr>
+                <tr>
+                    <td>83.102.459/0001-23</td>
+                </tr>
+                <tr>
+                    <td>(047) 2106-8000</td>
+                </tr>
+            </table>
+            </div>
+                <img class="img" src="' . $googleChartImageUrl . '" alt="Google Chart Image" style="width: 720px; height: 500px;">
+            </body>
+            </html>';
 
-            // $contents = $html->getContents();
-            $contents = $html->getContents();
+            TTransaction::close();
 
+            // Create a Dompdf instance and load the HTML content
             $options = new \Dompdf\Options();
-            $options->setChroot(getcwd());
-
-            // converts the HTML template into PDF
+            $options->set('isHtml5ParserEnabled', true);
+            $options->set('isRemoteEnabled', true);
             $dompdf = new \Dompdf\Dompdf($options);
-            $dompdf->loadHtml($contents);
+            $dompdf->loadHtml($html_content);
             $dompdf->setPaper('A4', 'portrait');
             $dompdf->render();
 
-            // write and open file
+            // Save the PDF file and display it in a window
             file_put_contents('app/output/document.pdf', $dompdf->output());
 
-            // open window to show pdf
             $window = TWindow::create(('Document HTML->PDF'), 0.8, 0.8);
             $object = new TElement('object');
             $object->data  = 'app/output/document.pdf';
@@ -234,8 +307,6 @@ class GraficoSinistro extends TPage
 
             $window->add($object);
             $window->show();
-
-            TTransaction::close();
         } catch (Exception $e) {
             new TMessage('error', $e->getMessage());
         }
