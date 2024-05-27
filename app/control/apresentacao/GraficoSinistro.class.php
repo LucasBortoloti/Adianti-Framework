@@ -109,7 +109,7 @@ class GraficoSinistro extends TPage
 
         $query .= " GROUP BY s.descricao ORDER BY s.descricao;";
 
-        $colunas = $sinistro->query($query);
+        $colunas = $sinistro->query($query)->fetchAll(PDO::FETCH_ASSOC);
 
         // var_dump($colunas);
 
@@ -127,11 +127,16 @@ class GraficoSinistro extends TPage
         $date_from_formatado = date('d/m/Y', strtotime($date_from));
         $date_to_formatado = date('d/m/Y', strtotime($date_to));
 
+        $bairro_nome = !empty($colunas) ? $colunas[0]['bairro_nome'] : '';
+        if (empty($bairro_id)) {
+            $bairro_nome = 'Todos';
+        }
+
         $html->enableSection('main', array(
             'data' => json_encode($dados),
             'width' => '100%',
             'height' => '1000px',
-            'title'  => "Sinistros: {$date_from_formatado} até {$date_to_formatado}, Bairro: {$coluna['bairro_nome']}"
+            'title'  => "Sinistros: {$date_from_formatado} até {$date_to_formatado}, Bairro: {$bairro_nome}"
         ));
 
         TTransaction::close();
@@ -186,9 +191,12 @@ class GraficoSinistro extends TPage
             $date_to_formatado = date('d/m/Y', strtotime($date_to));
             $bairro_nome = !empty($colunas) ? $colunas[0]['bairro_nome'] : '';
 
-            // Generate the base64 image URL
+            if (empty($bairro_id)) {
+                $bairro_nome = 'Todos';
+            }
+
             $chartData = json_encode($dados);
-            $chartUrl = "https://quickchart.io/chart?c=" . urlencode(json_encode([
+            $chartUrl = "https://quickchart.io/chart?w=650&h=450&c=" . urlencode(json_encode([
                 'type' => 'pie',
                 'data' => [
                     'labels' => array_column($dados, 0),
