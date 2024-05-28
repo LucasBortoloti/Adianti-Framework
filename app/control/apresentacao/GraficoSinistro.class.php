@@ -158,7 +158,6 @@ class GraficoSinistro extends TPage
             TTransaction::open('defciv');
             $sinistro = TTransaction::get();
 
-            // Build the query
             $query = "SELECT
                     s.descricao,
                     b.nome AS bairro_nome,
@@ -181,11 +180,8 @@ class GraficoSinistro extends TPage
             $stmt = $sinistro->query($query);
             $colunas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            // Prepare data for the chart
-            $dados = [[]];
-            foreach ($colunas as $coluna) {
-                $dados[] = [$coluna['descricao'], (float)$coluna['QTDE']];
-            }
+            $labels = array_column($colunas, 'descricao');
+            $data_values = array_column($colunas, 'QTDE');
 
             $date_from_formatado = date('d/m/Y', strtotime($date_from));
             $date_to_formatado = date('d/m/Y', strtotime($date_to));
@@ -195,14 +191,13 @@ class GraficoSinistro extends TPage
                 $bairro_nome = 'Todos';
             }
 
-            $chartData = json_encode($dados);
-            $chartUrl = "https://quickchart.io/chart?w=650&h=450&c=" . urlencode(json_encode([
+            $chartConfig = [
                 'type' => 'pie',
                 'data' => [
-                    'labels' => array_column($dados, 0),
+                    'labels' => $labels,
                     'datasets' => [
                         [
-                            'data' => array_column($dados, 1),
+                            'data' => $data_values,
                             'borderColor' => 'black',
                             'borderWidth' => 2,
                         ],
@@ -213,88 +208,116 @@ class GraficoSinistro extends TPage
                         'display' => true,
                         'text' => "Sinistros: {$date_from_formatado} até {$date_to_formatado}, Bairro: {$bairro_nome}",
                         'fontColor' => 'black',
+                        'fontSize' => 16,
                     ],
                     'legend' => [
                         'labels' => [
                             'fontColor' => 'black',
+                            'fontSize' => 14,
                         ],
                     ],
                     'plugins' => [
                         'datalabels' => [
-                            'color' => 'black',
+                            'color' => 'white',
+                            'align' => 'end',
+                            'anchor' => 'end',
+                            'offset' => -30,
+                            'clip' => false,
+                            'clamp' => true,
+                            'font' => [
+                                'size' => 10,
+                            ],
                         ],
                     ],
+                    'layout' => [
+                        'padding' => [
+                            'left' => 10,
+                            'right' => 10,
+                            'top' => 10,
+                            'bottom' => 10
+                        ]
+                    ],
+                    'responsive' => false,
+                    'maintainAspectRatio' => false,
                 ],
-            ]));
+            ];
+
+            // Ajustar o tamanho da imagem de acordo com o número de labels
+            $height = 500;
+            if (count($labels) > 10) {
+                $height += (count($labels) - 10) * 20;
+            }
+
+            $chartUrl = "https://quickchart.io/chart?w=650&h={$height}&c=" . urlencode(json_encode($chartConfig));
             $base64Image = base64_encode(file_get_contents($chartUrl));
             $googleChartImageUrl = 'data:image/png;base64,' . $base64Image;
 
             $html_content = '
-            <html>
-            <head>
-                <style>
-                .cabecalho {
-                    padding: 14px;
-                    border: 1px solid #000000;
-                    font-size: 16px;
-                    font-family: Arial, Helvetica, sans-serif;
-                }
-                .header {
-                    position: fixed;
-                    top: 0cm;
-                    width: 100%;
-                    height: 2cm;
-                    background-color: #ffffff;
-                }
-                
-                body {
-                    margin-top: 4cm;
-                    margin-bottom: 1cm;
-                }
+        <html>
+        <head>
+            <style>
+            .cabecalho {
+                padding: 14px;
+                border: 1px solid #000000;
+                font-size: 16px;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            .header {
+                position: fixed;
+                top: 0cm;
+                width: 100%;
+                height: 2cm;
+                background-color: #ffffff;
+            }
+            
+            body {
+                margin-top: 4cm;
+                margin-bottom: 1cm;
+                text-align: center;
+            }
 
-                footer::after {
-                    content: "Página " counter(page);
-                }
-                
-                footer {
-                    position: fixed;
-                    bottom: 0cm;
-                    left: 0cm;
-                    right: 0cm;
-                    text-align: right;
-                    font-family: Sans-serif;
-                    width: 100%;
-                    border-top: 1px solid #000000;
-                    margin-bottom: -10px;
-                    padding: 6px;
-                }
-                </style>
-            </head>
-            <footer></footer>
-            <body>
-                <div class="header">
-                    <table class="cabecalho" style="width:100%">
-                <tr>
-                    <td><b><i>PREFEITURA MUNICIPAL DE JARAGUÁ DO SUL</i></b></td>
-                </tr>
-                <tr>
-                    <td> prefeitura@jaraguadosul.com.br</td>
-                </tr>
-                <tr>
-                    <td>83.102.459/0001-23</td>
-                </tr>
-                <tr>
-                    <td>(047) 2106-8000</td>
-                </tr>
-            </table>
-            </div>
-                <img class="img" src="' . $googleChartImageUrl . '" alt="Google Chart Image" style="width: 720px; height: 500px;">
-            </body>
-            </html>';
+            footer::after {
+                content: "Página " counter(page);
+            }
+            
+            footer {
+                position: fixed;
+                bottom: 0cm;
+                left: 0cm;
+                right: 0cm;
+                text-align: right;
+                font-family: Sans-serif;
+                width: 100%;
+                border-top: 1px solid #000000;
+                margin-bottom: -10px;
+                padding: 6px;
+            }
+            </style>
+        </head>
+        <footer></footer>
+        <body>
+            <div class="header">
+                <table class="cabecalho" style="width:100%">
+            <tr>
+                <td><b><i>PREFEITURA MUNICIPAL DE JARAGUÁ DO SUL</i></b></td>
+            </tr>
+            <tr>
+                <td> prefeitura@jaraguadosul.com.br</td>
+            </tr>
+            <tr>
+                <td>83.102.459/0001-23</td>
+            </tr>
+            <tr>
+                <td>(047) 2106-8000</td>
+            </tr>
+        </table>
+        </div>
+            <img class="img" src="' . $googleChartImageUrl . '" alt="Google Chart Image" style="width: 650px; height: ' . $height . 'px;">
+        </body>
+        </html>';
 
             TTransaction::close();
 
-            // Create a Dompdf instance and load the HTML content
             $options = new \Dompdf\Options();
             $options->set('isHtml5ParserEnabled', true);
             $options->set('isRemoteEnabled', true);
@@ -303,7 +326,6 @@ class GraficoSinistro extends TPage
             $dompdf->setPaper('A4', 'portrait');
             $dompdf->render();
 
-            // Save the PDF file and display it in a window
             file_put_contents('app/output/document.pdf', $dompdf->output());
 
             $window = TWindow::create(('Document HTML->PDF'), 0.8, 0.8);
