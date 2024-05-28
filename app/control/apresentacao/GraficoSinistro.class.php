@@ -62,7 +62,7 @@ class GraficoSinistro extends TPage
         // $date_to->setMask('dd/mm/yyyy');
 
         $this->form->addAction('Gerar', new TAction(array($this, 'onGenerate')), 'fa:download blue');
-        $this->form->addAction('Gerar em PDF', new TAction(array($this, 'onGeneratePDF')), 'fa:download blue');
+        $this->form->addAction('Gráfico de pizza em PDF', new TAction(array($this, 'onGeneratePDF')), 'fa:download blue');
 
         $table = new TTable;
         $table->border = 0;
@@ -213,7 +213,7 @@ class GraficoSinistro extends TPage
                     'legend' => [
                         'labels' => [
                             'fontColor' => 'black',
-                            'fontSize' => 14,
+                            'fontSize' => 12,
                         ],
                     ],
                     'plugins' => [
@@ -225,7 +225,7 @@ class GraficoSinistro extends TPage
                             'clip' => false,
                             'clamp' => true,
                             'font' => [
-                                'size' => 10,
+                                'size' => 13,
                             ],
                         ],
                     ],
@@ -243,7 +243,7 @@ class GraficoSinistro extends TPage
             ];
 
             // Ajustar o tamanho da imagem de acordo com o número de labels
-            $height = 500;
+            $height = 600;
             if (count($labels) > 10) {
                 $height += (count($labels) - 10) * 20;
             }
