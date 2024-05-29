@@ -61,7 +61,8 @@ class GraficoSinistro extends TPage
         // $date_from->setMask('dd/mm/yyyy');
         // $date_to->setMask('dd/mm/yyyy');
 
-        $this->form->addAction('Gerar', new TAction(array($this, 'onGenerate')), 'fa:download blue');
+        $this->form->addAction('Gerar gráfico de pizza', new TAction(array($this, 'onGenerate')), 'fa:download blue');
+        $this->form->addAction('Gerar gráfico de coluna', new TAction(array($this, 'onGenerateColuna')), 'fa:download blue');
         $this->form->addAction('Gráfico de pizza em PDF', new TAction(array($this, 'onGeneratePDF')), 'fa:download blue');
 
         $table = new TTable;
@@ -340,5 +341,77 @@ class GraficoSinistro extends TPage
         } catch (Exception $e) {
             new TMessage('error', $e->getMessage());
         }
+    }
+
+    function onGenerateColuna()
+    {
+        $html = new THtmlRenderer('app/resources/google_column_chart.html');
+
+        $data = $this->form->getData();
+        $date_from = $data->date_from;
+        $date_to = $data->date_to;
+        $bairro_id = $data->bairro_id;
+        $pesquisa = $data->pesquisa;
+
+        $this->form->setData($data);
+
+        TTransaction::open('defciv');
+
+        $sinistro = TTransaction::get();
+
+        $query = "SELECT
+               s.descricao,
+               b.nome AS bairro_nome,
+               count(*) as QTDE
+             FROM
+               ocorrencia o
+             LEFT JOIN
+               sinistro s ON s.id = o.sinistro_id
+             LEFT JOIN vigepi.bairro b on b.id = o.bairro_id
+             WHERE
+               o.{$pesquisa} >= '{$date_from}' AND
+               o.{$pesquisa} <= '{$date_to}'";
+
+        if (!empty($bairro_id)) {
+            $query .= " AND o.bairro_id = '{$bairro_id}'";
+        }
+
+        $query .= " GROUP BY s.descricao ORDER BY s.descricao;";
+
+        $colunas = $sinistro->query($query)->fetchAll(PDO::FETCH_ASSOC);
+
+        // var_dump($colunas);
+
+        $dados[] = ['Sinistro', 'Quantidade'];
+
+        foreach ($colunas as $coluna) {
+            $dados[] = [$coluna['descricao'], (float)$coluna['QTDE']];
+        }
+
+        $div = new TElement('div');
+        $div->id = 'container';
+        $div->style = 'width:1555px;height:1150px';
+        $div->add($html);
+
+        $date_from_formatado = date('d/m/Y', strtotime($date_from));
+        $date_to_formatado = date('d/m/Y', strtotime($date_to));
+
+        $bairro_nome = !empty($colunas) ? $colunas[0]['bairro_nome'] : '';
+        if (empty($bairro_id)) {
+            $bairro_nome = 'Todos';
+        }
+
+        $html->enableSection('main', array(
+            'data' => json_encode($dados),
+            'width' => '100%',
+            'height' => '1000px',
+            'title'  => "Sinistros: {$date_from_formatado} até {$date_to_formatado}, Bairro: {$bairro_nome}",
+            'ytitle' => '',
+            'xtitle' => '',
+        ));
+
+        TTransaction::close();
+
+        parent::add($div);
     }
 }
