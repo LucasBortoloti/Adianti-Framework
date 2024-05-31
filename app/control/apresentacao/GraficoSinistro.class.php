@@ -471,8 +471,8 @@ class GraficoSinistro extends TPage
                         [
                             'label' => 'Quantidade de Sinistros',
                             'data' => $data_values,
-                            'backgroundColor' => 'rgba(43, 123, 214)',
-                            'borderColor' => 'rgba(43, 123, 214)',
+                            'backgroundColor' => 'rgba(1, 146, 225)',
+                            'borderColor' => 'rgba(1, 146, 225)',
                             'borderWidth' => 1,
                         ],
                     ],
