@@ -509,7 +509,7 @@ class GraficoSinistro extends TPage
                             'color' => 'black',
                             'align' => 'end',
                             'anchor' => 'end',
-                            'offset' => -20,
+                            'offset' => -18,
                             'clip' => false,
                             'clamp' => true,
                             'font' => [
