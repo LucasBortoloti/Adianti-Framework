@@ -131,21 +131,16 @@ class SinistroList6 extends TPage
 
                 foreach ($rows as $row) {
 
-                    if ($id != $row['bairro_id']) {
-                        $id = $row['bairro_id'];
-                        $bairros[] = ["id" => $row['bairro_id'], "bairro_nome" => $row['bairro_nome']];
+                    if ($id != $row['sinistro_id']) {
+                        $id = $row['sinistro_id'];
+                        $bairros[] = ["id" => $row['sinistro_id'], "sinistro_descricao" => $row['sinistro_descricao']];
                     }
 
-                    $sinistros[] = [
+                    $bairros[] = [
                         "idpai" => $id,
-                        "sinistro_id" => $row['sinistro_id'],
-                        "sinistro_descricao" => $row['sinistro_descricao'],
-                        "logradouro_id" => $row['logradouro_id'],
-                        "logradouro_nome" => $row['logradouro_nome'],
+                        "bairro_id" => $row['bairro_id'],
+                        "bairro_nome" => $row['bairro_nome'],
                         "QTDE" => $row['QTDE'],
-                        "DESALOJADOS" => $row['DESALOJADOS'],
-                        "DESABRIGADOS" => $row['DESABRIGADOS'],
-
                     ];
 
                     // $replace[] = array(
