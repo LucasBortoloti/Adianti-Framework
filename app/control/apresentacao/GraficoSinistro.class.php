@@ -1,6 +1,7 @@
 <?php
 
 use Adianti\Control\TPage;
+use Adianti\Validator\TRequiredValidator;
 use Adianti\Widget\Dialog\TMessage;
 use Adianti\Widget\Form\TLabel;
 use Adianti\Widget\Wrapper\TDBCombo;
@@ -50,6 +51,10 @@ class GraficoSinistro extends TPage
 
         //$this->form->addFields([new TLabel('Id')], [$id]);
 
+        $date_from->addValidation('De', new TRequiredValidator);
+        $date_to->addValidation('Até', new TRequiredValidator);
+        $pesquisa->addValidation('Tipo de pesquisa', new TRequiredValidator);
+
         $date_from->setSize('100%');
         $date_to->setSize('100%');
 
@@ -85,6 +90,8 @@ class GraficoSinistro extends TPage
         $date_to = $data->date_to;
         $bairro_id = $data->bairro_id;
         $pesquisa = $data->pesquisa;
+
+        $this->form->validate();
 
         $this->form->setData($data);
 
@@ -154,6 +161,8 @@ class GraficoSinistro extends TPage
             $date_to = $data->date_to;
             $bairro_id = $data->bairro_id;
             $pesquisa = $data->pesquisa;
+
+            $this->form->validate();
 
             $this->form->setData($data);
 
@@ -228,6 +237,7 @@ class GraficoSinistro extends TPage
                             'clamp' => true,
                             'font' => [
                                 'size' => 13,
+                                'weight' => 'bold',
                             ],
                         ],
                     ],
@@ -354,6 +364,8 @@ class GraficoSinistro extends TPage
         $bairro_id = $data->bairro_id;
         $pesquisa = $data->pesquisa;
 
+        $this->form->validate();
+
         $this->form->setData($data);
 
         TTransaction::open('defciv');
@@ -425,6 +437,8 @@ class GraficoSinistro extends TPage
             $bairro_id = $data->bairro_id;
             $pesquisa = $data->pesquisa;
 
+            $this->form->validate();
+
             $this->form->setData($data);
 
             TTransaction::open('defciv');
@@ -471,8 +485,8 @@ class GraficoSinistro extends TPage
                         [
                             'label' => 'Quantidade de Sinistros',
                             'data' => $data_values,
-                            'backgroundColor' => 'rgba(1, 146, 225)',
-                            'borderColor' => 'rgba(1, 146, 225)',
+                            'backgroundColor' => 'rgba(14, 200, 229)',
+                            'borderColor' => 'rgba(14, 200, 229)',
                             'borderWidth' => 1,
                         ],
                     ],
@@ -514,6 +528,7 @@ class GraficoSinistro extends TPage
                             'clamp' => true,
                             'font' => [
                                 'size' => 13,
+                                'weight' => 'bold',
                             ],
                         ],
                     ],

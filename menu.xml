@@ -130,18 +130,6 @@
                 <icon>fas:database fa-fw</icon>
                 <action>SinistroList</action>
               </menuitem>
-              <menuitem label='Sinistro List 2'>
-                <icon>fas:database fa-fw</icon>
-                <action>SinistroListDois</action>
-              </menuitem>
-              <menuitem label='Sinistro List 3'>
-                <icon>fas:database fa-fw</icon>
-                <action>SinistroListTres</action>
-              </menuitem>
-              <menuitem label='Sinistro List 4'>
-                <icon>fas:database fa-fw</icon>
-                <action>SinistroList4</action>
-              </menuitem>
               <menuitem label='Sinistro List Correto 2'>
                 <icon>fas:database fa-fw</icon>
                 <action>SinistroList5</action>
