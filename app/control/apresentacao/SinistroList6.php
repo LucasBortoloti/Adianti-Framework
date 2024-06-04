@@ -88,21 +88,16 @@ class SinistroList6 extends TPage
                                     b.nome as bairro_nome,
                                     o.sinistro_id as sinistro_id,
                                     s.descricao as descricao,
-                                    o.logradouro_id as logradouro_id,
-                                    l.nome as logradouro_nome,
                                     s.descricao as sinistro_descricao,
-                                    l.id as logradouro_id,
-                                    l.nome as logradouro_nome,
                                     count(*) as QTDE,
                                     o.OCO_DHDESALOJADOS as DESALOJADOS,
                                     o.OCO_DHDESABRIGADOS as DESABRIGADOS
                                 from defciv.ocorrencia o 
                                 left join defciv.sinistro s on s.id = o.sinistro_id
                                 left join vigepi.bairro b on b.id = o.bairro_id
-                                left join vigepi.logradouro l on l.id = o.logradouro_id
                                     where o.data_evento >= '{$date_from}' and o.data_evento <= '{$date_to}'
-                                group by o.bairro_id, b.nome, o.sinistro_id, s.descricao, o.logradouro_id, l.nome
-                                order by b.nome, s.descricao, l.nome";
+                                group by o.bairro_id, b.nome, o.sinistro_id, s.descricao
+                                order by b.nome, s.descricao";
 
             $rows = TDatabase::getData($source, $query, null, null);
 
@@ -116,47 +111,25 @@ class SinistroList6 extends TPage
 
             if ($rows) {
 
-                $totalQtde = 0;
-                $totalDesalojados = 0;
-                $totalDesabrigados = 0;
-
                 // echo "<pre>";
                 // print_r($rows);
                 // echo "<pre>";
 
-                $bairros = array();
-                $sinistros = array();
-
-                $id = "";
+                $bairros = [];
+                $sinistros = [];
 
                 foreach ($rows as $row) {
-
-                    if ($id != $row['sinistro_id']) {
-                        $id = $row['sinistro_id'];
-                        $bairros[] = ["id" => $row['sinistro_id'], "sinistro_descricao" => $row['sinistro_descricao']];
+                    if (!isset($sinistros[$row['sinistro_id']])) {
+                        $sinistros[$row['sinistro_id']] = ["id" => $row['sinistro_id'], "sinistro_descricao" => $row['sinistro_descricao']];
                     }
 
-                    $bairros[] = [
-                        "idpai" => $id,
-                        "bairro_id" => $row['bairro_id'],
-                        "bairro_nome" => $row['bairro_nome'],
-                        "QTDE" => $row['QTDE'],
-                    ];
-
-                    // $replace[] = array(
-                    //     'bairro_id' => $row['bairro_id'],
-                    //     'bairro_nome' => $row['bairro_nome'],
-                    //     'sinistro_id' => $row['sinistro_id'],
-                    //     'sinistro_descricao' => $row['sinistro_descricao'],
-                    //     'logradouro_id' => $row['logradouro_id'],
-                    //     'logradouro_nome' => $row['logradouro_nome'],
-                    //     'QTDE' => $row['QTDE'],
-                    //     'DESALOJADOS' => $row['DESALOJADOS'],
-                    //     'DESABRIGADOS' => $row['DESABRIGADOS'],
-                    //     'totalQtde' => $totalQtde,
-                    //     'totalDesalojados' => $totalDesalojados,
-                    //     'totalDesabrigados' => $totalDesabrigados
-                    // );
+                    if (!isset($bairros[$row['sinistro_id']][$row['bairro_id']])) {
+                        $bairros[$row['sinistro_id']][$row['bairro_id']] = [
+                            "bairro_id" => $row['bairro_id'],
+                            "bairro_nome" => $row['bairro_nome'],
+                            "QTDE" => $row['QTDE'],
+                        ];
+                    }
                 }
 
                 // print_r($bairros);
@@ -192,71 +165,35 @@ class SinistroList6 extends TPage
                     </div>
                     <table class="customform" style="width: 100%">';
 
-                for ($i = 0; $i < count($bairros); $i++) {
+                foreach ($sinistros as $sinistro) {
 
                     $totalQtde = 0;
-                    $totalDesalojados = 0;
-                    $totalDesabrigados = 0;
 
                     $content .= "<tr>";
-
-                    // echo $bairros[$i]["bairro_nome"] . "<br>";
-
-                    $content .= "<td class='bairro' colspan='4'>" . $bairros[$i]["id"] . " - " . $bairros[$i]["bairro_nome"] . "</td> </tr>";
+                    $content .= "<td class='bairro' colspan='4'>" . $sinistro["id"] . " - " . $sinistro["sinistro_descricao"] . "</td> </tr>";
                     $r = "";
 
-                    for ($j = 0; $j < count($sinistros); $j++) {
-
-                        if ($sinistros[$j]["idpai"] == $bairros[$i]["id"]) {
+                    if (isset($bairros[$sinistro["id"]])) {
+                        foreach ($bairros[$sinistro["id"]] as $bairro) {
                             $r .= "<tr> 
-                                        <td class='cor' colspan=4> {$sinistros[$j]['sinistro_id']} {$sinistros[$j]['sinistro_descricao']} </td> 
-                                    </tr>
-                                    <tr>
-                                        <td class='desa'>Nome da rua</td>
-                                        <td class='desa'>Quantidade</td>
-                                        <td class='desa'>Desabrigados</td>
-                                        <td class='desa'>Desalojados</td>
-                                    </tr>
-                                    <tr> 
-                                        <td>{$sinistros[$j]['logradouro_id']} - {$sinistros[$j]['logradouro_nome']} </td>
-                                        <td>{$sinistros[$j]['QTDE']} </td> 
-                                        <td>{$sinistros[$j]['DESABRIGADOS']} </td>
-                                        <td>{$sinistros[$j]['DESALOJADOS']}</td>
-                                    </tr>";
+                                    <td class='cor' colspan=4> {$bairro['bairro_id']} {$bairro['bairro_nome']} </td> 
+                                </tr>";
 
-                            $totalQtde += $sinistros[$j]['QTDE'];
-                            $totalDesalojados += $sinistros[$j]['DESALOJADOS'];
-                            $totalDesabrigados += $sinistros[$j]['DESABRIGADOS'];
+                            $totalQtde += $bairro['QTDE'];
                         }
                     }
                     $content .= $r;
 
                     $content .= "<tr>
-                            <td class='total'>Total do bairro:</td>
-                            <td class='total'> $totalQtde</td>
-                            <td class='total'> $totalDesalojados</td>
-                            <td class='total'> $totalDesabrigados</td>    
-                            </tr>
-                            <tr>
-                            <td colspan=4></td>
-                            </tr>";
-
-                    $registrogeral[] = ["registro" => $content];
-                    // $content = "";
-                    // $registrogeral[] = [
-                    //     "bairro_id" => $bairros[$i]["id"],
-                    //     "bairro_nome" => $bairros[$i]["bairro_nome"],
-                    //     "sini_array" => $registros
-                    // ];
-                    // unset($registros);
+                            <td class='total' colspan=2>Total do sinistro:</td>
+                            <td class='total' colspan=2> $totalQtde</td>             
+                        </tr><br>";
                 }
 
-                $content .= "</table> 
-                </body>
-                </html>";
-
-                // print_r($registrogeral);
-                // echo $registrogeral[0]["registro"];
+                $content .= "
+                </table> 
+                    </body>
+                    </html>";
 
                 $html->enableSection('registros', $registrogeral, TRUE);
             }
