@@ -170,24 +170,34 @@ class SinistroList6 extends TPage
                     $totalQtde = 0;
 
                     $content .= "<tr>";
-                    $content .= "<td class='bairro' colspan='4'>" . $sinistro["id"] . " - " . $sinistro["sinistro_descricao"] . "</td> </tr>";
+                    $content .= "<td class='bairro' colspan='4'>" . $sinistro["sinistro_descricao"] . "</td> </tr>";
                     $r = "";
 
                     if (isset($bairros[$sinistro["id"]])) {
+                        $nome = "";
+                        $remove = "";
                         foreach ($bairros[$sinistro["id"]] as $bairro) {
-                            $r .= "<tr> 
-                                    <td class='cor' colspan=4> {$bairro['bairro_id']} {$bairro['bairro_nome']} </td> 
-                                </tr>";
 
+                            $nome .= "{$bairro['bairro_nome']}, ";
                             $totalQtde += $bairro['QTDE'];
                         }
+
+                        //remove a virgula do ultimo bairro
+                        $remove = rtrim($nome, ', ');
+
+                        $r .= "<tr> 
+                                <td class='cor' colspan=4> {$remove} </td> 
+                            </tr>";
                     }
                     $content .= $r;
 
-                    $content .= "<tr>
+                    $content .= "<tr> 
                             <td class='total' colspan=2>Total do sinistro:</td>
                             <td class='total' colspan=2> $totalQtde</td>             
-                        </tr><br>";
+                        </tr>
+                        <tr>
+                        <td colspan=4></td>
+                        </tr>";
                 }
 
                 $content .= "
