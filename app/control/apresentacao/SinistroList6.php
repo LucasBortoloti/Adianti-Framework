@@ -192,8 +192,7 @@ class SinistroList6 extends TPage
                     $content .= $r;
 
                     $content .= "<tr> 
-                            <td class='total' colspan=2>Total do sinistro:</td>
-                            <td class='total' colspan=2> $totalQtde</td>             
+                            <td class='total' colspan=4>Total: $totalQtde</td>
                         </tr>
                         <tr>
                         <td colspan=4></td>

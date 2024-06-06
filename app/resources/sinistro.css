@@ -4,6 +4,7 @@
     background: #ffffff;
     border-collapse: collapse;
     padding: 2px;
+    /* page-break-before: always; */
     /* esse border-collapse é o responsável pelas bordas ficarem completas e sem sobras entre uma e outra*/
 }
 
