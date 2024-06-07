@@ -141,7 +141,7 @@ class SinistroList6 extends TPage
                 $registrogeral = array();
                 $content = ' <html>
                 <head> <title>Ocorrencias</title>
-                    <link href="app/resources/sinistro.css" rel="stylesheet" type="text/css" media="screen"/>
+                    <link href="app/resources/sinistro2.css" rel="stylesheet" type="text/css" media="screen"/>
                 </head>
                 <footer></footer>
                 <body>
@@ -162,16 +162,15 @@ class SinistroList6 extends TPage
                                 <td class="red colspan=4">Ocorrência de ' . $date_from_formatado . ' até ' . $date_to_formatado . '</td>                     
                             </tr>
                         </table>
-                    </div>
-                    <table class="customform" style="width: 100%">';
+                    </div>';
 
                 foreach ($sinistros as $sinistro) {
 
                     $totalQtde = 0;
 
-                    $content .= "<tr>";
-                    $content .= "<td class='bairro' colspan='4'>" . $sinistro["sinistro_descricao"] . "</td> </tr>";
-                    $r = "";
+                    $content .= '<table class="customform" style="width:100%">';
+                    $content .= '<tr><td class="sinistro" colspan="4">' . $sinistro["sinistro_descricao"] . '</td></tr>';
+                    $r = '';
 
                     if (isset($bairros[$sinistro["id"]])) {
                         $nome = "";
@@ -194,14 +193,11 @@ class SinistroList6 extends TPage
                     $content .= "<tr> 
                             <td class='total' colspan=4>Total: $totalQtde</td>
                         </tr>
-                        <tr>
-                        <td colspan=4></td>
-                        </tr>";
+                        </table>
+                        <br>";
                 }
 
-                $content .= "
-                </table> 
-                    </body>
+                $content .= "</body>
                     </html>";
 
                 $html->enableSection('registros', $registrogeral, TRUE);

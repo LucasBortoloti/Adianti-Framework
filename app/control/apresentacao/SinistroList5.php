@@ -194,8 +194,7 @@ class SinistroList5 extends TPage
                                 <td class="red colspan=4">Ocorrência de ' . $date_from_formatado . ' até ' . $date_to_formatado . '</td>                     
                             </tr>
                         </table>
-                    </div>
-                    <table class="customform" style="width: 100%">';
+                    </div>';
 
                 for ($i = 0; $i < count($bairros); $i++) {
 
@@ -203,11 +202,7 @@ class SinistroList5 extends TPage
                     $totalDesalojados = 0;
                     $totalDesabrigados = 0;
 
-                    $content .= "<tr>";
-
-                    // echo $bairros[$i]["bairro_nome"] . "<br>";
-
-                    $content .= "<td class='bairro' colspan='4'>" . $bairros[$i]["id"] . " - " . $bairros[$i]["bairro_nome"] . "</td> </tr>";
+                    $content .= '<table class="customform" style="width: 100%">' . '<tr>' . '<td class="bairro" colspan="4">' . $bairros[$i]["id"] . ' - ' . $bairros[$i]["bairro_nome"] . '</td> </tr>';
                     $r = "";
 
                     for ($j = 0; $j < count($sinistros); $j++) {
@@ -242,9 +237,8 @@ class SinistroList5 extends TPage
                             <td class='total'> $totalDesalojados</td>
                             <td class='total'> $totalDesabrigados</td>    
                             </tr>
-                            <tr>
-                            <td colspan=4></td>
-                            </tr>";
+                            </table>
+                            <br>";
 
                     $registrogeral[] = ["registro" => $content];
                     // $content = "";
@@ -256,8 +250,7 @@ class SinistroList5 extends TPage
                     // unset($registros);
                 }
 
-                $content .= "</table> 
-                </body>
+                $content .= "</body>
                 </html>";
 
                 // print_r($registrogeral);
