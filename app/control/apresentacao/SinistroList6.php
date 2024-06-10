@@ -39,7 +39,6 @@ class SinistroList6 extends TPage
         $this->form = new BootstrapFormBuilder('form_search_Ocorrencias');
         $this->form->setFormTitle(('Ocorrencias 6'));
 
-        // $id = new TEntry('id');
         $date_from = new TDate('date_from');
         $date_to = new TDate('date_to');
 
@@ -50,15 +49,11 @@ class SinistroList6 extends TPage
         $this->form->addFields([new TLabel('De')], [$date_from]);
         $this->form->addFields([new TLabel('Até')], [$date_to]);
 
-        //$this->form->addFields([new TLabel('Id')], [$id]);
-
         $date_from->setSize('50%');
         $date_to->setSize('50%');
 
         $date_from->setSize('100%');
         $date_to->setSize('100%');
-        // $date_from->setMask('dd/mm/yyyy');
-        // $date_to->setMask('dd/mm/yyyy');
 
         $this->form->addAction('Gerar', new TAction(array($this, 'onGenerate')), 'fa:download blue');
 
@@ -131,8 +126,6 @@ class SinistroList6 extends TPage
                         ];
                     }
                 }
-
-                // print_r($bairros);
 
                 $date_from_formatado = date('d/m/Y', strtotime($date_from));
                 $date_to_formatado = date('d/m/Y', strtotime($date_to));
