@@ -138,6 +138,10 @@
                 <icon>fas:database fa-fw</icon>
                 <action>SinistroList6</action>
               </menuitem>
+              <menuitem label='Sinistro List Correto 4'>
+                <icon>fas:database fa-fw</icon>
+                <action>SinistroList7</action>
+              </menuitem>
               <menuitem label='Gráficos Sinistro'>
                 <icon>fas:table fa-fw</icon>
                 <action>GraficoSinistro</action>
