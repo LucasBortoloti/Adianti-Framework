@@ -69,7 +69,6 @@ class SinistroList7 extends TPage
 
     public function onGenerate()
     {
-
         try {
             $data = $this->form->getData();
             $date_from = $data->date_from;
@@ -79,32 +78,32 @@ class SinistroList7 extends TPage
 
             $source = TTransaction::open('defciv');
 
-            $query = "  SELECT      o.bairro_id as bairro_id,
-                                    b.nome as bairro_nome,
-                                    o.sinistro_id as sinistro_id,
-                                    s.descricao as descricao,
-                                    s.descricao as sinistro_descricao,
-                                    o.solicitante as solicitante,
-                                    o.cpf as cpf,
-                                    o.fone1 as fone,
-                                    o.data_cadastro as data_cadastro,
-                                    o.data_evento as data_evento,
-                                    o.cobrade_id as cobrade,
-                                    count(*) as QTDE,
-                                    sum(
-                                        case status
-                                            when 'B' then 'B'
-                                            when 'A' then 'A'
-                                        end
-                                    ) as STATUSS,
-                                    o.OCO_DHDESALOJADOS as DESALOJADOS,
-                                    o.OCO_DHDESABRIGADOS as DESABRIGADOS
-                                from defciv.ocorrencia o 
-                                left join defciv.sinistro s on s.id = o.sinistro_id
-                                left join vigepi.bairro b on b.id = o.bairro_id
-                                    where o.data_evento >= '{$date_from}' and o.data_evento <= '{$date_to}'
-                                group by o.sinistro_id, s.descricao
-                                order by s.descricao";
+            $query = "    SELECT        o.bairro_id as bairro_id,
+                                        b.nome as bairro_nome,
+                                        o.sinistro_id as sinistro_id,
+                                        s.descricao as descricao,
+                                        s.descricao as sinistro_descricao,
+                                        o.solicitante as solicitante,
+                                        o.cpf as cpf,
+                                        o.fone1 as fone,
+                                        o.data_cadastro as data_cadastro,
+                                        o.data_evento as data_evento,
+                                        o.cobrade_id as cobrade,
+                                        count(*) as QTDE,
+                                        sum(
+                                            case status
+                                                when 'B' then '841'
+                                                when 'A' then '483'
+                                            end
+                                        ) as situacao,
+                                        o.OCO_DHDESALOJADOS as DESALOJADOS,
+                                        o.OCO_DHDESABRIGADOS as DESABRIGADOS
+                                    from defciv.ocorrencia o
+                                    left join defciv.sinistro s on s.id = o.sinistro_id
+                                    left join vigepi.bairro b on b.id = o.bairro_id
+                                        where o.data_evento >= '{$date_from}' and o.data_evento <= '{$date_to}'
+                                    group by o.solicitante ,o.bairro_id, b.nome, o.sinistro_id, s.descricao
+                                    order by o.solicitante, b.nome, s.descricao";
 
             $rows = TDatabase::getData($source, $query, null, null);
 
@@ -117,10 +116,6 @@ class SinistroList7 extends TPage
             $replace = array();
 
             if ($rows) {
-
-                // echo "<pre>";
-                // print_r($rows);
-                // echo "<pre>";
 
                 $bairros = [];
                 $sinistros = [];
@@ -138,7 +133,7 @@ class SinistroList7 extends TPage
                             "data_cadastro" => $row['data_cadastro'],
                             "data_evento" => $row['data_evento'],
                             "cobrade" => $row['cobrade'],
-                            "status" => $row['STATUSS'],
+                            "status" => $row['situacao'],
                             "QTDE" => $row['QTDE'],
                         ];
                     }
@@ -169,7 +164,7 @@ class SinistroList7 extends TPage
                             </tr>
                             <tr>
                                 <td>(047) 2106-8000</td>
-                                <td class="red colspan=4">Ocorrência de ' . $date_from_formatado . ' até ' . $date_to_formatado . '</td>                     
+                                <td class="red colspan=4">Ocorrência de ' . $date_from_formatado . ' até ' . $date_to_formatado . '</td>                    
                             </tr>
                         </table>
                     </div>';
@@ -179,30 +174,29 @@ class SinistroList7 extends TPage
                     $totalQtde = 0;
 
                     $content .= '<table class="customform" style="width:100%">';
-                    $content .= '<tr><td class="sinistro" colspan="8">' . $sinistro["sinistro_descricao"] . '</td></tr>;
-                    <tr><td>Solicitante</td><td>CPF</td><td>Fone</td><td>Dt.Cad</td>
-                    <td>Dt.Evento</td><td>Cobrade</td><td>Status</td></tr>';
-
-                    $r = '';
+                    $content .= '<tr><td class="sinistro" colspan=8>' . $sinistro["sinistro_descricao"] . '</td></tr>';
+                    $content .= '<tr><td><b>Solicitante</b></td><td>CPF</td><td>Fone</td><td>Dt.Cad</td>' . '<td>Dt.Evento</td><td>Cobrade</td><td>Status</td></tr>';
 
                     if (isset($bairros[$sinistro["id"]])) {
-
                         foreach ($bairros[$sinistro["id"]] as $bairro) {
-
+                            $content .= "<tr>
+                                            <td class='cor'>{$bairro['solicitante']}</td>
+                                            <td class='cpf'>{$bairro['cpf']}</td>
+                                            <td>{$bairro['fone']}</td>
+                                            <td>{$bairro['data_cadastro']}</td>
+                                            <td>{$bairro['data_evento']}</td>
+                                            <td>{$bairro['cobrade']}</td>
+                                            <td>{$bairro['status']}</td>
+                                         </tr>";
                             $totalQtde += $bairro['QTDE'];
                         }
-
-                        $r .= "<tr> 
-                                <td class='cor'>{$bairro['solicitante']}</td> 
-                            </tr>";
                     }
-                    $content .= $r;
 
-                    $content .= "<tr> 
-                            <td class='total' colspan=8>Total: $totalQtde</td>
-                        </tr>
-                        </table>
-                        <br>";
+                    $content .= "<tr>
+                                    <td class='total' colspan=8>Total: $totalQtde</td>
+                                </tr>
+                                </table>
+                                <br>";
                 }
 
                 $content .= "</body>
@@ -217,22 +211,18 @@ class SinistroList7 extends TPage
             $vbox->add($this->html);
             parent::add($vbox);
 
-            // $contents = $html->getContents();
             $contents = $content;
 
             $options = new \Dompdf\Options();
             $options->setChroot(getcwd());
 
-            // converts the HTML template into PDF
             $dompdf = new \Dompdf\Dompdf($options);
             $dompdf->loadHtml($contents);
             $dompdf->setPaper('A4', 'portrait');
             $dompdf->render();
 
-            // write and open file
             file_put_contents('app/output/document.pdf', $dompdf->output());
 
-            // open window to show pdf
             $window = TWindow::create(('Document HTML->PDF'), 0.8, 0.8);
             $object = new TElement('object');
             $object->data  = 'app/output/document.pdf';
