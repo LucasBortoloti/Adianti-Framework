@@ -170,8 +170,8 @@ class SinistroList7 extends TPage
 
                     $content .= '<table class="customform" style="width:100%">';
                     $content .= '<tr><td class="sinistro" colspan=8>' . $sinistro["sinistro_descricao"] . '</td></tr>';
-                    $content .= '<tr><td><b>Solicitante</b></td><td><b>CPF</b></td><td><b>Fone</b></td><td><b>Dt.Cad</b></td>'
-                        . '<td><b>Dt.Evento</b></td><td><b>Cobrade</b></td><td colspan=2><b>Status</b></td></tr>';
+                    $content .= '<tr><td class="borda"><b>Solicitante</b></td><td class="borda"><b>CPF</b></td><td class="borda"><b>Fone</b></td><td class="borda"><b>Dt.Cad</b></td>'
+                        . '<td class="borda"><b>Dt.Evento</b></td><td class="borda"><b>Cobrade</b></td><td class="borda" colspan=2><b>Status</b></td></tr>';
 
                     if (isset($bairros[$sinistro["id"]])) {
                         foreach ($bairros[$sinistro["id"]] as $bairro) {
