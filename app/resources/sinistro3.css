@@ -23,6 +23,10 @@ body {
     font-size: 16px;
 }
 
+.right {
+    text-align: center;
+}
+
 .total {
     border-top: 1px solid black;
     font-weight: bold;
@@ -39,11 +43,13 @@ body {
 .sinistro {
     font-weight: bold;
     border: 1px solid black;
+    font-size: 16px;
 }
 
 .cor {
     font-weight: bold;
     color: #032a61;
+    font-size: 16px;
 }
 
 .rua {
@@ -92,7 +98,7 @@ footer {
 
 @page {
     font-family: Arial, Helvetica, sans-serif;
-    size: A4 portrait;
+    size: A4 landscape;
     margin: 1cm 1cm 1cm;
     counter-increment: page;
 }

@@ -89,13 +89,8 @@ class SinistroList7 extends TPage
                                         o.data_cadastro as data_cadastro,
                                         o.data_evento as data_evento,
                                         o.cobrade_id as cobrade,
+                                        o.status as situacao,
                                         count(*) as QTDE,
-                                        sum(
-                                            case status
-                                                when 'B' then '841'
-                                                when 'A' then '483'
-                                            end
-                                        ) as situacao,
                                         o.OCO_DHDESALOJADOS as DESALOJADOS,
                                         o.OCO_DHDESABRIGADOS as DESABRIGADOS
                                     from defciv.ocorrencia o
@@ -175,7 +170,8 @@ class SinistroList7 extends TPage
 
                     $content .= '<table class="customform" style="width:100%">';
                     $content .= '<tr><td class="sinistro" colspan=8>' . $sinistro["sinistro_descricao"] . '</td></tr>';
-                    $content .= '<tr><td><b>Solicitante</b></td><td><b>CPF</b></td><td><b>Fone</b></td><td><b>Dt.Cad</b></td>' . '<td><b>Dt.Evento</b></td><td><b>Cobrade</b></td><td><b>Status</b></td></tr>';
+                    $content .= '<tr><td><b>Solicitante</b></td><td><b>CPF</b></td><td><b>Fone</b></td><td><b>Dt.Cad</b></td>'
+                        . '<td><b>Dt.Evento</b></td><td><b>Cobrade</b></td><td colspan=2><b>Status</b></td></tr>';
 
                     if (isset($bairros[$sinistro["id"]])) {
                         foreach ($bairros[$sinistro["id"]] as $bairro) {
@@ -186,7 +182,7 @@ class SinistroList7 extends TPage
                                             <td>{$bairro['data_cadastro']}</td>
                                             <td>{$bairro['data_evento']}</td>
                                             <td>{$bairro['cobrade']}</td>
-                                            <td>{$bairro['status']}</td>
+                                            <td class='right'>{$bairro['status']}</td>
                                          </tr>";
                             $totalQtde += $bairro['QTDE'];
                         }
@@ -218,7 +214,7 @@ class SinistroList7 extends TPage
 
             $dompdf = new \Dompdf\Dompdf($options);
             $dompdf->loadHtml($contents);
-            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->setPaper('A4', 'landscape');
             $dompdf->render();
 
             file_put_contents('app/output/document.pdf', $dompdf->output());
