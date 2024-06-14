@@ -171,18 +171,18 @@ class SinistroList7 extends TPage
                     $content .= '<table class="customform" style="width:100%">';
                     $content .= '<tr><td class="sinistro" colspan=8>' . $sinistro["sinistro_descricao"] . '</td></tr>';
                     $content .= '<tr><td class="borda"><b>Solicitante</b></td><td class="borda"><b>CPF</b></td><td class="borda"><b>Fone</b></td><td class="borda"><b>Dt.Cad</b></td>'
-                        . '<td class="borda"><b>Dt.Evento</b></td><td class="borda"><b>Cobrade</b></td><td class="borda" colspan=2><b>Status</b></td></tr>';
+                        . '<td class="borda"><b>Dt.Evento</b></td><td class="borda"><b>Cobrade</b></td><td class="centerborder" colspan=2><b>Status</b></td></tr>';
 
                     if (isset($bairros[$sinistro["id"]])) {
                         foreach ($bairros[$sinistro["id"]] as $bairro) {
-                            $content .= "<tr>
+                            $content .= "<tr class='sinistro_linha'>
                                             <td class='cor'>{$bairro['solicitante']}</td>
                                             <td class='fontes'>{$bairro['cpf']}</td>
                                             <td>{$bairro['fone']}</td>
                                             <td>{$bairro['data_cadastro']}</td>
                                             <td>{$bairro['data_evento']}</td>
                                             <td>{$bairro['cobrade']}</td>
-                                            <td class='right'>{$bairro['status']}</td>
+                                            <td class='center' colspan=2>{$bairro['status']}</td>
                                          </tr>";
                             $totalQtde += $bairro['QTDE'];
                         }

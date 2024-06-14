@@ -3,7 +3,7 @@
     font-size: 16px;
     background: #ffffff;
     border-collapse: collapse;
-    padding: 2px;
+    padding: 1px;
     /* page-break-after: always; */
     /* esse border-collapse é o responsável pelas bordas ficarem completas e sem sobras entre uma e outra*/
 }
@@ -23,13 +23,22 @@ body {
     font-size: 16px;
 }
 
-.right {
-    text-align: right;
+.centerborder {
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+.center {
+    text-align: center;
 }
 
 .total {
     border-top: 1px solid black;
     font-weight: bold;
+}
+
+.sinistro_linha {
+    padding: 1px;
 }
 
 .header {
