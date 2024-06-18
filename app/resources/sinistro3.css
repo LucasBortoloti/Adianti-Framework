@@ -3,7 +3,7 @@
     font-size: 16px;
     background: #ffffff;
     border-collapse: collapse;
-    padding: 1px;
+    /* border-spacing: -20; */
     /* page-break-after: always; */
     /* esse border-collapse é o responsável pelas bordas ficarem completas e sem sobras entre uma e outra*/
 }

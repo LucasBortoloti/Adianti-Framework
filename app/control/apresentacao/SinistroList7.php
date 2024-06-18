@@ -7,6 +7,7 @@ use Adianti\Widget\Form\TDate;
 use Adianti\Widget\Form\TEntry;
 use Adianti\Widget\Form\TRadioGroup;
 use Adianti\Widget\Template\THtmlRenderer;
+use BaconQrCode\Renderer\Image\TransformationMatrix;
 
 class SinistroList7 extends TPage
 {
@@ -176,7 +177,7 @@ class SinistroList7 extends TPage
                     if (isset($bairros[$sinistro["id"]])) {
                         foreach ($bairros[$sinistro["id"]] as $bairro) {
                             $content .= "<tr class='sinistro_linha'>
-                                            <td class='cor'>{$bairro['solicitante']}</td>
+                                            <td class='cor' style='text-transform: uppercase'>{$bairro['solicitante']}</td>
                                             <td class='fontes'>{$bairro['cpf']}</td>
                                             <td>{$bairro['fone']}</td>
                                             <td>{$bairro['data_cadastro']}</td>
