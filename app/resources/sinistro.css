@@ -39,7 +39,6 @@ body {
 
 .cor {
     font-weight: bold;
-    border-top: 1px solid black;
     color: #032a61;
 }
 
@@ -58,7 +57,8 @@ body {
     text-align: right;
 }
 
-.desa {
+.linha {
+    border-bottom: 1px solid black;
     font-weight: bold;
 }
 

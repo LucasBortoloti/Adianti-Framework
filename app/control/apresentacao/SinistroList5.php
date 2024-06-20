@@ -202,23 +202,23 @@ class SinistroList5 extends TPage
                     $totalDesalojados = 0;
                     $totalDesabrigados = 0;
 
-                    $content .= '<table class="customform" style="width: 100%">' . '<tr>' . '<td class="bairro" colspan="4">' . $bairros[$i]["id"] . ' - ' . $bairros[$i]["bairro_nome"] . '</td> </tr>';
+                    $content .= '<table class="customform" style="width: 100%">' . '<tr>' . '<td class="bairro" colspan="4">' . $bairros[$i]["bairro_nome"] . '</td> </tr>';
                     $r = "";
 
                     for ($j = 0; $j < count($sinistros); $j++) {
 
                         if ($sinistros[$j]["idpai"] == $bairros[$i]["id"]) {
                             $r .= "<tr> 
-                                        <td class='cor' colspan=4> {$sinistros[$j]['sinistro_id']} {$sinistros[$j]['sinistro_descricao']} </td> 
+                                        <td class='cor' colspan=4> {$sinistros[$j]['sinistro_descricao']} </td> 
                                     </tr>
                                     <tr>
-                                        <td class='desa'>Nome da rua</td>
-                                        <td class='desa'>Quantidade</td>
-                                        <td class='desa'>Desabrigados</td>
-                                        <td class='desa'>Desalojados</td>
+                                        <td class='linha'>Nome da rua</td>
+                                        <td class='linha'>Quantidade</td>
+                                        <td class='linha'>Desabrigados</td>
+                                        <td class='linha'>Desalojados</td>
                                     </tr>
                                     <tr> 
-                                        <td>{$sinistros[$j]['logradouro_id']} - {$sinistros[$j]['logradouro_nome']} </td>
+                                        <td>{$sinistros[$j]['logradouro_nome']} </td>
                                         <td>{$sinistros[$j]['QTDE']} </td> 
                                         <td>{$sinistros[$j]['DESABRIGADOS']} </td>
                                         <td>{$sinistros[$j]['DESALOJADOS']}</td>
