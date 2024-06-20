@@ -39,6 +39,7 @@ body {
 
 .cor {
     font-weight: bold;
+    border-top: 1px solid black;
     color: #032a61;
 }
 
