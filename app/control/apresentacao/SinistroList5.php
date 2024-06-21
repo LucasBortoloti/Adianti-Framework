@@ -212,10 +212,10 @@ class SinistroList5 extends TPage
                                         <td class='cor' colspan=4> {$sinistros[$j]['sinistro_descricao']} </td> 
                                     </tr>
                                     <tr>
-                                        <td class='linha'>Nome da rua</td>
-                                        <td class='linha'>Quantidade</td>
-                                        <td class='linha'>Desabrigados</td>
-                                        <td class='linha'>Desalojados</td>
+                                        <td>Nome da rua</td>
+                                        <td>Quantidade</td>
+                                        <td>Desabrigados</td>
+                                        <td>Desalojados</td>
                                     </tr>
                                     <tr> 
                                         <td>{$sinistros[$j]['logradouro_nome']} </td>
