@@ -146,6 +146,14 @@
                 <icon>fas:table fa-fw</icon>
                 <action>GraficoSinistro</action>
               </menuitem>
+              <menuitem label='JogosForm Adicli'>
+                <icon>fas:user fa-fw</icon>
+                <action>JogossForm</action>
+              </menuitem>
+              <menuitem label='JogosList Adicli'>
+                <icon>fas:user fa-fw</icon>
+                <action>JogossList</action>
+              </menuitem>
             <menuitem label='Conexao Manual'>
                 <icon>fas:user fa-fw</icon>
                 <action>ConexaoManual</action>
