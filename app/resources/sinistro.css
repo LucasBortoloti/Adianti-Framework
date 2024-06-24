@@ -1,9 +1,9 @@
 .customform {
     font-family: 'Arial', sans-serif;
-    font-size: 16px;
+    font-size: 12px;
     background: #ffffff;
     border-collapse: collapse;
-    padding: 2px;
+    padding: 1px;
     /* page-break-after: always; */
     /* esse border-collapse é o responsável pelas bordas ficarem completas e sem sobras entre uma e outra*/
 }
@@ -11,16 +11,17 @@
 .cabecalho {
     padding: 14px;
     border: 1px solid #000000;
-    font-size: 16px;
+    font-size: 12px;
 }
 
 body {
-    margin-top: 4cm;
+    margin-top: 3.3cm;
     margin-bottom: 1cm;
 }
 
 .total {
     border-top: 1px solid black;
+    padding-top: 10px;
     font-weight: bold;
 }
 
@@ -41,6 +42,7 @@ body {
     border-bottom: 1px solid black;
     font-weight: bold;
     color: #032a61;
+    padding-top: 10px;
 }
 
 .bold {
@@ -72,10 +74,6 @@ body {
     border-top: 1px solid black;
 }
 
-.customform td {
-    padding: 7px;
-}
-
 footer::after {
     content: "Página " counter(page);
 }
@@ -90,6 +88,7 @@ footer {
     border-top: 1px solid #000000;
     margin-bottom: -10px;
     padding: 6px;
+    font-size: 12px;
 }
 
 @page {
