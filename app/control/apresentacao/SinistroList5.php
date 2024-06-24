@@ -74,7 +74,6 @@ class SinistroList5 extends TPage
 
     public function onGenerate()
     {
-
         try {
             $data = $this->form->getData();
             $date_from = $data->date_from;
@@ -116,61 +115,38 @@ class SinistroList5 extends TPage
 
             if ($rows) {
 
-                $totalQtde = 0;
-                $totalDesalojados = 0;
-                $totalDesabrigados = 0;
-
-                // echo "<pre>";
-                // print_r($rows);
-                // echo "<pre>";
-
                 $bairros = array();
-                $sinistros = array();
-
-                $id = "";
 
                 foreach ($rows as $row) {
+                    $bairroId = $row['bairro_id'];
+                    $sinistroId = $row['sinistro_id'];
 
-                    if ($id != $row['bairro_id']) {
-                        $id = $row['bairro_id'];
-                        $bairros[] = ["id" => $row['bairro_id'], "bairro_nome" => $row['bairro_nome']];
+                    if (!isset($bairros[$bairroId])) {
+                        $bairros[$bairroId] = [
+                            'nome' => $row['bairro_nome'],
+                            'sinistros' => []
+                        ];
                     }
 
-                    $sinistros[] = [
-                        "idpai" => $id,
-                        "sinistro_id" => $row['sinistro_id'],
-                        "sinistro_descricao" => $row['sinistro_descricao'],
-                        "logradouro_id" => $row['logradouro_id'],
-                        "logradouro_nome" => $row['logradouro_nome'],
-                        "QTDE" => $row['QTDE'],
-                        "DESALOJADOS" => $row['DESALOJADOS'],
-                        "DESABRIGADOS" => $row['DESABRIGADOS'],
+                    if (!isset($bairros[$bairroId]['sinistros'][$sinistroId])) {
+                        $bairros[$bairroId]['sinistros'][$sinistroId] = [
+                            'descricao' => $row['sinistro_descricao'],
+                            'ruas' => []
+                        ];
+                    }
 
+                    $bairros[$bairroId]['sinistros'][$sinistroId]['ruas'][] = [
+                        'nome' => $row['logradouro_nome'],
+                        'QTDE' => $row['QTDE'],
+                        'DESALOJADOS' => $row['DESALOJADOS'],
+                        'DESABRIGADOS' => $row['DESABRIGADOS']
                     ];
-
-                    // $replace[] = array(
-                    //     'bairro_id' => $row['bairro_id'],
-                    //     'bairro_nome' => $row['bairro_nome'],
-                    //     'sinistro_id' => $row['sinistro_id'],
-                    //     'sinistro_descricao' => $row['sinistro_descricao'],
-                    //     'logradouro_id' => $row['logradouro_id'],
-                    //     'logradouro_nome' => $row['logradouro_nome'],
-                    //     'QTDE' => $row['QTDE'],
-                    //     'DESALOJADOS' => $row['DESALOJADOS'],
-                    //     'DESABRIGADOS' => $row['DESABRIGADOS'],
-                    //     'totalQtde' => $totalQtde,
-                    //     'totalDesalojados' => $totalDesalojados,
-                    //     'totalDesabrigados' => $totalDesabrigados
-                    // );
                 }
-
-                // print_r($bairros);
 
                 $date_from_formatado = date('d/m/Y', strtotime($date_from));
                 $date_to_formatado = date('d/m/Y', strtotime($date_to));
                 $data = date('d/m/Y   h:i:s');
 
-                $registrogeral = array();
                 $content = ' <html>
                 <head> <title>Ocorrencias</title>
                     <link href="app/resources/sinistro.css" rel="stylesheet" type="text/css" media="screen"/>
@@ -196,102 +172,82 @@ class SinistroList5 extends TPage
                         </table>
                     </div>';
 
-                for ($i = 0; $i < count($bairros); $i++) {
+                foreach ($bairros as $bairro) {
+                    $content .= '<table class="customform" style="width: 100%">' . '<tr>' . '<td class="bairro" colspan="4">' . $bairro["nome"] . '</td> </tr>';
 
                     $totalQtde = 0;
                     $totalDesalojados = 0;
                     $totalDesabrigados = 0;
-
-                    $content .= '<table class="customform" style="width: 100%">' . '<tr>' . '<td class="bairro" colspan="4">' . $bairros[$i]["bairro_nome"] . '</td> </tr>';
-                    $r = "";
-
-                    for ($j = 0; $j < count($sinistros); $j++) {
-
-                        if ($sinistros[$j]["idpai"] == $bairros[$i]["id"]) {
-                            $r .= "<tr> 
-                                        <td class='cor' colspan=4> {$sinistros[$j]['sinistro_descricao']} </td> 
+                    foreach ($bairro['sinistros'] as $sinistro) {
+                        $content .= "<tr> 
+                                        <td class='cor' colspan=4> {$sinistro['descricao']} </td> 
                                     </tr>
                                     <tr>
-                                        <td>Nome da rua</td>
-                                        <td>Quantidade</td>
-                                        <td>Desabrigados</td>
-                                        <td>Desalojados</td>
-                                    </tr>
-                                    <tr> 
-                                        <td>{$sinistros[$j]['logradouro_nome']} </td>
-                                        <td>{$sinistros[$j]['QTDE']} </td> 
-                                        <td>{$sinistros[$j]['DESABRIGADOS']} </td>
-                                        <td>{$sinistros[$j]['DESALOJADOS']}</td>
+                                        <td><b>Nome da rua<b></td>
+                                        <td><b>Quantidade<b></td>
+                                        <td><b>Desabrigados<b></td>
+                                        <td><b>Desalojados<b></td>
                                     </tr>";
 
-                            $totalQtde += $sinistros[$j]['QTDE'];
-                            $totalDesalojados += $sinistros[$j]['DESALOJADOS'];
-                            $totalDesabrigados += $sinistros[$j]['DESABRIGADOS'];
+                        foreach ($sinistro['ruas'] as $rua) {
+                            $content .= "<tr> 
+                                            <td>{$rua['nome']} </td>
+                                            <td>{$rua['QTDE']} </td> 
+                                            <td>{$rua['DESABRIGADOS']} </td>
+                                            <td>{$rua['DESALOJADOS']}</td>
+                                        </tr>";
+
+                            $totalQtde += $rua['QTDE'];
+                            $totalDesalojados += $rua['DESALOJADOS'];
+                            $totalDesabrigados += $rua['DESABRIGADOS'];
                         }
                     }
-                    $content .= $r;
 
                     $content .= "<tr>
-                            <td class='total'>Total do bairro:</td>
-                            <td class='total'> $totalQtde</td>
-                            <td class='total'> $totalDesalojados</td>
-                            <td class='total'> $totalDesabrigados</td>    
-                            </tr>
-                            </table>
-                            <br>";
-
-                    $registrogeral[] = ["registro" => $content];
-                    // $content = "";
-                    // $registrogeral[] = [
-                    //     "bairro_id" => $bairros[$i]["id"],
-                    //     "bairro_nome" => $bairros[$i]["bairro_nome"],
-                    //     "sini_array" => $registros
-                    // ];
-                    // unset($registros);
+                                <td class='total'>Total do bairro:</td>
+                                <td class='total'> $totalQtde</td>
+                                <td class='total'> $totalDesalojados</td>
+                                <td class='total'> $totalDesabrigados</td>    
+                                </tr>
+                                </table>
+                                <br>";
                 }
 
                 $content .= "</body>
                 </html>";
 
-                // print_r($registrogeral);
-                // echo $registrogeral[0]["registro"];
+                $html->enableSection('registros', ['registro' => $content], TRUE);
 
-                $html->enableSection('registros', $registrogeral, TRUE);
+                $vbox = new TVBox;
+                $vbox->style = 'width: 100%';
+                $vbox->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
+                $vbox->add($this->html);
+                parent::add($vbox);
+
+                $contents = $content;
+
+                $options = new \Dompdf\Options();
+                $options->setChroot(getcwd());
+
+                $dompdf = new \Dompdf\Dompdf($options);
+                $dompdf->loadHtml($contents);
+                $dompdf->setPaper('A4', 'portrait');
+                $dompdf->render();
+
+                file_put_contents('app/output/document.pdf', $dompdf->output());
+
+                $window = TWindow::create(('Document HTML->PDF'), 0.8, 0.8);
+                $object = new TElement('object');
+                $object->data  = 'app/output/document.pdf';
+                $object->type  = 'application/pdf';
+                $object->style = "width: 100%; height:calc(100% - 10px)";
+                $object->add('O navegador não suporta a exibição deste conteúdo, <a style="color:#007bff;" target=_newwindow href="' . $object->data . '"> clique aqui para baixar</a>...');
+
+                $window->add($object);
+                $window->show();
+
+                TTransaction::close();
             }
-
-            $vbox = new TVBox;
-            $vbox->style = 'width: 100%';
-            $vbox->add(new TXMLBreadCrumb('menu.xml', __CLASS__));
-            $vbox->add($this->html);
-            parent::add($vbox);
-
-            // $contents = $html->getContents();
-            $contents = $content;
-
-            $options = new \Dompdf\Options();
-            $options->setChroot(getcwd());
-
-            // converts the HTML template into PDF
-            $dompdf = new \Dompdf\Dompdf($options);
-            $dompdf->loadHtml($contents);
-            $dompdf->setPaper('A4', 'portrait');
-            $dompdf->render();
-
-            // write and open file
-            file_put_contents('app/output/document.pdf', $dompdf->output());
-
-            // open window to show pdf
-            $window = TWindow::create(('Document HTML->PDF'), 0.8, 0.8);
-            $object = new TElement('object');
-            $object->data  = 'app/output/document.pdf';
-            $object->type  = 'application/pdf';
-            $object->style = "width: 100%; height:calc(100% - 10px)";
-            $object->add('O navegador não suporta a exibição deste conteúdo, <a style="color:#007bff;" target=_newwindow href="' . $object->data . '"> clique aqui para baixar</a>...');
-
-            $window->add($object);
-            $window->show();
-
-            TTransaction::close();
         } catch (Exception $e) {
             new TMessage('error', $e->getMessage());
         }
