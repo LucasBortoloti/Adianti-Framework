@@ -142,7 +142,7 @@ class SinistroList7 extends TPage
                 $registrogeral = array();
                 $content = ' <html>
                 <head> <title>Ocorrencias</title>
-                    <link href="app/resources/sinistro3.css" rel="stylesheet" type="text/css" media="screen"/>
+                    <link href="app/resources/sinistro.css" rel="stylesheet" type="text/css" media="screen"/>
                 </head>
                 <footer></footer>
                 <body>
@@ -176,8 +176,8 @@ class SinistroList7 extends TPage
 
                     if (isset($bairros[$sinistro["id"]])) {
                         foreach ($bairros[$sinistro["id"]] as $bairro) {
-                            $content .= "<tr class='sinistro_linha'>
-                                            <td class='cor' style='text-transform: uppercase'>{$bairro['solicitante']}</td>
+                            $content .= "<tr>
+                                            <td class='solicitante' style='text-transform: uppercase'>{$bairro['solicitante']}</td>
                                             <td class='fontes'>{$bairro['cpf']}</td>
                                             <td>{$bairro['fone']}</td>
                                             <td>{$bairro['data_cadastro']}</td>
@@ -190,7 +190,7 @@ class SinistroList7 extends TPage
                     }
 
                     $content .= "<tr>
-                                    <td class='total' colspan=8>Total: $totalQtde</td>
+                                    <td class='totaldois' colspan=8>Total: $totalQtde</td>
                                 </tr>
                                 </table>
                                 <br>";

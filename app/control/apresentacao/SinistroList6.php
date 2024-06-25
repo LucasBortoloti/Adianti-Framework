@@ -134,7 +134,7 @@ class SinistroList6 extends TPage
                 $registrogeral = array();
                 $content = ' <html>
                 <head> <title>Ocorrencias</title>
-                    <link href="app/resources/sinistro2.css" rel="stylesheet" type="text/css" media="screen"/>
+                    <link href="app/resources/sinistro.css" rel="stylesheet" type="text/css" media="screen"/>
                 </head>
                 <footer></footer>
                 <body>

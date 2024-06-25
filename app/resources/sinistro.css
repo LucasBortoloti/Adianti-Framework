@@ -25,6 +25,12 @@ body {
     font-weight: bold;
 }
 
+.totaldois {
+    border-top: 1px solid black;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
 .header {
     position: fixed;
     top: 0cm;
@@ -45,8 +51,27 @@ body {
     padding-top: 10px;
 }
 
+.solicitante {
+    font-weight: bold;
+    color: #032a61;
+}
+
+.nomebairro {
+    font-weight: bold;
+    color: #032a61;
+}
+
 .bold {
     font-weight: bold;
+}
+
+.borda {
+    border-bottom: 1px solid black;
+
+}
+
+.center {
+    text-align: center;
 }
 
 .rua {
@@ -58,6 +83,16 @@ body {
     color: red;
     text-align: right;
     font-weight: bold;
+}
+
+.centerborder {
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+.sinistro {
+    font-weight: bold;
+    border: 1px solid black;
 }
 
 .hora {
