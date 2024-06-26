@@ -176,6 +176,10 @@ class SinistroList7 extends TPage
 
                     if (isset($bairros[$sinistro["id"]])) {
                         foreach ($bairros[$sinistro["id"]] as $bairro) {
+
+                            $bairro['data_evento'] = date('d/m/Y', strtotime($bairro['data_evento']));
+                            // $bairro['data_cadastro'] = date('d/m/Y', strtotime($bairro['data_cadastro']));
+
                             $content .= "<tr>
                                             <td class='solicitante' style='text-transform: uppercase'>{$bairro['solicitante']}</td>
                                             <td class='fontes'>{$bairro['cpf']}</td>
