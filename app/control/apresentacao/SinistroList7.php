@@ -38,7 +38,7 @@ class SinistroList7 extends TPage
         });
 
         $this->form = new BootstrapFormBuilder('form_search_Ocorrencias');
-        $this->form->setFormTitle(('Ocorrencias 7'));
+        $this->form->setFormTitle(('SinistroList7'));
 
         $date_from = new TDate('date_from');
         $date_to = new TDate('date_to');
@@ -156,11 +156,11 @@ class SinistroList7 extends TPage
                             </tr>
                             <tr>
                                 <td>83.102.459/0001-23</td>
-                                <td class="hora"><b>' . $data . '</b></td>
+                                <td class="data_hora"><b>' . $data . '</b></td>
                             </tr>
                             <tr>
                                 <td>(047) 2106-8000</td>
-                                <td class="red colspan=4">Ocorrência de ' . $date_from_formatado . ' até ' . $date_to_formatado . '</td>                    
+                                <td class="cor_ocorrencia colspan=4">Ocorrência de ' . $date_from_formatado . ' até ' . $date_to_formatado . '</td>                    
                             </tr>
                         </table>
                     </div>';
@@ -171,23 +171,33 @@ class SinistroList7 extends TPage
 
                     $content .= '<table class="customform" style="width:100%">';
                     $content .= '<tr><td class="sinistro" colspan=8>' . $sinistro["sinistro_descricao"] . '</td></tr>';
-                    $content .= '<tr><td class="borda"><b>Solicitante</b></td><td class="borda"><b>CPF</b></td><td class="borda"><b>Fone</b></td><td class="borda"><b>Dt.Cad</b></td>'
-                        . '<td class="borda"><b>Dt.Evento</b></td><td class="borda"><b>Cobrade</b></td><td class="centerborder" colspan=2><b>Status</b></td></tr>';
+                    $content .= '<tr><td class="borda_horizontal"><b>Solicitante</b></td><td class="borda_horizontal"><b>CPF</b></td><td class="borda_horizontal"><b>Fone</b></td><td class="borda_horizontal"><b>Dt.Cad</b></td>'
+                        . '<td class="borda_horizontal"><b>Dt.Evento</b></td><td class="borda_horizontal"><b>Cobrade</b></td><td class="status" colspan=2><b>Status</b></td></tr>';
 
                     if (isset($bairros[$sinistro["id"]])) {
                         foreach ($bairros[$sinistro["id"]] as $bairro) {
 
-                            $bairro['data_evento'] = date('d/m/Y', strtotime($bairro['data_evento']));
-                            // $bairro['data_cadastro'] = date('d/m/Y', strtotime($bairro['data_cadastro']));
+                            if (!empty($bairro['data_cadastro'])) {
+                                $bairro['data_cadastro'] = date('d/m/Y', strtotime($bairro['data_cadastro']));
+                            } else {
+                                $bairro['data_cadastro'] = '';
+                            }
+
+                            if (!empty($bairro['data_evento'])) {
+                                $bairro['data_evento'] = date('d/m/Y', strtotime($bairro['data_evento']));
+                            } else {
+                                $bairro['data_evento'] = '';
+                            }
+
 
                             $content .= "<tr>
                                             <td class='solicitante' style='text-transform: uppercase'>{$bairro['solicitante']}</td>
-                                            <td class='fontes'>{$bairro['cpf']}</td>
-                                            <td>{$bairro['fone']}</td>
-                                            <td>{$bairro['data_cadastro']}</td>
-                                            <td>{$bairro['data_evento']}</td>
-                                            <td>{$bairro['cobrade']}</td>
-                                            <td class='center' colspan=2>{$bairro['status']}</td>
+                                            <td class='coluna_resultados'>{$bairro['cpf']}</td>
+                                            <td class='coluna_resultados'>{$bairro['fone']}</td>
+                                            <td class='coluna_resultados'>{$bairro['data_cadastro']}</td>
+                                            <td class='coluna_resultados'>{$bairro['data_evento']}</td>
+                                            <td class='coluna_resultados'>{$bairro['cobrade']}</td>
+                                            <td class='centralizar' colspan=2>{$bairro['status']}</td>
                                          </tr>";
                             $totalQtde += $bairro['QTDE'];
                         }

@@ -37,7 +37,7 @@ class SinistroList5 extends TPage
         });
 
         $this->form = new BootstrapFormBuilder('form_search_Ocorrencias');
-        $this->form->setFormTitle(('Ocorrencias 5'));
+        $this->form->setFormTitle(('SinistroList5'));
 
         // $id = new TEntry('id');
         $date_from = new TDate('date_from');
@@ -163,11 +163,11 @@ class SinistroList5 extends TPage
                             </tr>
                             <tr>
                                 <td>83.102.459/0001-23</td>
-                                <td class="hora"><b>' . $data . '</b></td>
+                                <td class="data_hora"><b>' . $data . '</b></td>
                             </tr>
                             <tr>
                                 <td>(047) 2106-8000</td>
-                                <td class="red colspan=4">Ocorrência de ' . $date_from_formatado . ' até ' . $date_to_formatado . '</td>                     
+                                <td class="cor_ocorrencia colspan=4">Ocorrência de ' . $date_from_formatado . ' até ' . $date_to_formatado . '</td>                     
                             </tr>
                         </table>
                     </div>';
@@ -180,7 +180,7 @@ class SinistroList5 extends TPage
                     $totalDesabrigados = 0;
                     foreach ($bairro['sinistros'] as $sinistro) {
                         $content .= "<tr> 
-                                        <td class='cor' colspan=4> {$sinistro['descricao']} </td> 
+                                        <td class='cor_azul' colspan=4> {$sinistro['descricao']} </td> 
                                     </tr>
                                     <tr>
                                         <td><b>Nome da rua<b></td>
@@ -190,6 +190,15 @@ class SinistroList5 extends TPage
                                     </tr>";
 
                         foreach ($sinistro['ruas'] as $rua) {
+
+                            if (empty($rua['DESABRIGADOS'])) {
+                                $rua['DESABRIGADOS'] = '0';
+                            }
+
+                            if (empty($rua['DESALOJADOS'])) {
+                                $rua['DESALOJADOS'] = '0';
+                            }
+
                             $content .= "<tr> 
                                             <td>{$rua['nome']} </td>
                                             <td>{$rua['QTDE']} </td> 

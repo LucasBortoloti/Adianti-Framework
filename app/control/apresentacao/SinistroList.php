@@ -37,7 +37,7 @@ class SinistroList extends TPage
         });
 
         $this->form = new BootstrapFormBuilder('form_search_Ocorrencias');
-        $this->form->setFormTitle(('Ocorrencias'));
+        $this->form->setFormTitle(('SinistroList'));
 
         // $id = new TEntry('id');
         $date_from = new TDate('date_from');

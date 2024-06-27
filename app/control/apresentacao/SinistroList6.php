@@ -37,7 +37,7 @@ class SinistroList6 extends TPage
         });
 
         $this->form = new BootstrapFormBuilder('form_search_Ocorrencias');
-        $this->form->setFormTitle(('Ocorrencias 6'));
+        $this->form->setFormTitle(('SinistroList6'));
 
         $date_from = new TDate('date_from');
         $date_to = new TDate('date_to');
@@ -148,11 +148,11 @@ class SinistroList6 extends TPage
                             </tr>
                             <tr>
                                 <td>83.102.459/0001-23</td>
-                                <td class="hora"><b>' . $data . '</b></td>
+                                <td class="data_hora"><b>' . $data . '</b></td>
                             </tr>
                             <tr>
                                 <td>(047) 2106-8000</td>
-                                <td class="red colspan=4">Ocorrência de ' . $date_from_formatado . ' até ' . $date_to_formatado . '</td>                     
+                                <td class="cor_ocorrencia colspan=4">Ocorrência de ' . $date_from_formatado . ' até ' . $date_to_formatado . '</td>                     
                             </tr>
                         </table>
                     </div>';
@@ -178,7 +178,7 @@ class SinistroList6 extends TPage
                         $remove = rtrim($nome, ', ');
 
                         $r .= "<tr> 
-                                <td class='cor' colspan=4> {$remove} </td> 
+                                <td class='cor_azul' colspan=4> {$remove} </td> 
                             </tr>";
                     }
                     $content .= $r;
