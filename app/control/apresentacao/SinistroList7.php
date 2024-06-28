@@ -204,7 +204,7 @@ class SinistroList7 extends TPage
                     }
 
                     $content .= "<tr>
-                                    <td class='totaldois' colspan=8>Total: $totalQtde</td>
+                                    <td class='total' colspan=8>Total: $totalQtde</td>
                                 </tr>
                                 </table>
                                 <br>";

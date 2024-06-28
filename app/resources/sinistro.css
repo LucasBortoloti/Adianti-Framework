@@ -30,12 +30,6 @@ body {
     font-weight: bold;
 }
 
-.totaldois {
-    border-top: 1px solid black;
-    font-weight: bold;
-    padding-top: 10px;
-}
-
 .header {
     position: fixed;
     top: 0cm;
