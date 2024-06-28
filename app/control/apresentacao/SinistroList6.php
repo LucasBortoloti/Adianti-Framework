@@ -37,7 +37,7 @@ class SinistroList6 extends TPage
         });
 
         $this->form = new BootstrapFormBuilder('form_search_Ocorrencias');
-        $this->form->setFormTitle(('SinistroList6'));
+        $this->form->setFormTitle(('Sinistros ordenados por bairro'));
 
         $date_from = new TDate('date_from');
         $date_to = new TDate('date_to');

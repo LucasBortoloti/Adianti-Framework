@@ -8,7 +8,7 @@ use Adianti\Widget\Form\TEntry;
 use Adianti\Widget\Form\TRadioGroup;
 use Adianti\Widget\Template\THtmlRenderer;
 
-class SinistroList extends TPage
+class SinistroList1 extends TPage
 {
     protected $form;     // registration form
     protected $datagrid; // listing

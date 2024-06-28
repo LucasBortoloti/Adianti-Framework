@@ -37,7 +37,7 @@ class SinistroList5 extends TPage
         });
 
         $this->form = new BootstrapFormBuilder('form_search_Ocorrencias');
-        $this->form->setFormTitle(('SinistroList5'));
+        $this->form->setFormTitle(('Sinistros, bairros e ruas'));
 
         // $id = new TEntry('id');
         $date_from = new TDate('date_from');
