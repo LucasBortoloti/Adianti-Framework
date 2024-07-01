@@ -90,145 +90,118 @@ class SinistroList1 extends TPage
 
     public function onGenerate()
     {
-
         try {
             $data = $this->form->getData();
             $date_from = $data->date_from;
             $date_to = $data->date_to;
-
             $pesquisa = $data->pesquisa;
 
             $this->form->setData($data);
-
-            $format = $data->output_type;
 
             $source = TTransaction::open('defciv');
 
             $query = "  SELECT      o.sinistro_id,
                                     s.descricao, 
                                     count(*) as QTDE,
-                                    sum(
-                                        case status
-                                            when 'B' then 1
-                                            when 'A' then 0
-                                        end
-                                    ) as BAIXADAS,
-                                    sum(
-                                        case status
-                                            when 'B' then 0
-                                            when 'A' then 1
-                                        end
-                                    ) as ABERTAS
+                                    sum(CASE WHEN status = 'B' THEN 1 ELSE 0 END) as BAIXADAS,
+                                    sum(CASE WHEN status = 'A' THEN 1 ELSE 0 END) as ABERTAS
                         from        ocorrencia o
                         left join   sinistro s on s.id = o.sinistro_id
                         where o.{$pesquisa} >= '{$date_from}' and o.{$pesquisa} <= '{$date_to}'
-                        group by    o.sinistro_id,
-                                    s.descricao
+                        group by    o.sinistro_id, s.descricao
                         order by    s.descricao";
 
             $rows = TDatabase::getData($source, $query, null, null);
 
-            // echo "<pre>";
-            // print_r($data);
-            // echo "<pre>";
+            $date_from_formatado = date('d/m/Y', strtotime($date_from));
+            $date_to_formatado = date('d/m/Y', strtotime($date_to));
+            $data = date('d/m/Y   h:i:s');
 
-            if ($rows) {
-                $widths = array(40, 320, 80, 80, 80);
+            $content = '<html>
+            <head> 
+                <title>Ocorrencias</title>
+                <link href="app/resources/sinistro.css" rel="stylesheet" type="text/css" media="screen"/>
+            </head>
+            <footer></footer>
+            <body>
+                <div class="header">
+                    <table class="cabecalho" style="width:100%">
+                        <tr>
+                            <td><b><i>PREFEITURA MUNICIPAL DE JARAGUÁ DO SUL</i></b></td>
+                        </tr>
+                        <tr>
+                            <td> prefeitura@jaraguadosul.com.br</td>
+                        </tr>
+                        <tr>
+                            <td>83.102.459/0001-23</td>
+                            <td class="data_hora"><b>' . $data . '</b></td>
+                        </tr>
+                        <tr>
+                            <td>(047) 2106-8000</td>
+                            <td class="cor_ocorrencia colspan=4">Ocorrência de ' . $date_from_formatado . ' até ' . $date_to_formatado . '</td>                     
+                        </tr>
+                    </table>
+                </div>
+                <table class="borda_tabela" style="width: 100%">
+                    <tr>
+                        <td class="borda_inferior_centralizador"><b>Id</b></td> 
+                        <td class="borda_inferior"><b>Descrição</b></td>
+                        <td class="borda_inferior_centralizador"><b>Quantidade</b></td>
+                        <td class="borda_inferior_centralizador"><b>Baixadas</b></td>
+                        <td class="borda_inferior_centralizador"><b>Abertas</b></td>
+                    </tr>';
 
-                switch ($format) {
-                    case 'html':
-                        $table = new TTableWriterHTML($widths);
-                        break;
-                    case 'pdf':
-                        $table = new TTableWriterPDF($widths);
-                        break;
-                    case 'rtf':
-                        $table = new TTableWriterRTF($widths);
-                        break;
-                    case 'xls':
-                        $table = new TTableWriterXLS($widths);
-                        break;
-                }
+            $totalQtde = 0;
+            $totalBaixadas = 0;
+            $totalAbertas = 0;
 
-                if (!empty($table)) {
-                    // create the document styles
-                    $table->addStyle('header', 'Helvetica', '16', 'B', '#000000', '#ffffff');
-                    $table->addStyle('title',  'Helvetica', '10', '', '#000000', '#ffffff');
-                    $table->addStyle('italico', 'Helvetica', '10', 'I', '#ff0000', '#ffffff');
-                    $table->addStyle('datap',  'Helvetica', '10', '',  '#000000', '#ffffff', 'LR');
-                    $table->addStyle('datai',  'Helvetica', '10', '',  '#000000', '#ffffff', 'LR');
-                    $table->addStyle('footer', 'Helvetica', '10', 'B',  '#000000', '#ffffff');
+            foreach ($rows as $row) {
+                $content .= "<tr>
+                                <td class='borda_direita'>{$row['sinistro_id']}</td>
+                                <td class='direita'>{$row['descricao']}</td>
+                                <td class='borda_direita_esquerda'>{$row['QTDE']}</td>
+                                <td class='borda_direita_esquerda'>{$row['BAIXADAS']}</td>
+                                <td class='centralizar'>{$row['ABERTAS']}</td>
+                            </tr>";
 
-                    $date_from_formatado = date('d/m/Y', strtotime($date_from));
-                    $date_to_formatado = date('d/m/Y', strtotime($date_to));
-
-                    $table->setHeaderCallback(function ($table) use ($date_from_formatado, $date_to_formatado) {
-                        $table->addRow();
-                        $table->addCell('Prefeitura Municipal de Jaraguá do Sul', 'center', 'header', 5);
-                        $table->addRow();
-                        $table->addCell('prefeitura@jaraguadosul.com.br     83.102.459/0001-23    (047) 2106-8000', 'center', 'title', 5);
-                        $table->addRow();
-                        $table->addCell("Ocorrências de {$date_from_formatado} até {$date_to_formatado} por tipo de ação (TODAS)", 'center', 'italico', 5);
-                        $table->addRow();
-                        $table->addCell('Id',        'center', 'title');
-                        $table->addCell('Descrição',   'left', 'title');
-                        $table->addCell('Quantidade', 'center', 'title');
-                        $table->addCell('Baixadas',    'center', 'title');
-                        $table->addCell('Abertas',   'center', 'title');
-                    });
-
-                    $totalQtde = 0;
-                    $totalBaixadas = 0;
-                    $totalAbertas = 0;
-
-                    // controls the background filling
-                    $colour = FALSE;
-
-                    foreach ($rows as $row) {
-
-                        $totalQtde += $row['QTDE'];
-                        $totalBaixadas += $row['BAIXADAS'];
-                        $totalAbertas += $row['ABERTAS'];
-
-                        $style = $colour ? 'datap' : 'datai';
-                        $table->addRow();
-                        $table->addCell($row['sinistro_id'],  'center', $style);
-                        $table->addCell($row['descricao'], 'left', $style);
-                        $table->addCell($row['QTDE'],      'center',   $style);
-                        $table->addCell($row['BAIXADAS'],  'center', $style);
-                        $table->addCell($row['ABERTAS'],   'center',   $style);
-
-                        $colour = !$colour;
-                    }
-
-                    $table->setFooterCallback(function ($table) use ($totalQtde, $totalBaixadas, $totalAbertas) {
-                        $table->addRow();
-                        $table->addCell('Total', 'center', 'title', 2);
-                        $table->addCell("{$totalQtde}", 'center', 'footer');
-                        $table->addCell("{$totalBaixadas}", 'center', 'footer');
-                        $table->addCell("{$totalAbertas}", 'center', 'footer');
-                        $table->addRow();
-                        $table->addCell(date('d/m/Y   h:i:s'), 'center', 'footer', 5);
-                    });
-
-                    $output = "app/output/tabular.{$format}";
-
-                    // stores the file
-                    if (!file_exists($output) or is_writable($output)) {
-                        $table->save($output);
-                        parent::openFile($output);
-                    } else {
-                        throw new Exception(_t('Permission denied') . ': ' . $output);
-                    }
-
-                    // shows the success message
-                    new TMessage('info', "Report generated. Please, enable popups in the browser. <br> <a href='$output'>Click here for download</a>");
-                }
-            } else {
-                new TMessage('error', 'No records found');
+                $totalQtde += $row['QTDE'];
+                $totalBaixadas += $row['BAIXADAS'];
+                $totalAbertas += $row['ABERTAS'];
             }
 
-            // close the transaction
+            $content .= "<tr>
+                            <td class='espaco_para_direta' colspan=2><b>Total:</b></td>
+                            <td class='centralizador_com_borda_esquerda'><b>{$totalQtde}</b></td>
+                            <td class='centralizador_com_borda'><b>{$totalBaixadas}</b></td>
+                            <td class='centralizador_com_borda'><b>{$totalAbertas}</b></td>    
+                        </tr>
+                    </table>
+                </body>
+            </html>";
+
+            // Debug the final HTML content
+            file_put_contents('app/output/debug.html', $content);
+
+            // Dompdf setup
+            $options = new \Dompdf\Options();
+            $options->setChroot(getcwd());
+            $dompdf = new \Dompdf\Dompdf($options);
+            $dompdf->loadHtml($content);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+
+            file_put_contents('app/output/document.pdf', $dompdf->output());
+
+            $window = TWindow::create(('Document HTML->PDF'), 0.8, 0.8);
+            $object = new TElement('object');
+            $object->data = 'app/output/document.pdf';
+            $object->type = 'application/pdf';
+            $object->style = "width: 100%; height:calc(100% - 10px)";
+            $object->add('O navegador não suporta a exibição deste conteúdo, <a style="color:#007bff;" target=_newwindow href="' . $object->data . '"> clique aqui para baixar</a>...');
+
+            $window->add($object);
+            $window->show();
+
             TTransaction::close();
         } catch (Exception $e) {
             new TMessage('error', $e->getMessage());

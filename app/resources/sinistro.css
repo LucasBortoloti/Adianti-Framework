@@ -8,6 +8,14 @@
     /* esse border-collapse é o responsável pelas bordas ficarem completas e sem sobras entre uma e outra*/
 }
 
+.borda_tabela {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    background: #ffffff;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
 .cabecalho {
     padding: 14px;
     border: 1px solid #000000;
@@ -30,6 +38,33 @@ body {
     font-weight: bold;
 }
 
+.borda_inferior {
+    border-bottom: 1px solid black;
+    padding-left: 10px;
+}
+
+.direita {
+    padding-left: 10px;
+}
+
+.borda_direita_esquerda {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    text-align: center;
+    padding-left: 5px;
+}
+
+.borda_inferior_centralizador {
+    text-align: center;
+    padding-left: 5px;
+    border-bottom: 1px solid black;
+}
+
+.borda_direita {
+    border-right: 1px solid black;
+    text-align: center;
+}
+
 .header {
     position: fixed;
     top: 0cm;
@@ -50,9 +85,28 @@ body {
     padding-top: 10px;
 }
 
+.espaco_para_direta {
+    padding-left: 230px;
+    border-top: 1px solid black;
+}
+
 .solicitante {
     font-weight: bold;
     color: #032a61;
+}
+
+.centralizador_com_borda {
+    border-top: 1px solid black;
+    text-align: center;
+    border-right: 1px solid black;
+    padding-left: 5px;
+}
+
+.centralizador_com_borda_esquerda {
+    border-left: 1px solid black;
+    text-align: center;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
 }
 
 .nomebairro {

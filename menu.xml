@@ -128,7 +128,7 @@
               </menuitem>
               <menuitem label='Sinistros, baixados e abertos'>
                 <icon>fas:database fa-fw</icon>
-                <action>SinistroList</action>
+                <action>SinistroList1</action>
               </menuitem>
               <menuitem label='Sinistros, bairros e ruas'>
                 <icon>fas:database fa-fw</icon>
@@ -142,9 +142,9 @@
                 <icon>fas:database fa-fw</icon>
                 <action>SinistroList7</action>
               </menuitem>
-              <menuitem label='Arrumando o Header do SinistroList1'>
+              <menuitem label='Sinistro, baixados e abertos antigo'>
                 <icon>fas:database fa-fw</icon>
-                <action>SinistroList1</action>
+                <action>SinistroList</action>
               </menuitem>
               <menuitem label='Gráficos Sinistro'>
                 <icon>fas:table fa-fw</icon>
